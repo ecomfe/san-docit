@@ -1,0 +1,44 @@
+{
+    "name": "san-docit",
+    "version": "1.0.0",
+    "description": "San document creater.",
+    "author": "ecomfe",
+    "private": true,
+    "bin": {
+        "sandocit": "index.js"
+    },
+    "scripts": {
+        "start": "webpack-dev-server --config=build/webpack.dev.js --mode=development",
+        "build": "rm -rf dist/* && npm run build:ssr && npm run build:prod",
+        "build:prod": "webpack --config=build/webpack.prod.js --mode=production",
+        "build:ssr": "webpack --config=build/webpack.ssr.js --mode=production"
+    },
+    "dependencies": {
+        "@babel/core": "^7.4.5",
+        "@babel/plugin-proposal-class-properties": "^7.8.3",
+        "@babel/preset-env": "^7.4.5",
+        "@babel/register": "^7.12.10",
+        "babel-loader": "^8.2.2",
+        "chalk": "^4.1.0",
+        "commander": "^6.2.1",
+        "copy-webpack-plugin": "^6.0.4",
+        "css-loader": "^5.0.1",
+        "ejs-loader": "^0.5.0",
+        "globby": "^11.0.1",
+        "html-loader": "^1.3.2",
+        "html-webpack-plugin": "^4.5.0",
+        "less": "^4.0.0",
+        "less-loader": "^6.2.0",
+        "san": "^3.7.5",
+        "san-component": "^0.1.4",
+        "san-loader": "0.2.0",
+        "san-router": "^1.1.2",
+        "san-ssr": "^3.0.1",
+        "semver": "^7.3.4",
+        "style-loader": "^2.0.0",
+        "webpack": "^4.32.2",
+        "webpack-cli": "^3.3.2",
+        "webpack-dev-server": "^3.4.1",
+        "webpack-merge": "^5.7.2"
+    }
+}

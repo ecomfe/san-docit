@@ -1,0 +1,47 @@
+<template>
+    <div id="site">
+        <header id="header">
+            <a href="{{docit.base}}" class="navbar">
+                <img src="{{docit.base + 'logo.svg'}}" alt="Home" class="logo"/>
+                <span>{{docit.title}}</span>
+            </a>
+            <ul>
+                <li s-for="nav in docit.themeConfig.nav">
+                    <a
+                        target="{{nav.target || '_blank'}}"
+                        href="{{nav.link}}"
+                    >
+                        {{nav.text}}
+                    </a>
+                </li>
+            </ul>
+        </header>
+        <aside id="sidebar">
+            {{docit.sidebar | raw}}
+        </aside>
+        <content-area docit="{{docit}}"></content-area>
+    </div>
+</template>
+
+<script>
+import {DataTypes} from 'san';
+import contentArea from './content-area';
+
+export default {
+    components: {
+        'content-area': contentArea
+    },
+    dataTypes: {
+        docit: DataTypes.object
+    },
+    attached() {
+        console.log(this.data.get('docit'));
+        // let sanbox = window.__sanbox || {};
+        // Object.keys(sanbox).forEach(key => {
+        //     const item = sanbox[key];
+        //     const vm = new item.comp();
+        //     vm.attach(document.querySelector(item.el));
+        // });
+    }
+}
+</script>

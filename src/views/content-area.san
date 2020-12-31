@@ -1,0 +1,23 @@
+<template>
+    <article id="content">
+        <div id="router-view" class="router-view"></div>
+        <aside class="toc">{{toc | raw}}</aside>
+    </article>
+</template>
+
+<script>
+export default {
+    initData() {
+        return {
+            toc: ''
+        };
+    },
+    inited() {
+        // router 子组件无法通过组件事或DOM树向上传递事件
+        global.hub.on('changed', this.onChanged.bind(this));
+    },
+    onChanged(evt) {
+        this.data.set('toc', evt);
+    }
+}
+</script>
