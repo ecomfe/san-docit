@@ -1,17 +1,21 @@
 const path = require('path');
+const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SanLoaderPlugin = require('san-loader/lib/plugin');
+
+const config = require('./config');
+const utils = require('./utils');
 
 function resolve(dir) {
     return path.join(__dirname, '..', dir);
 }
 
-module.exports = {
+const webpackConfig = {
     devtool: '',
     mode: 'development',
     context: __dirname,
     entry: {
-        'main': resolve('src/main.js')
+        main: resolve('src/main.js')
     },
     output: {
         path: resolve('dist')
@@ -95,6 +99,14 @@ module.exports = {
                 test: /\.md$/,
                 use: ['san-loader', '../packages/markdown-loader']
                 // use: ['san-loader', './mdToSan', '../packages/markdown-loader']
+            },
+            {
+                test: /router\/index\.js/,
+                loader: 'string-replace-loader',
+                options: {
+                    search: 'ROUTES_IMPORT',
+                    replace: utils.getRoutesImportStr()
+                }
             }
         ],
     },
@@ -108,6 +120,11 @@ module.exports = {
                 from: resolve('public'),
                 to: resolve('dist')
             }]
+        }),
+        new webpack.DefinePlugin({
+            SAN_DOCIT: JSON.stringify(config)
         })
     ]
 };
+
+module.exports = webpackConfig;

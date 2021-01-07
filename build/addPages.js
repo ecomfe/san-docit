@@ -1,13 +1,15 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const htmlWebpackPluginConfig = require('./htmlWebpackPluginConfig');
 
-module.exports = (webpackConfig) => {
-    const files = require('../src/router-config.js');
+const utils = require('./utils');
 
-    Object.keys(files).map(item => {
-        webpackConfig.entry[item] = files[item];
+module.exports = (webpackConfig) => {
+    const routes = utils.getRoutes();
+
+    Object.keys(routes).map(item => {
+        webpackConfig.entry[item] = routes[item];
         webpackConfig.plugins.push(
-            new HtmlWebpackPlugin(htmlWebpackPluginConfig(item, files[item]))
+            new HtmlWebpackPlugin(htmlWebpackPluginConfig(item, routes[item]))
         )
     });
 }

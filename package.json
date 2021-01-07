@@ -8,7 +8,7 @@
         "sandocit": "index.js"
     },
     "scripts": {
-        "start": "webpack-dev-server --config=build/webpack.dev.js --mode=development",
+        "start": "export cwd=docs && webpack-dev-server --config=build/webpack.dev.js --mode=development",
         "build": "rm -rf dist/* && npm run build:ssr && npm run build:prod",
         "build:prod": "webpack --config=build/webpack.prod.js --mode=production",
         "build:ssr": "webpack --config=build/webpack.ssr.js --mode=production"
@@ -35,7 +35,9 @@
         "san-router": "^1.1.2",
         "san-ssr": "^3.0.1",
         "semver": "^7.3.4",
+        "string-replace-loader": "^3.0.1",
         "style-loader": "^2.0.0",
+        "url-loader": "^4.1.1",
         "webpack": "^4.32.2",
         "webpack-cli": "^3.3.2",
         "webpack-dev-server": "^3.4.1",

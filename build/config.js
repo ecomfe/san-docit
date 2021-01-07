@@ -6,47 +6,40 @@ const loadTitle = require('../packages/markdown-loader/loadTitle');
 
 const cwd = utils.getCwd();
 
-const parseSidebarItem = sideItem => {
-    if (!sideItem || !sideItem.length) {
+const getFileName = node => {
+    let nameArr = [node, node + 'README.md'];
+    if (node.endsWith('/')) {
+        nameArr.unshift(node.slice(0, -1) + '.md');
+    }
+    const arr = nameArr.map(name => path.join(cwd, name)).filter(name => fs.existsSync(name));
+
+    return arr && arr[0] ? arr[0] : '';
+}
+
+const buildTreeNode = node => {
+    if (!node || !node.length) {
         return;
     }
-    const suffix = sideItem.endsWith === '/' 
-        ? 'README.md' 
-        : sideItem.endsWith('.md') ? '' : '.md';
-    const filename = path.join(cwd, sideItem + suffix);
+    const filename = getFileName(node);
 
-    if (!fs.existsSync(filename)) {
-        chalk.red(`File not exist: ${filename}.`);
+    if (!filename) {
+        console.log(chalk.red(`File not exist: ${filename}`));
         return;
     }
 
     const title = loadTitle(fs.readFileSync(filename, 'utf-8'));
     if (!title) {
-        chalk.red(`Parse title from markdown failed: ${filename}.`);
+        console.log(chalk.red(`Parse title from markdown failed: ${filename}.`));
         return;
     }
 
     let route = {
-        path: sideItem,
+        path: node,
         filename,
         title
     };
 
     return route;
-};
-
-const parseSidebar = children => {
-    if (children && children.length) {
-        return children.map(sideItem => {
-            if (typeof sideItem === 'string') {
-                return parseSidebarItem(sideItem);
-            }
-            else if (sideItem.children) {
-                return parseSidebar(sideItem.children);
-            }
-        });
-    }
-    return [];
 };
 
 const defaultConfig = {
@@ -56,6 +49,15 @@ const defaultConfig = {
         nav: [],
         sidebar: {}
     }
+};
+
+const parseSidebar = sidebar => {
+    const tree = {};
+    Object.keys(sidebar).map(name => {
+        tree[name] = utils.treeBuild(sidebar[name], buildTreeNode);
+    });
+
+    return tree;
 };
 
 const loadConfig = cwd => {
@@ -69,11 +71,7 @@ const loadConfig = cwd => {
     }
 
     if (result.themeConfig && result.themeConfig.sidebar) {
-        const sidebar = result.themeConfig.sidebar;
-        Object.keys(sidebar).forEach(name => {
-            sidebar[name] = parseSidebar(sidebar[name]);
-        })
-        console.log('sidebar:', sidebar);
+        result.themeConfig.sidebar = parseSidebar(result.themeConfig.sidebar);
     }
 
     return result;

@@ -114,7 +114,7 @@ function getCompiler(opt = {}) {
     });
 
     parser.use(require('./markdown/jsx'));
-    parser.use(require('./markdown/link'), link);
+    // parser.use(require('./markdown/link'), link);
     parser.use(require('./markdown/snippet'));
 
     if (typeof extend === 'function') {

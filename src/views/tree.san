@@ -1,0 +1,31 @@
+<template>
+    <ul class="tree">
+        <tree-node
+            s-for="treeNode in treeData.children"
+            treeNode="{{treeNode}}"
+        >
+        </tree-node>
+    </ul>
+</template>
+
+<script>
+import {DataTypes} from 'san';
+import treeNode from './treeNode';
+
+export default {
+    components: {
+        'tree-node': treeNode
+    },
+    dataTypes: {
+        treeData: DataTypes.object
+    },
+    created() {
+        const treeData = this.data.get('treeData');
+        console.log('treeData:', treeData);
+    }
+};
+</script>
+
+<style lang="less" scoped>
+
+</style>

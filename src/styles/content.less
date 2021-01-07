@@ -6,9 +6,8 @@
 }
 
 #content {
-    margin-top: 66px;
+    margin-top: 68px;
     padding-left: 300px;
-    padding-top: 24px;
     padding-right: 24px;
 
     display: flex;
@@ -24,20 +23,23 @@
         line-height: 1.75;
         background-color: #fff;
         border-radius: @border-radius;
-        padding: 0 20px 20px;
-        margin: 0 24px;
+        padding: 10px 20px 20px;
+        margin-left: 12px;
+        margin-right: 270px;
     }
     .toc {
-        @width: 320px;
+        @width: 280px;
         flex: 0 0 @width;
+        position: fixed;
+        right: 0;
         max-width: @width;
         min-width: @width;
         width: @width;
         background-color: #fff;
         border-radius: @border-radius;
-        // margin-right: 24px;
+        height: 100%;
+        overflow-y: scroll;
         & > ul {
-            position: fixed;
             padding-left: 10px;
         }
         a {
@@ -57,4 +59,13 @@
             padding-left: 8px;
         }
     }
+    .fixed {
+        position: fixed;
+        top: 68px;
+    }
+
+    h1:target, h2:target, h3:target {
+        padding-top: 70px;
+    }
 }
+

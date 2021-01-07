@@ -9,6 +9,63 @@ const {slugify, deeplyParseHeaders} = require('./utils');
 
 const cache = new LRU({max: 1000});
 
+class TreeNode {
+    constructor(level, title, hash) {
+        this.level = level;
+        this.title = title;
+        this.hash = hash;
+    }
+}
+
+class Tree {
+    constructor() {
+        this.root = new TreeNode(0);
+        this.last = this.root;
+    }
+    insert(level, title, hash) {
+        const node = new TreeNode(level, title, hash);
+
+        const last = this.find(level, this.last);
+
+        this.insertNode(node, last);
+
+        this.last = node;
+
+        return node;
+    }
+    insertNode(node, parent) {
+        if (!parent) {
+            parent = this.insert(node.level - 1);
+        }
+        if (!parent.children) {
+            parent.children = [];
+        }
+        node.parent = parent;
+
+        parent.children.push(node);
+    }
+    find(level, last) {
+        if (last.level === level - 1) {
+            return last;
+        }
+        if (last.parent) {
+            return this.find(level, last.parent);
+        }
+        return this.root;
+    }
+    walk(callback) {
+        this.walkNode(this.root, callback);
+    }
+    walkNode(node, callback) {
+        if (node) {
+            callback(node);
+            if (node.children) {
+                node.children.forEach(item => this.walkNode(item, callback));
+            }
+        }
+    }
+}
+
 module.exports = (content, compiler, include = ['H2', 'H3']) => {
     include = include.map(i => i.toLowerCase());
     const key = hash(content + include.join(','));
@@ -19,8 +76,7 @@ module.exports = (content, compiler, include = ['H2', 'H3']) => {
 
     const tokens = compiler.parse(content, {});
 
-    let tocMd = [];
-
+    const tree = new Tree();
     tokens.forEach((t, i) => {
         if (t.type === 'heading_open' && include.includes(t.tag)) {
             const title = tokens[i + 1].content;
@@ -30,10 +86,14 @@ module.exports = (content, compiler, include = ['H2', 'H3']) => {
                 title: deeplyParseHeaders(title),
                 slug: slug || slugify(title)
             };
-            tocMd.push(r);
+            tree.insert(r.level, r.title, r.slug);
         }
     });
 
-    cache.set(key, tocMd);
-    return tocMd;
+    tree.walk(node => {
+        delete node.parent;
+    });
+
+    cache.set(key, tree.root);
+    return tree.root;
 };

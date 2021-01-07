@@ -15,7 +15,7 @@ module.exports = function (content, extractHeaders = ['H1', 'H2']) {
         return matter.title;
     }
 
-    const tocMd = parseHeader(frontMatter.content, compiler.getCompiler(), extractHeaders);
+    const tree = parseHeader(frontMatter.content, compiler.getCompiler(), extractHeaders);
 
-    return tocMd.length ? tocMd[0].title : '';
+    return tree.children && tree.children[0] ? tree.children[0].title : '';
 }

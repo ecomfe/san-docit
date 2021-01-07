@@ -1,44 +1,45 @@
 import {router} from 'san-router'
 
-// import markdownit from '../../docs/markdownit.md';
-// import simple from '../../docs/simple.md';
+// Webpack Inject
+const docit = SAN_DOCIT;
+const components = ROUTES_IMPORT; 
 
-// router.add({rule: '/', Component: simple, target: '#router-view'});
-// router.add({rule: '/m', Component: markdownit, target: '#router-view'});
+const sidebar = docit.themeConfig.sidebar;
 
-const parseSidebarItem = sideItem => {
-    if (sideItem) {
-        const component = require(sideItem.filename);
+const addRouter = node => {
+    if (node && components[node.path]) {
+        const component = components[node.path];
         router.add({
-            rule: sideItem.path,
+            rule: node.path,
             Component: component,
             target: '#router-view'
         });
     }
 }
 
-const parseSidebar = children => {
-    if (children && children.length) {
-        return children.map(sideItem => {
-            if (typeof sideItem === 'string') {
-                return parseSidebarItem(sideItem);
-            }
-            else if (sideItem.children) {
-                return parseSidebar(sideItem.children);
-            }
-        });
+const parseRouter = (root, callback) => {
+    if (!root) {
+        return;
     }
-    return [];
-};
+    callback(root);
 
-// webpack.DefinePlugin SAN_DOCIT
-const docit = SAN_DOCIT;
-const sidebar = docit.themeConfig.sidebar;
+    if (!root.children) {
+        return;
+    }
+    root.children.forEach(item => {
+        callback(item);
+
+        if (item.children) {
+            parseRouter(item, callback);
+        }
+    });
+}
+
+// router.add 注册路由
 Object.keys(sidebar).forEach(name => {
-    parseSidebar(sidebar[name]);
-})
+    parseRouter(sidebar[name], addRouter);
+});
+
+router.setMode('html5');
 
 export default router;
-
-// start
-// router.start();

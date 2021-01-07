@@ -14,7 +14,20 @@ module.exports = {
         ],
 
         sidebar: {
-            '/': ['/simple', '/markdownit']
+            '/': [
+                '/simple/',
+                '/markdownit/', 
+                {
+                    title: 'title1',
+                    children: [
+                        '/simple/', 
+                        {
+                            title: 'title2',
+                            children: ['/simple/']
+                        }
+                    ]
+                }
+            ]
         }
     }
 

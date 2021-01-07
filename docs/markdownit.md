@@ -3,6 +3,8 @@
 ## h2 Heading :P
 
 ### h3 Heading
+### h3 Heading.1
+### h3 Heading.2
 
 #### h4 Heading
 
@@ -53,6 +55,12 @@ _This is italic text_
 > > ...by using additional greater-than signs right next to each other...
 > >
 > > > ...or with spaces between arrows.
+
+## h2 Heading :P
+
+### h3 Heading
+### h3 Heading.1
+### h3 Heading.2
 
 ## Lists
 

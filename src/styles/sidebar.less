@@ -4,23 +4,23 @@ aside#sidebar {
     position: fixed;
     z-index: 10;
     margin: 0;
-    top: 64px;
+    top: 68px;
     left: 0;
     bottom: 0;
+    padding: 10px 0;
     box-sizing: border-box;
     border-right: 1px solid #eaecef;
     overflow-y: auto;
-    margin-top: 24px;
     border-radius: @border-radius;
 
+    @li_right: 20px;
     ul {
         padding: 0;
         margin: 0;
         list-style-type: none;
     }
-    @li_right: 40px;
     li {
-        line-height: 48px;
+        line-height: 40px;
         padding: 0 0 0 @li_right;
         font-weight: 600;
         text-overflow: ellipsis;
@@ -43,16 +43,14 @@ aside#sidebar {
     }
     li ul {
         margin-left: -@li_right;
-        @li_right_secondary: @li_right+20px;
+        @li_right_secondary: @li_right * 2;
         & > li {
             padding-left: @li_right_secondary;
             font-weight: normal;
 
             ul {
-                margin-left: -@li_right_secondary;
-
                 & > li {
-                    padding-left: @li_right_secondary+20px;
+                    padding-left: @li_right_secondary;
                 }
             }
         }

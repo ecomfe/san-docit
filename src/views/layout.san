@@ -17,7 +17,7 @@
             </ul>
         </header>
         <aside id="sidebar">
-            {{docit.sidebar | raw}}
+            <tree treeData="{{sidebar}}"></tree>
         </aside>
         <content-area docit="{{docit}}"></content-area>
     </div>
@@ -25,23 +25,38 @@
 
 <script>
 import {DataTypes} from 'san';
+import {router} from 'san-router'
 import contentArea from './content-area';
+import tree from './tree';
 
 export default {
     components: {
-        'content-area': contentArea
+        'content-area': contentArea,
+        tree
     },
     dataTypes: {
         docit: DataTypes.object
     },
-    attached() {
-        console.log(this.data.get('docit'));
-        // let sanbox = window.__sanbox || {};
-        // Object.keys(sanbox).forEach(key => {
-        //     const item = sanbox[key];
-        //     const vm = new item.comp();
-        //     vm.attach(document.querySelector(item.el));
-        // });
+    computed: {
+        sidebar() {
+            const docit = this.data.get('docit');
+            const sidebar = docit.themeConfig.sidebar;
+            const current = router.locator.current;
+
+            if (sidebar[current]) {
+                return sidebar[current];
+            }
+            for (let route in sidebar) {
+                let list = sidebar[route];
+                for (let i = 0; i < list.length; i++) {
+                    if (list[i].path === current) {
+                        return list;
+                    }
+                }
+            }
+
+            return sidebar['/'] || [];
+        }
     }
 }
 </script>

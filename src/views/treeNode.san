@@ -1,0 +1,50 @@
+<template>
+    <li s-if="treeNode.path || treeNode.title" class="treeNode {{isActive ? 'active' : ''}}" >
+        <router-link s-if="treeNode.path" to="{{treeNode.path}}">{{treeNode.title}}</router-link>
+        <a s-else-if="treeNode.hash" href="{{getHash()}}">{{treeNode.title}}</a>
+        <span s-else>{{treeNode.title}}</span>
+        <ul s-if="treeNode.children">
+            <tree-node s-for="node in treeNode.children" treeNode="{{node}}"></tree-node>
+        </ul>
+    </li>
+    
+</template>
+
+<script>
+import {DataTypes} from 'san';
+import {Link, router} from 'san-router';
+
+export default {
+    components: {
+        'tree-node': 'self',
+        'router-link': Link
+    },
+    dataTypes: {
+        treeNode: DataTypes.object
+    },
+    initData() {
+        return {
+            isActive: false
+        };
+    },
+    inited() {
+        router.listen(this.isActive.bind(this));
+    },
+    isActive(e) {
+        const treeNode = this.data.get('treeNode');
+        const isActive = treeNode.path === e.path;
+
+        if (isActive !== this.data.get('isActive')) {
+            this.data.set('isActive', isActive);
+        }
+    },
+    getHash() {
+        const treeNode = this.data.get('treeNode');
+        return location.pathname + '#' + treeNode.hash;
+    }
+};
+</script>
+
+<style lang="less" scoped>
+
+</style>
