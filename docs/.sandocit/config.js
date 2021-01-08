@@ -1,11 +1,12 @@
 /**
+ * 文档配置
  * @author kidnes
  */
 'use strict';
 
 module.exports = {
     base: '/',
-    title: 'San CLI',
+    // title: 'San CLI',
 
     themeConfig: {
         nav: [
@@ -16,7 +17,8 @@ module.exports = {
         sidebar: {
             '/': [
                 '/simple/',
-                '/markdownit/', 
+                '/markdownit/',
+                '/codebox/',
                 {
                     title: 'title1',
                     children: [
@@ -30,5 +32,4 @@ module.exports = {
             ]
         }
     }
-
 };

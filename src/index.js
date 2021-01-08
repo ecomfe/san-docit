@@ -2,8 +2,8 @@ import san, {Component, DataTypes} from 'san';
 import layout from './views/layout.san';
 import './styles/index.less';
 import './common/hub';
+import './common/registerComponents';
 
-global.san = san;
 export default class Index extends Component {
     static components = {
         layout

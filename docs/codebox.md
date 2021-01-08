@@ -1,20 +1,21 @@
-## Docit Sanbox Demo
+## Docit Codebox Demo
 
-<sanbox>
-:::
+Codebox 组件：
+
+<codebox>
+
 #### 说明
-这段文字来自`_sanbox.md`.
-:::
+这段文字来自`codebox.md`.
 
 ```html
 <template>
-    <div id="_sanbox">
+    <div id="codebox">
         <h2>{{text}}</h2>
     </div>
 </template>
 <style lang="less">
     @red: red;
-    #_sanbox {
+    #codebox {
         h2 {
             font-size: 14px;
             color: #1890ff;
@@ -25,11 +26,10 @@
     export default {
         initData() {
             return {
-                text: 'From _sanbox.md.'
+                text: 'From codebox.md.'
             };
         }
     };
 </script>
 ```
-
-</sanbox>
+</codebox>

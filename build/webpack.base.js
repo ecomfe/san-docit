@@ -1,10 +1,19 @@
 const path = require('path');
 const webpack = require('webpack');
+const {default: merge} = require('webpack-merge');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SanLoaderPlugin = require('san-loader/lib/plugin');
+const VirtualModulesPlugin = require('webpack-virtual-modules');
 
 const config = require('./config');
-const utils = require('./utils');
+const route = require('./parser/route');
+const component = require('./parser/component');
+
+const snippet = component.getComponentsImports();
+
+const virtualModules = new VirtualModulesPlugin();
+
+global.virtualModules = virtualModules;
 
 function resolve(dir) {
     return path.join(__dirname, '..', dir);
@@ -88,24 +97,30 @@ const webpackConfig = {
                 test: /\.html$/,
                 loader: 'html-loader'
             },
-            // {
-            //     test: /\.ejs$/,
-            //     loader: 'ejs-loader',
-            //     options: {
-            //         esModule: false
-            //     }
-            // },
             {
                 test: /\.md$/,
                 use: ['san-loader', '../packages/markdown-loader']
-                // use: ['san-loader', './mdToSan', '../packages/markdown-loader']
             },
             {
                 test: /router\/index\.js/,
                 loader: 'string-replace-loader',
                 options: {
                     search: 'ROUTES_IMPORT',
-                    replace: utils.getRoutesImportStr()
+                    replace: route.getRoutesImportStr()
+                }
+            },
+            {
+                test: /common\/registerComponents\.js/,
+                loader: 'string-replace-loader',
+                options: {
+                    multiple: [{
+                        search: 'IMPORT_COMPONENTS',
+                        replace: snippet.compImport
+                    }, {
+                        search: 'MAP_COMPONENTS',
+                        replace: snippet.compMap
+                    }]
+                    
                 }
             }
         ],
@@ -123,8 +138,16 @@ const webpackConfig = {
         }),
         new webpack.DefinePlugin({
             SAN_DOCIT: JSON.stringify(config)
-        })
+        }),
+        virtualModules
     ]
 };
+
+if (typeof config.configureWebpack === 'function') {
+    const customConfig = config.configureWebpack(webpackConfig);
+    if (customConfig) {
+        webpackConfig = merge(webpackConfig, customConfig);
+    }
+}
 
 module.exports = webpackConfig;

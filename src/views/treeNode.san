@@ -1,7 +1,7 @@
 <template>
     <li s-if="treeNode.path || treeNode.title" class="treeNode {{isActive ? 'active' : ''}}" >
         <router-link s-if="treeNode.path" to="{{treeNode.path}}">{{treeNode.title}}</router-link>
-        <a s-else-if="treeNode.hash" href="{{getHash()}}">{{treeNode.title}}</a>
+        <a s-else-if="treeNode.hash" href="{{hash}}">{{treeNode.title}}</a>
         <span s-else>{{treeNode.title}}</span>
         <ul s-if="treeNode.children">
             <tree-node s-for="node in treeNode.children" treeNode="{{node}}"></tree-node>
@@ -24,11 +24,17 @@ export default {
     },
     initData() {
         return {
-            isActive: false
+            isActive: false,
+            hash: ''
         };
     },
     inited() {
         router.listen(this.isActive.bind(this));
+    },
+    attached() {
+        const treeNode = this.data.get('treeNode');
+        const hash = location.pathname + '#' + treeNode.hash;
+        this.data.set('hash', hash);
     },
     isActive(e) {
         const treeNode = this.data.get('treeNode');
@@ -37,10 +43,6 @@ export default {
         if (isActive !== this.data.get('isActive')) {
             this.data.set('isActive', isActive);
         }
-    },
-    getHash() {
-        const treeNode = this.data.get('treeNode');
-        return location.pathname + '#' + treeNode.hash;
     }
 };
 </script>

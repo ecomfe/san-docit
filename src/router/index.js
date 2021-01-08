@@ -1,4 +1,6 @@
-import {router} from 'san-router'
+import {router} from 'san-router';
+import NProgress from 'NProgress';
+import 'nprogress/nprogress.css';
 
 // Webpack Inject
 const docit = SAN_DOCIT;
@@ -41,5 +43,20 @@ Object.keys(sidebar).forEach(name => {
 });
 
 router.setMode('html5');
+
+router.listen(e => {
+    // 加载进度条
+    if (NProgress.isRendered) {
+        NProgress.remove();
+    }
+    NProgress.inc();
+    // e.config.Component.then(() => {
+    //     console.log('hello');
+    // });
+});
+
+global.hub.on('changed', () => {
+    NProgress.done(true);
+});
 
 export default router;

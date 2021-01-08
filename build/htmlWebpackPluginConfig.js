@@ -1,3 +1,8 @@
+/**
+ * @file 多页面渲染
+ * @author kidnes
+ */
+
 const fs = require('fs');
 const path = require('path');
 const config = require('./config');
