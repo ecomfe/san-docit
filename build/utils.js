@@ -1,8 +1,8 @@
+const path = require('path');
 const globby = require('globby');
 
 const getCwd = () => {
-    const cwd = process.env.cwd || process.cwd();
-    return cwd;
+    return process.env.cwd || process.cwd();
 }
 
 let routes = {};

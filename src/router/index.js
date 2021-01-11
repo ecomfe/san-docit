@@ -8,11 +8,11 @@ const components = ROUTES_IMPORT;
 
 const sidebar = docit.themeConfig.sidebar;
 
-const addRouter = node => {
-    if (node && components[node.path]) {
-        const component = components[node.path];
+const addRouter = path => {
+    if (components[path]) {
+        const component = components[path];
         router.add({
-            rule: node.path,
+            rule: path,
             Component: component,
             target: '#router-view'
         });
@@ -39,20 +39,22 @@ const parseRouter = (root, callback) => {
 
 // router.add 注册路由
 Object.keys(sidebar).forEach(name => {
-    parseRouter(sidebar[name], addRouter);
+    parseRouter(sidebar[name], node => addRouter(node.path || ''));
 });
 
 router.setMode('html5');
 
 router.listen(e => {
+    if (e.path === e.referrer || !components[e.path]) {
+        e.stop();
+        return;
+    }
+
     // 加载进度条
     if (NProgress.isRendered) {
         NProgress.remove();
     }
     NProgress.inc();
-    // e.config.Component.then(() => {
-    //     console.log('hello');
-    // });
 });
 
 global.hub.on('changed', () => {

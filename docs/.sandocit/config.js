@@ -19,10 +19,11 @@ module.exports = {
                 '/simple/',
                 '/markdownit/',
                 '/codebox/',
+                '/docit/sanbox-demo/',
                 {
                     title: 'title1',
                     children: [
-                        '/simple/', 
+                        '/simple/',
                         {
                             title: 'title2',
                             children: ['/simple/']

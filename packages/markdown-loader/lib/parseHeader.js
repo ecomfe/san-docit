@@ -2,13 +2,7 @@
  * @file 从 md 中解析出来 H
  * @author ksky521
  */
-const LRU = require('lru-cache');
-const hash = require('hash-sum');
-
 const {slugify, deeplyParseHeaders} = require('./utils');
-
-const cache = new LRU({max: 1000});
-
 class TreeNode {
     constructor(level, title, hash) {
         this.level = level;
@@ -68,11 +62,6 @@ class Tree {
 
 module.exports = (content, compiler, include = ['H2', 'H3']) => {
     include = include.map(i => i.toLowerCase());
-    const key = hash(content + include.join(','));
-    const hit = cache.get(key);
-    if (hit) {
-        return hit;
-    }
 
     const tokens = compiler.parse(content, {});
 
@@ -94,6 +83,5 @@ module.exports = (content, compiler, include = ['H2', 'H3']) => {
         delete node.parent;
     });
 
-    cache.set(key, tree.root);
     return tree.root;
 };

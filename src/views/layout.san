@@ -25,7 +25,6 @@
 
 <script>
 import {DataTypes} from 'san';
-import {router} from 'san-router'
 import contentArea from './content-area';
 import tree from './tree';
 
@@ -41,7 +40,7 @@ export default {
         sidebar() {
             const docit = this.data.get('docit');
             const sidebar = docit.themeConfig.sidebar;
-            const current = router.locator.current;
+            const current = location.pathname;
 
             if (sidebar[current]) {
                 return sidebar[current];

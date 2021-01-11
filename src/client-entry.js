@@ -8,7 +8,7 @@ export default class Index extends Component {
     static template = '<index docit="{{docit}}"><index>';
     static computed = {
         docit() {
-            return window.SAN_DOCIT;
+            return global.SAN_DOCIT;
         }
     };
 };

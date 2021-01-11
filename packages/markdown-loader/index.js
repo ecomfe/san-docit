@@ -6,6 +6,7 @@
 const LRU = require('lru-cache');
 const hash = require('hash-sum');
 const qs = require('querystring');
+const debug = require('debug')('san-docit');
 
 const loadHtml = require('./loadHtml');
 const loadToc = require('./loadToc');
@@ -30,7 +31,11 @@ module.exports = function(content) {
     const query = qs.parse(rawQuery);
 
     if (query.codebox !== undefined) {
-        return loadCodeSnippet(content, parseInt(query.codebox));
+        const codebox = loadCodeSnippet(content, parseInt(query.codebox));
+
+        cache.set(key, codebox);
+
+        return codebox;
     }
     
     let {codeboxContent, importStr, importComp} = loadCodebox.call(this, content);
@@ -53,6 +58,10 @@ module.exports = function(content) {
             }
         </script>
     `;
+
+    if (importComp) {
+        debug('San Docit 组件：', result);
+    }
 
     cache.set(key, result);
 

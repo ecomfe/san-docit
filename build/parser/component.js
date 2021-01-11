@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const globby = require('globby');
+const debug = require('debug')('san-docit');
 const utils = require('../utils');
 
 const cwd = utils.getCwd();
@@ -8,7 +9,7 @@ const cwd = utils.getCwd();
 const getDirs = () => {
     const dirs = [
         path.join(cwd, '.sandocit/components'),
-        path.join(__dirname, '../../packages/plugins/components')
+        path.join(__dirname, '../../plugins/components')
     ];
 
     return dirs.filter(dir => fs.existsSync(dir));
@@ -52,6 +53,8 @@ const getComponentsImports = () => {
         importList.push(`import ${name} from '${components[comp]}'`);
         componentMap[name] = `%${name}%`;
     });
+
+    debug('全局组件注册：', components);
 
     return {
         compImport: importList.join('\n'),

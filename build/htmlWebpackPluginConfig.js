@@ -5,7 +5,6 @@
 
 const fs = require('fs');
 const path = require('path');
-const config = require('./config');
 const loadHtml = require('../packages/markdown-loader/loadHtml');
 const loadToc = require('../packages/markdown-loader/loadToc');
 
@@ -34,7 +33,7 @@ function getMdVarible(file) {
     };
 }
 
-function getProjectConfig() {
+function getProjectConfig(config) {
     return {
         title: config.title,
         base: config.base
@@ -42,9 +41,10 @@ function getProjectConfig() {
 }
 
 module.exports = (name, file) => {
+    const config = require('./config').load();
     const SAN_DOCIT = {
         ...getMdVarible(file),
-        ...getProjectConfig()
+        ...getProjectConfig(config)
     };
     return {
         template: path.join(__dirname, '../index.ejs'),

@@ -1,4 +1,4 @@
-import san, {Component, DataTypes} from 'san';
+import {Component, DataTypes} from 'san';
 import layout from './views/layout.san';
 import './styles/index.less';
 import './common/hub';
