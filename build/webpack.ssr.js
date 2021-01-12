@@ -1,6 +1,8 @@
 const SanLoaderPlugin = require('san-loader/lib/plugin');
 const path = require('path');
 
+const replaceLoader = require('./replace-loader');
+
 function resolve(dir) {
     return path.join(__dirname, '..', dir);
 }
@@ -33,7 +35,7 @@ module.exports = {
                 test: /\.less$/,
                 use: ['css-loader', 'less-loader']
             }
-        ]
+        ].concat(replaceLoader())
     },
     resolve: {
         extensions: ['.js', '.jsx', '.san', '.json'],

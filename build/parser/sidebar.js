@@ -16,30 +16,33 @@ const getFileName = node => {
     if (node.endsWith('/')) {
         nameArr.unshift(node.slice(0, -1) + '.md');
     }
-    const arr = nameArr.map(name => path.join(cwd, name)).filter(name => fs.existsSync(name));
+    const arr = nameArr
+        .map(name => path.join(cwd, name))
+        .filter(name => fs.existsSync(name) && fs.lstatSync(name).isFile());
 
     return arr && arr[0] ? arr[0] : '';
 }
 
 const buildTreeNode = node => {
-    if (!node || !node.length) {
+    if (!node) {
         return;
     }
-    const filename = getFileName(node);
+    const routePath = node.path || node;
+    const filename = getFileName(routePath);
 
     if (!filename) {
         console.log(chalk.red(`File not exist: ${filename}`));
         return;
     }
 
-    const title = loadTitle(fs.readFileSync(filename, 'utf-8'));
+    const title = node.title || loadTitle(fs.readFileSync(filename, 'utf-8'));
     if (!title) {
         console.log(chalk.red(`Parse title from markdown failed: ${filename}.`));
         return;
     }
 
     let route = {
-        path: node,
+        path: routePath,
         filename,
         title
     };
@@ -48,6 +51,7 @@ const buildTreeNode = node => {
 };
 
 module.exports = sidebar => {
+    debugger;
     const tree = {};
     Object.keys(sidebar).map(name => {
         tree[name] = utils.treeBuild(sidebar[name], buildTreeNode);

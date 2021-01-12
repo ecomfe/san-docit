@@ -1,5 +1,7 @@
 import {router} from 'san-router';
 import NProgress from 'NProgress';
+import hub from '../common/hub';
+
 import 'nprogress/nprogress.css';
 
 // Webpack Inject
@@ -55,6 +57,8 @@ router.listen(e => {
         NProgress.remove();
     }
     NProgress.inc();
+
+    hub.fire('RouterChanged', e);
 });
 
 global.hub.on('changed', () => {

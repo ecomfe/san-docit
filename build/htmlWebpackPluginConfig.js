@@ -49,12 +49,14 @@ module.exports = (name, file) => {
     return {
         template: path.join(__dirname, '../index.ejs'),
         filename: name + '.html',
-        chunks: ['client-entry', name],
-        templateParameters: Object.assign(config, {
-            bodyHtmlSnippet: getSSRHTML(SAN_DOCIT),
-            window: {
-                SAN_DOCIT
-            }
-        })
+        chunks: ['main'],
+        // SSR：暂不支持，因 `self` 组件 和 `san-router` 不支持
+        // templateParameters: Object.assign(config, {
+        //     bodyHtmlSnippet: getSSRHTML(SAN_DOCIT),
+        //     window: {
+        //         SAN_DOCIT
+        //     }
+        // }),
+        ...config
     };
 }

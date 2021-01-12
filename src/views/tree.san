@@ -10,7 +10,7 @@
 
 <script>
 import {DataTypes} from 'san';
-import treeNode from './treeNode';
+import treeNode from './tree-node';
 
 export default {
     components: {

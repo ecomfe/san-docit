@@ -1,6 +1,7 @@
 <template>
     <li s-if="treeNode.path || treeNode.title" class="treeNode {{isActive ? 'active' : ''}}" >
         <router-link s-if="treeNode.path" to="{{treeNode.path}}">{{treeNode.title}}</router-link>
+        <!--<a s-if="treeNode.path" href="{{treeNode.path}}">{{treeNode.title}}</a>-->
         <a s-else-if="treeNode.hash" href="{{hash}}">{{treeNode.title}}</a>
         <span s-else>{{treeNode.title}}</span>
         <ul s-if="treeNode.children">
@@ -12,12 +13,13 @@
 
 <script>
 import {DataTypes} from 'san';
-import {Link, router} from 'san-router';
+import {Link} from 'san-router';
+import hub from '../common/hub';
 
 export default {
     components: {
-        'tree-node': 'self',
-        'router-link': Link
+        'router-link': Link,
+        'tree-node': 'self'
     },
     dataTypes: {
         treeNode: DataTypes.object
@@ -29,7 +31,7 @@ export default {
         };
     },
     inited() {
-        router.listen(this.isActive.bind(this));
+        hub.on('RouterChanged', this.isActive.bind(this))
     },
     attached() {
         const treeNode = this.data.get('treeNode');

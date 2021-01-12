@@ -8,12 +8,10 @@ function resolve(dir) {
     return path.join(__dirname, '..', dir);
 }
 
-module.exports = function() {
+module.exports = function () {
     const config = require('./config').load();
-    const component = require('./parser/component');
-    const route = require('./parser/route');
 
-    const snippet = component.getComponentsImports();
+    const replaceLoader = require('./replace-loader');
 
     const webpackConfig = {
         devtool: '',
@@ -23,7 +21,10 @@ module.exports = function() {
             main: resolve('src/main.js')
         },
         output: {
-            path: resolve('dist')
+            path: resolve('dist'),
+            filename: 'static/js/[name].js',
+            chunkFilename: 'static/js/[name].js',
+            publicPath: '/'
         },
         optimization: {
             splitChunks: {
@@ -52,11 +53,11 @@ module.exports = function() {
                 {
                     test: /\.js$/,
                     exclude: /node_modules/,
-                    use: 'babel-loader',
+                    use: 'babel-loader'
                 },
                 {
                     test: /\.san$/,
-                    use: 'san-loader',
+                    use: 'san-loader'
                 },
                 {
                     test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf|otf)(\?.*)?$/,
@@ -65,16 +66,19 @@ module.exports = function() {
                             loader: 'url-loader',
                             options: {
                                 limit: 10000,
-                            },
-                        },
-                    ],
+                                fallback: {
+                                    loader: 'file-loader',
+                                    options: {
+                                        name: 'static/img/[name].[ext]'
+                                    }
+                                }
+                            }
+                        }
+                    ]
                 },
                 {
                     test: /\.css$/,
-                    use: [
-                        'style-loader',
-                        'css-loader',
-                    ],
+                    use: ['style-loader', 'css-loader']
                 },
                 {
                     test: /\.less$/,
@@ -96,48 +100,28 @@ module.exports = function() {
                 {
                     test: /\.md$/,
                     use: ['san-loader', '../packages/markdown-loader']
-                },
-                {
-                    test: /router\/index\.js/,
-                    loader: 'string-replace-loader',
-                    options: {
-                        search: 'ROUTES_IMPORT',
-                        replace: route.getRoutesImportStr()
-                    }
-                },
-                {
-                    test: /common\/registerComponents\.js/,
-                    loader: 'string-replace-loader',
-                    options: {
-                        multiple: [{
-                            search: 'IMPORT_COMPONENTS',
-                            replace: snippet.compImport
-                        }, {
-                            search: 'MAP_COMPONENTS',
-                            replace: snippet.compMap
-                        }]
-                        
-                    }
                 }
-            ],
+            ].concat(replaceLoader())
         },
         resolve: {
-            extensions: ['.js', '.jsx', '.san', '.json'],
+            extensions: ['.js', '.jsx', '.san', '.json']
         },
         plugins: [
             new SanLoaderPlugin(),
             new CopyWebpackPlugin({
-                patterns: [{
-                    from: resolve('public'),
-                    to: resolve('dist')
-                }]
+                patterns: [
+                    {
+                        from: resolve('public'),
+                        to: resolve('dist')
+                    }
+                ]
             }),
             new webpack.DefinePlugin({
                 SAN_DOCIT: JSON.stringify(config)
             })
         ]
     };
-    
+
     if (typeof config.configureWebpack === 'function') {
         const customConfig = config.configureWebpack(webpackConfig);
         if (customConfig) {

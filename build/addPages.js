@@ -7,9 +7,10 @@ module.exports = (webpackConfig) => {
     const routes = route.getRoutes();
 
     Object.keys(routes).map(item => {
-        webpackConfig.entry[item] = routes[item];
+        let name = item + 'index';
+        webpackConfig.entry[name] = routes[item];
         webpackConfig.plugins.push(
-            new HtmlWebpackPlugin(htmlWebpackPluginConfig(item, routes[item]))
+            new HtmlWebpackPlugin(htmlWebpackPluginConfig(name, routes[item]))
         )
     });
 }

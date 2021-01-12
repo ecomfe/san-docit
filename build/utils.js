@@ -74,6 +74,7 @@ const treeBuild = (root, callback) => {
         else if (Array.isArray(node)) {
             return treeBuild(node, callback);
         }
+        return callback(node);
     });
     return {
         children

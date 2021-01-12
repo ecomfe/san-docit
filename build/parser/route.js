@@ -10,13 +10,16 @@ const getRoutes = () => {
         return routes;
     }
 
-    const files = globby.sync('**/*.md', {
+    const files = globby.sync(['**/*.md'], {
         expandDirectories: false,
         onlyFiles: false,
         cwd: cwd
     });
 
-    files.map(file => routes[file.replace(/\.md$/, '/')] = cwd + '/' + file);
+    files.map(file => {
+        const name = file.replace(/README\.md$/, '').replace(/\.md$/, '/');
+        routes[name] = cwd + '/' + file;
+    });
     return routes;
 }
 
