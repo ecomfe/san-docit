@@ -1,9 +1,7 @@
-todos-esnext
+san docit
 ===
 
-> Todos demo use `.san` components and `esnext`
-
-Notice: This demo is incompatible with old IE. More infomation see https://github.com/baidu/san/issues/291
+> Minimalistic San-powered static site generator.
 
 ## Prepare
 
