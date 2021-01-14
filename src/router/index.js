@@ -1,20 +1,23 @@
 import {router} from 'san-router';
 import NProgress from 'NProgress';
 import hub from '../common/hub';
+import NotFound from '../views/not-found.san';
 
 import 'nprogress/nprogress.css';
 
 // Webpack Inject
-const docit = SAN_DOCIT;
+const config = process.env.SAN_DOCIT;
+const baseUrl = process.env.BASE_URL;
 const components = ROUTES_IMPORT; 
 
-const sidebar = docit.themeConfig.sidebar;
+const sidebar = config.themeConfig.sidebar;
+const base = baseUrl.length > 1 ? baseUrl.slice(0, -1) : baseUrl;
 
 const addRouter = path => {
     if (components[path]) {
         const component = components[path];
         router.add({
-            rule: path,
+            rule: base + path,
             Component: component,
             target: '#router-view'
         });
@@ -44,10 +47,29 @@ Object.keys(sidebar).forEach(name => {
     parseRouter(sidebar[name], node => node && node.path && addRouter(node.path));
 });
 
+const routes = [{
+    path: '/notfound/',
+    component: NotFound
+}];
+
+routes.forEach(route => {
+    router.add({
+        rule: base + route.path,
+        Component: route.component,
+        target: '#router-view'
+    });
+});
+
 router.setMode('html5');
 
-router.listen(e => {
-    if (e.path === e.referrer || !components[e.path]) {
+router.listen(function(e) {
+    if (!components[e.path.substr(base.length)]) {
+        // e.stop();
+        // this.locator.stop();
+        setTimeout(() => {this.locator.redirect(base + '/notfound/');}, 0);
+        return;
+    }
+    if (e.path === e.referrer) {
         e.stop();
         return;
     }

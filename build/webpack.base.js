@@ -3,9 +3,14 @@ const webpack = require('webpack');
 const {default: merge} = require('webpack-merge');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SanLoaderPlugin = require('san-loader/lib/plugin');
+const utils = require('./utils');
 
 function resolve(dir) {
     return path.join(__dirname, '..', dir);
+}
+
+function resolveDocit(dir) {
+    return path.join(utils.cwd, '.sandocit', dir);
 }
 
 module.exports = function () {
@@ -21,10 +26,10 @@ module.exports = function () {
             main: resolve('src/main.js')
         },
         output: {
-            path: resolve('dist'),
+            path: resolveDocit('dist'),
             filename: 'static/js/[name].js',
             chunkFilename: 'static/js/[name].js',
-            publicPath: '/'
+            publicPath: config.base
         },
         optimization: {
             splitChunks: {
@@ -44,9 +49,6 @@ module.exports = function () {
                     }
                 }
             }
-        },
-        devServer: {
-            port: 8888
         },
         module: {
             rules: [
@@ -109,15 +111,16 @@ module.exports = function () {
         plugins: [
             new SanLoaderPlugin(),
             new CopyWebpackPlugin({
-                patterns: [
-                    {
-                        from: resolve('public'),
-                        to: resolve('dist')
-                    }
-                ]
+                patterns: utils.getCommonDirs('public').map(dir => ({
+                    from: dir,
+                    to: resolveDocit('dist')
+                }))
             }),
             new webpack.DefinePlugin({
-                SAN_DOCIT: JSON.stringify(config)
+                'process.env': {
+                    SAN_DOCIT: JSON.stringify(config),
+                    BASE_URL: `"${config.base}"`
+                }
             }),
             new webpack.ProgressPlugin({
                 profile: false

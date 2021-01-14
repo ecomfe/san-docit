@@ -18,7 +18,7 @@
         </header>
         <aside id="sidebar">
             <tree treeData="{{sidebar}}" selectedNodes="{{selectedNodes}}">
-                <router-link s-if="treeNode.path" to="{{treeNode.path}}">{{treeNode.title}}</router-link>
+                <router-link s-if="treeNode.path" to="{{getPath(treeNode.path)}}">{{treeNode.title}}</router-link>
                 <span s-else>{{treeNode.title}}</span>
             </tree>
         </aside>
@@ -81,6 +81,21 @@ export default {
             }
         });
         this.data.set('selectedNodes', selected);
+    },
+    getPath(path) {
+        const baseUrl = process.env.BASE_URL;
+        const base = baseUrl.length > 1 ? baseUrl.slice(0, -1) : baseUrl;
+        return base + path;
     }
 }
 </script>
+
+<style lang="less">
+#site {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+</style>

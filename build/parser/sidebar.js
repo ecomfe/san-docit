@@ -9,15 +9,13 @@ const chalk = require('chalk');
 const utils = require('../utils');
 const loadTitle = require('../../packages/markdown-loader/loadTitle');
 
-const cwd = utils.getCwd();
-
 const getFileName = node => {
     let nameArr = [node, node + 'README.md'];
     if (node.endsWith('/')) {
         nameArr.unshift(node.slice(0, -1) + '.md');
     }
     const arr = nameArr
-        .map(name => path.join(cwd, name))
+        .map(name => path.join(utils.cwd, name))
         .filter(name => fs.existsSync(name) && fs.lstatSync(name).isFile());
 
     return arr && arr[0] ? arr[0] : '';
@@ -31,14 +29,12 @@ const buildTreeNode = node => {
     const filename = getFileName(routePath);
 
     if (!filename) {
-        console.log(chalk.red(`File not exist: ${filename}`));
-        return;
+        console.log(chalk.red(`File not exist: ${routePath}`));
     }
 
     const title = node.title || loadTitle(fs.readFileSync(filename, 'utf-8'));
     if (!title) {
         console.log(chalk.red(`Parse title from markdown failed: ${filename}.`));
-        return;
     }
 
     let route = {

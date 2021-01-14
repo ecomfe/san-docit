@@ -4,17 +4,6 @@ const globby = require('globby');
 const debug = require('debug')('san-docit');
 const utils = require('../utils');
 
-const cwd = utils.getCwd();
-
-const getDirs = () => {
-    const dirs = [
-        path.join(cwd, '.sandocit/components'),
-        path.join(__dirname, '../../plugins/components')
-    ];
-
-    return dirs.filter(dir => fs.existsSync(dir));
-}
-
 const getFilesByDir = dir => {
     const components = {};
 
@@ -32,12 +21,9 @@ const getFilesByDir = dir => {
 const getComponents = () => {
     let components = {};
 
-    const dirs = getDirs();
+    const dirs = utils.getCommonDirs('components');
 
-    dirs.map(dir => {
-        const files = getFilesByDir(dir);
-        components = Object.assign(components, files);
-    });
+    components = Object.assign(components, ...dirs.map(dir => getFilesByDir(dir)));
 
     return components;
 }

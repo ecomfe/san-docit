@@ -1,9 +1,8 @@
+const fs = require('fs');
 const path = require('path');
 const globby = require('globby');
 
-const getCwd = () => {
-    return process.env.cwd || process.cwd();
-}
+const cwd = process.env.cwd || process.cwd();
 
 let routes = {};
 const getRoutes = () => {
@@ -11,7 +10,6 @@ const getRoutes = () => {
         return routes;
     }
 
-    const cwd = getCwd();
     const files = globby.sync('**/*.md', {
         expandDirectories: false,
         onlyFiles: false,
@@ -81,10 +79,20 @@ const treeBuild = (root, callback) => {
     };
 };
 
+const getCommonDirs = dir => {
+    const dirs = [
+        path.join(cwd, '.sandocit/', dir),
+        path.join(__dirname, '../plugins/', dir)
+    ];
+
+    return dirs.filter(dir => fs.existsSync(dir));
+}
+
 module.exports = {
-    getCwd,
+    cwd,
     getRoutes,
     getRoutesImportStr,
     treeBuild,
-    treeWalk
+    treeWalk,
+    getCommonDirs
 }

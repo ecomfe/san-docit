@@ -55,6 +55,10 @@ export default {
             this.hashs.push(dom.id);
         });
 
+        const len = this.hashs.length;
+        this.postions[len] = Number.MAX_VALUE;
+        this.hashs[len] = this.hashs[this.hashs.length - 1];
+
         const toc = this.data.get('toc');
         if (toc && toc.children && toc.children.length > 0) {
             this.data.set('selectedNodes', [toc.children[0]]);
@@ -74,7 +78,7 @@ export default {
         const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
         const index = this.postions.findIndex(pos => pos >= scrollTop);
 
-        if (index !== undefined) {
+        if (index !== -1) {
             this.changeSelected(this.hashs[index]);
         }
     },

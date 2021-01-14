@@ -5,6 +5,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const utils = require('./utils');
 const loadHtml = require('../packages/markdown-loader/loadHtml');
 const loadToc = require('../packages/markdown-loader/loadToc');
 
@@ -50,6 +51,7 @@ module.exports = (name, file) => {
         template: path.join(__dirname, '../index.ejs'),
         filename: name + '.html',
         chunks: ['main'],
+        favicon: utils.getCommonDirs('public/favicon.ico')[0],
         // SSR：暂不支持，因 `self` 组件 和 `san-router` 不支持
         // templateParameters: Object.assign(config, {
         //     bodyHtmlSnippet: getSSRHTML(SAN_DOCIT),

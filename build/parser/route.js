@@ -2,7 +2,7 @@ const globby = require('globby');
 
 const utils = require('../utils');
 
-const cwd = utils.getCwd();
+const cwd = utils.cwd;
 
 let routes = {};
 const getRoutes = () => {
