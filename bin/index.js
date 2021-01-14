@@ -1,7 +1,5 @@
 #! /usr/bin/env node
 
-require('@babel/register')({});
-
 const program = require('commander');
 const globby = require('globby');
 const semver = require('semver');

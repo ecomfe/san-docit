@@ -33,7 +33,7 @@ const parseRouter = (root, callback) => {
     root.children.forEach(item => {
         callback(item);
 
-        if (item.children) {
+        if (item && item.children) {
             parseRouter(item, callback);
         }
     });
@@ -41,7 +41,7 @@ const parseRouter = (root, callback) => {
 
 // router.add 注册路由
 Object.keys(sidebar).forEach(name => {
-    parseRouter(sidebar[name], node => addRouter(node.path || ''));
+    parseRouter(sidebar[name], node => node && node.path && addRouter(node.path));
 });
 
 router.setMode('html5');

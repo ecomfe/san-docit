@@ -118,6 +118,9 @@ module.exports = function () {
             }),
             new webpack.DefinePlugin({
                 SAN_DOCIT: JSON.stringify(config)
+            }),
+            new webpack.ProgressPlugin({
+                profile: false
             })
         ]
     };

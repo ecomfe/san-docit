@@ -1,11 +1,10 @@
 <template>
-    <li s-if="treeNode.path || treeNode.title" class="treeNode {{isActive ? 'active' : ''}}" >
-        <router-link s-if="treeNode.path" to="{{treeNode.path}}">{{treeNode.title}}</router-link>
-        <!--<a s-if="treeNode.path" href="{{treeNode.path}}">{{treeNode.title}}</a>-->
-        <a s-else-if="treeNode.hash" href="{{hash}}">{{treeNode.title}}</a>
-        <span s-else>{{treeNode.title}}</span>
+    <li class="treeNode {{isActive ? 'active' : ''}}" >
+        <slot var-treeNode="treeNode"></slot>
         <ul s-if="treeNode.children">
-            <tree-node s-for="node in treeNode.children" treeNode="{{node}}"></tree-node>
+            <tree-node s-for="node in treeNode.children" treeNode="{{node}}" selectedNodes="{{selectedNodes}}">
+                <slot var-treeNode="treeNode"></slot>
+            </tree-node>
         </ul>
     </li>
     
@@ -13,42 +12,30 @@
 
 <script>
 import {DataTypes} from 'san';
-import {Link} from 'san-router';
-import hub from '../common/hub';
 
 export default {
     components: {
-        'router-link': Link,
         'tree-node': 'self'
     },
     dataTypes: {
-        treeNode: DataTypes.object
+        treeNode: DataTypes.object,
+        selectedNodes: DataTypes.array
     },
     initData() {
         return {
-            isActive: false,
-            hash: ''
+            isActive: false
         };
     },
     inited() {
-        hub.on('RouterChanged', this.isActive.bind(this))
-    },
-    attached() {
-        const treeNode = this.data.get('treeNode');
-        const hash = location.pathname + '#' + treeNode.hash;
-        this.data.set('hash', hash);
-    },
-    isActive(e) {
-        const treeNode = this.data.get('treeNode');
-        const isActive = treeNode.path === e.path;
+        this.watch('selectedNodes', val => {
+            const treeNode = this.data.get('treeNode');
+            let finded = val.find(item => item === treeNode);
 
-        if (isActive !== this.data.get('isActive')) {
-            this.data.set('isActive', isActive);
-        }
+            const isActive = finded !== undefined;
+            if (isActive !== this.data.get('isActive')) {
+                this.data.set('isActive', isActive);
+            }
+        });
     }
 };
 </script>
-
-<style lang="less" scoped>
-
-</style>

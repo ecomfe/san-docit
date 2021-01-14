@@ -3,7 +3,9 @@
         <tree-node
             s-for="treeNode in treeData.children"
             treeNode="{{treeNode}}"
+            selectedNodes="{{selectedNodes}}"
         >
+            <slot var-treeNode="treeNode"></slot>
         </tree-node>
     </ul>
 </template>
@@ -17,15 +19,8 @@ export default {
         'tree-node': treeNode
     },
     dataTypes: {
-        treeData: DataTypes.object
-    },
-    created() {
-        const treeData = this.data.get('treeData');
-        console.log('treeData:', treeData);
+        treeData: DataTypes.object,
+        selectedNodes: DataTypes.array
     }
 };
 </script>
-
-<style lang="less" scoped>
-
-</style>

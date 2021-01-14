@@ -1,14 +1,20 @@
 <template>
     <article id="content">
-        <div id="router-view" class="router-view"></div>
+        <div id="router-view" class="router-view" s-ref="view"></div>
         <aside class="toc">
-            <tree treeData="{{toc}}"></tree>
+            <tree treeData="{{toc}}" selectedNodes="{{selectedNodes}}">
+                <a href="{{getHash(treeNode.hash)}}">{{treeNode.title}}</a>
+            </tree>
         </aside>
     </article>
 </template>
 
 <script>
+import on from 'san/src/browser/on';
+import un from 'san/src/browser/un';
+
 import tree from './tree';
+import utils from '../common/utils';
 
 export default {
     components: {
@@ -16,15 +22,79 @@ export default {
     },
     initData() {
         return {
-            toc: {}
+            toc: {},
+            selectedNodes: []
         };
     },
     inited() {
         // router 子组件无法通过组件事件或DOM树向上传递事件
         global.hub.on('changed', this.onChanged.bind(this));
+
+        this.__onScroll = this.onScroll.bind(this);
+        on(global, 'scroll', this.__onScroll);
+    },
+    getHash(hash) {
+        return location.pathname + '#' + hash;
     },
     onChanged(evt) {
         this.data.set('toc', evt);
+
+        this.nextTick(this.initScroll.bind(this));
+    },
+    initScroll() {
+        const view = this.ref('view');
+        const doms = view.querySelectorAll('H2, H3');
+
+        if (!doms) {
+            return;
+        }
+        this.postions = [];
+        this.hashs = [];
+        doms.forEach(dom => {
+            this.postions.push(dom.offsetTop);
+            this.hashs.push(dom.id);
+        });
+
+        const toc = this.data.get('toc');
+        if (toc && toc.children && toc.children.length > 0) {
+            this.data.set('selectedNodes', [toc.children[0]]);
+        }
+    },
+    onScroll(evt) {
+        if (this.timer) {
+            global.clearTimeout(this.timer);
+        }
+
+        this.timer = global.setTimeout(() => {
+            this.scrollPostion();
+            this.timer = null;
+        }, 10);
+    },
+    scrollPostion() {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const index = this.postions.findIndex(pos => pos >= scrollTop);
+
+        if (index !== undefined) {
+            this.changeSelected(this.hashs[index]);
+        }
+    },
+    changeSelected(hash) {
+        if (this.selected === hash) {
+            return;
+        }
+        const selected = [];
+        const toc = this.data.get('toc');
+        utils.treeWalk(toc, item => {
+            if (item.hash === hash) {
+                selected.push(item);
+            }
+        });
+        this.data.set('selectedNodes', selected);
+
+        this.selected = hash;
+    },
+    detached() {
+        un(global, 'scroll', this.__onScroll);
     }
 }
 </script>

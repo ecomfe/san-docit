@@ -26,7 +26,7 @@ module.exports = {
                         '/simple/',
                         {
                             title: 'title2',
-                            children: ['/simple/']
+                            children: ['/simple/', '/codebox/']
                         }
                     ]
                 }

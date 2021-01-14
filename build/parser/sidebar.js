@@ -51,7 +51,6 @@ const buildTreeNode = node => {
 };
 
 module.exports = sidebar => {
-    debugger;
     const tree = {};
     Object.keys(sidebar).map(name => {
         tree[name] = utils.treeBuild(sidebar[name], buildTreeNode);
