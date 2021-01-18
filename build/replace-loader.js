@@ -18,7 +18,7 @@ module.exports = function() {
             replace: replaceMap['ROUTES_IMPORT']
         }
     }, {
-        test: /common\/registerComponents\.js/,
+        test: /common\/register-components\.js/,
         loader: 'string-replace-loader',
         options: {
             multiple: [{
@@ -29,6 +29,21 @@ module.exports = function() {
                 replace: replaceMap['MAP_COMPONENTS']
             }]
             
+        }
+    }, {
+        test: /server-entry\.js/,
+        loader: 'string-replace-loader',
+        options: {
+            multiple: [{
+                search: 'ROUTES_IMPORT',
+                replace: replaceMap['ROUTES_IMPORT']
+            }, {
+                search: 'IMPORT_COMPONENTS',
+                replace: replaceMap['IMPORT_COMPONENTS']
+            }, {
+                search: 'MAP_COMPONENTS',
+                replace: replaceMap['MAP_COMPONENTS']
+            }]
         }
     }];
 }

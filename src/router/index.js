@@ -1,17 +1,17 @@
 import {router} from 'san-router';
 import NProgress from 'NProgress';
 import hub from '../common/hub';
+import utils from '../common/utils';
 import NotFound from '../views/not-found.san';
 
 import 'nprogress/nprogress.css';
 
 // Webpack Inject
 const config = process.env.SAN_DOCIT;
-const baseUrl = process.env.BASE_URL;
 const components = ROUTES_IMPORT; 
 
+const base = utils.base;
 const sidebar = config.themeConfig.sidebar;
-const base = baseUrl.length > 1 ? baseUrl.slice(0, -1) : baseUrl;
 
 const addRouter = path => {
     if (components[path]) {

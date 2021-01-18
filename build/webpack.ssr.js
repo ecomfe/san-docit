@@ -1,5 +1,7 @@
-const SanLoaderPlugin = require('san-loader/lib/plugin');
 const path = require('path');
+const webpack = require('webpack');
+const SanLoaderPlugin = require('san-loader/lib/plugin');
+const config = require('./config').load();
 
 const replaceLoader = require('./replace-loader');
 
@@ -9,7 +11,7 @@ function resolve(dir) {
 
 module.exports = {
     entry: resolve('src/server-entry.js'),
-    devtool: false,
+    devtool: '',
     target: 'node',
     output: {
         path: resolve('dist'),
@@ -41,6 +43,12 @@ module.exports = {
         extensions: ['.js', '.jsx', '.san', '.json'],
     },
     plugins: [
-        new SanLoaderPlugin()
+        new SanLoaderPlugin(),
+        new webpack.DefinePlugin({
+            'process.env': {
+                SAN_DOCIT: JSON.stringify(config),
+                BASE_URL: `"${config.base}"`
+            }
+        })
     ]
 };

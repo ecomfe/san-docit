@@ -1,6 +1,6 @@
 <template>
     <article id="content">
-        <div id="router-view" class="router-view" s-ref="view"></div>
+        <div id="router-view" class="router-view" s-ref="view">{{docit.content | raw}}</div>
         <aside class="toc">
             <tree treeData="{{toc}}" selectedNodes="{{selectedNodes}}">
                 <a href="{{getHash(treeNode.hash)}}">{{treeNode.title}}</a>
@@ -27,18 +27,35 @@ export default {
         };
     },
     inited() {
+        let toc = {};
+        // SSR 时，多实例可从最外层传入docit；client-entry时，没有多实例，从全局变量取
+        const docit = this.data.get('docit');
+        if (docit && docit.toc) {
+            toc = docit.toc;
+        }
+        else if (global.SAN_DOCIT && global.SAN_DOCIT.toc) {
+            toc = global.SAN_DOCIT.toc;
+        }
+
+        this.data.set('toc', toc);
+    },
+    attached() {
         // router 子组件无法通过组件事件或DOM树向上传递事件
         global.hub.on('changed', this.onChanged.bind(this));
 
         this.__onScroll = this.onScroll.bind(this);
         on(global, 'scroll', this.__onScroll);
+
+        this.initScroll();
     },
     getHash(hash) {
-        return location.pathname + '#' + hash;
+        const docit = this.data.get('docit');
+        const pathname = docit.pathname ? utils.base + docit.pathname : location.pathname;
+        return pathname + '#' + hash;
     },
-    onChanged(evt) {
-        this.data.set('toc', evt);
-
+    onChanged(val) {
+        this.data.set('toc', val);
+        
         this.nextTick(this.initScroll.bind(this));
     },
     initScroll() {

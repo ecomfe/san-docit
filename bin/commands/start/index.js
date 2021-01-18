@@ -4,12 +4,19 @@
  * @date 2020-12-20
  */
 
+const path = require('path');
+
 exports.command = 'start';
 
 exports.description = 'Start compile ...';
 
 exports.args = [
-    ['--cwd [value]', 'override current working directory', process.cwd()],
+    ['--cwd [value]', 'override current working directory', value => {
+        if (!value || value.startsWith('/')) {
+            return value;
+        }
+        return path.join(process.cwd(), value);
+    }],
     ['--mode [value]', 'specify env mode (default: development)', 'production']
 ];
 

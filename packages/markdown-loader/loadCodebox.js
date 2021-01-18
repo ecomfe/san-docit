@@ -48,8 +48,7 @@ ${codePlaceHolder}
     return code.replace(matches[0], result);
 }
 
-module.exports = function(content) {
-    const file = this.resourcePath;
+module.exports = function(content, resourcePath) {
 
     const defaultValue = {
         codeboxContent: content,
@@ -72,7 +71,7 @@ module.exports = function(content) {
     let importStr = '';
     let importCompMap = {};
     Object.keys(codePreviewMap).forEach((name, index) => {
-        importStr += `import ${name} from '${file}?codebox=${index}';`;
+        importStr += `import ${name} from '${resourcePath}?codebox=${index}';`;
         importCompMap[codePreviewMap[name]] = `%${name}%`;
     });
 

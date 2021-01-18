@@ -1,3 +1,10 @@
+
+const base = (() => {
+    const baseUrl = process.env.BASE_URL;
+    const base = baseUrl.length > 1 ? baseUrl.slice(0, -1) : baseUrl;
+    return base;
+})();
+
 const treeWalk = (root, callback) => {
     if (!root) {
         return;
@@ -17,5 +24,6 @@ const treeWalk = (root, callback) => {
 }
 
 export default {
+    base,
     treeWalk
 };

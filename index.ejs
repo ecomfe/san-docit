@@ -12,6 +12,12 @@
     </head>
     <body>
         <% if (htmlWebpackPlugin.options.bodyHtmlSnippet) { %> <%= htmlWebpackPlugin.options.bodyHtmlSnippet %><% } %>
-        <div id="app"></div>
+        
+        <div id="app">
+            <%
+            if (htmlWebpackPlugin.options.ssrHtmlSnippet) { %>
+            <%= htmlWebpackPlugin.options.ssrHtmlSnippet %><%
+            } %>
+        </div>
     </body>
 </html>

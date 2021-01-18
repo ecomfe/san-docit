@@ -1,5 +1,6 @@
 import {Component} from 'san';
 import index from './index';
+import router from './router';
 
 export default class Index extends Component {
     static components = {
@@ -11,12 +12,12 @@ export default class Index extends Component {
             return process.env.SAN_DOCIT;
         }
     };
+    attached() {
+        // router.start();
+    }
 };
 
-const app = new Index({
+// 组件反解：传入el
+new Index({
     el: document.getElementById('site')
 });
-
-if (process.env.NODE_ENV !== 'production') {
-    app.attach(document.getElementById('app'));
-}

@@ -18,7 +18,8 @@
         </header>
         <aside id="sidebar">
             <tree treeData="{{sidebar}}" selectedNodes="{{selectedNodes}}">
-                <router-link s-if="treeNode.path" to="{{getPath(treeNode.path)}}">{{treeNode.title}}</router-link>
+                <!--<a s-if="treeNode.path" data-href="{{getPath(treeNode.path)}}" on-click="onClick">{{treeNode.title}}</a>-->
+                <router-link s-if="treeNode.path" to="{{getPath(treeNode.path)}}"></router-link>
                 <span s-else>{{treeNode.title}}</span>
             </tree>
         </aside>
@@ -28,7 +29,7 @@
 
 <script>
 import {DataTypes} from 'san';
-import {Link} from 'san-router';
+import {Link} from '../common/san-router';
 import contentArea from './content-area';
 import tree from './tree';
 import hub from '../common/hub';
@@ -47,7 +48,7 @@ export default {
         sidebar() {
             const docit = this.data.get('docit');
             const sidebar = docit.themeConfig.sidebar;
-            const current = location.pathname;
+            const current = docit.pathname || location.pathname;
 
             if (sidebar[current]) {
                 return sidebar[current];
@@ -74,18 +75,22 @@ export default {
     },
     isActive(e) {
         const selected = [];
+        const base = utils.base;
         const sidebar = this.data.get('sidebar');
         utils.treeWalk(sidebar, item => {
-            if (item.path === e.path) {
+            if (base + item.path === e.path) {
                 selected.push(item);
             }
         });
         this.data.set('selectedNodes', selected);
     },
     getPath(path) {
-        const baseUrl = process.env.BASE_URL;
-        const base = baseUrl.length > 1 ? baseUrl.slice(0, -1) : baseUrl;
-        return base + path;
+        return utils.base + path;
+    },
+    onClick(e) {
+        const target = e.target;
+        const href = target.getAttribute('data-href');
+        global.history.pushState({}, '', href);
     }
 }
 </script>

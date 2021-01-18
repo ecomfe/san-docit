@@ -4,6 +4,7 @@ const program = require('commander');
 const globby = require('globby');
 const semver = require('semver');
 const chalk = require('chalk');
+const option = require('./option');
 
 const buildCommand = async (route) => {
     const {command, description, args, run} = await require(route);
@@ -12,7 +13,10 @@ const buildCommand = async (route) => {
     commandConfig.description(description);
     args.forEach(option => commandConfig.option(option[0], option[1], option[2]));
 
-    commandConfig.action(run);
+    commandConfig.action((cmd) => {
+        option.run(cmd);
+        run(cmd);
+    });
 };
 
 const main = async () => {

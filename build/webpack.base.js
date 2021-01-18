@@ -5,14 +5,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SanLoaderPlugin = require('san-loader/lib/plugin');
 const utils = require('./utils');
 
-function resolve(dir) {
-    return path.join(__dirname, '..', dir);
-}
-
-function resolveDocit(dir) {
-    return path.join(utils.cwd, '.sandocit', dir);
-}
-
 module.exports = function () {
     const config = require('./config').load();
 
@@ -22,11 +14,8 @@ module.exports = function () {
         devtool: '',
         mode: 'development',
         context: __dirname,
-        entry: {
-            main: resolve('src/main.js')
-        },
         output: {
-            path: resolveDocit('dist'),
+            path: utils.resolveDocit('dist'),
             filename: 'static/js/[name].js',
             chunkFilename: 'static/js/[name].js',
             publicPath: config.base
@@ -86,7 +75,7 @@ module.exports = function () {
                     test: /\.less$/,
                     use: [
                         'style-loader',
-                        'css-loader',
+                        'css-loader', 
                         {
                             loader: 'less-loader',
                             options: {
@@ -113,7 +102,7 @@ module.exports = function () {
             new CopyWebpackPlugin({
                 patterns: utils.getCommonDirs('public').map(dir => ({
                     from: dir,
-                    to: resolveDocit('dist')
+                    to: utils.resolveDocit('dist')
                 }))
             }),
             new webpack.DefinePlugin({

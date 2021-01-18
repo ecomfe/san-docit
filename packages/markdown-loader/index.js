@@ -38,7 +38,7 @@ module.exports = function(content) {
         return codebox;
     }
     
-    let {codeboxContent, importStr, importComp} = loadCodebox.call(this, content);
+    let {codeboxContent, importStr, importComp} = loadCodebox(content, this.resourcePath);
 
     const toc = loadToc(content);
     const html = loadHtml(codeboxContent || content);

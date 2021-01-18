@@ -24,7 +24,7 @@ const startDevServer = () => {
 
     // create server
     const defaultDevServer = {
-        port: 8888,
+        port: 8080,
         contentBase: path.resolve('.'),
         watchContentBase: false,
         publicPath: config.base
@@ -44,9 +44,8 @@ const startDevServer = () => {
 module.exports = cmd => {
     const {cwd} = cmd;
     let server = startDevServer(cwd);
-
+    debugger;
     let settingsHash = computeSettingsHash(cwd);
-    let nextStart = null;
 
     fs.watch(path.join(cwd, '.sandocit/config.js'),
         () => {

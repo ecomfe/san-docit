@@ -11,10 +11,17 @@ const sidebar = require('./parser/sidebar');
 
 const defaultConfig = require('../plugins/config');
 
-exports.load = () => {
-    const configPath = path.resolve(utils.cwd, '.sandocit/config.js');
+let config = null;
 
-    let config = defaultConfig;
+exports.load = () => {
+    if (config) {
+        return config;
+    }
+
+    const configPath = path.resolve(utils.cwd, '.sandocit/config.js');
+    console.log('configPath:', configPath);
+
+    config = defaultConfig;
 
     if (fs.existsSync(configPath)) {
         const customConfig = require(configPath);
@@ -27,6 +34,6 @@ exports.load = () => {
         config.themeConfig.sidebar = sidebar(config.themeConfig.sidebar, config);
     }
 
-    debug('loadConfig:', config.themeConfig.sidebar);
+    debug('loadConfig:', JSON.stringify(config));
     return config;
 };

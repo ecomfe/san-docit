@@ -14,8 +14,6 @@ class App extends SanComponent {
         }
     };
     attached() {
-        // router.listen(this.onChange.bind(this));
-
         router.start();
     }
 }

@@ -13,6 +13,7 @@
 <script>
 import {DataTypes} from 'san';
 import treeNode from './tree-node';
+import dom from '../common/dom';
 
 export default {
     components: {
@@ -21,6 +22,23 @@ export default {
     dataTypes: {
         treeData: DataTypes.object,
         selectedNodes: DataTypes.array
+    },
+    attached() {
+        this.watch('selectedNodes', val => {
+            const list = this.el.querySelectorAll('li[data-id]');
+            for (let i = 0; i < list.length; i++) {
+                const el = list[i];
+                const finded = val.find(item => {
+                    console.log(el);
+                    return el.getAttribute('data-id') === (item.path || item.hash);
+                });
+
+                const isActive = finded !== undefined;
+                isActive
+                    ? dom.addClass(el, 'active')
+                    : dom.removeClass(el, 'active');
+            }
+        });
     }
 };
 </script>

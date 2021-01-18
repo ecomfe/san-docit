@@ -1,8 +1,23 @@
 const fs = require('fs');
 const path = require('path');
 const globby = require('globby');
+const option = require('../bin/option');
 
-const cwd = process.env.cwd || process.cwd();
+// const cwd = (() => {
+//     const cwdEnv = process.env.CWD;
+//     const cwdProcess = process.cwd();
+//     return !cwdEnv ? cwdProcess : cwdEnv.startsWith('/') ? cwdEnv : path.join(cwdProcess, cwdEnv);
+// })();
+
+const cwd = option.getCwd();
+
+const resolve = dir => {
+    return path.join(__dirname, '..', dir);
+};
+
+const resolveDocit = dir => {
+    return path.join(cwd, '.sandocit', dir);
+};
 
 let routes = {};
 const getRoutes = () => {
@@ -10,6 +25,7 @@ const getRoutes = () => {
         return routes;
     }
 
+    console.log('Base: ', cwd);
     const files = globby.sync('**/*.md', {
         expandDirectories: false,
         onlyFiles: false,
@@ -90,6 +106,8 @@ const getCommonDirs = dir => {
 
 module.exports = {
     cwd,
+    resolve,
+    resolveDocit,
     getRoutes,
     getRoutesImportStr,
     treeBuild,
