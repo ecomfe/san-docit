@@ -81,7 +81,7 @@ const treeBuild = (root, callback) => {
         }
         else if (node.children) {
             return {
-                ...node,
+                ...callback(node),
                 ...treeBuild(node.children, callback)
             };
         }

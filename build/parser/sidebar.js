@@ -26,6 +26,11 @@ const buildTreeNode = node => {
         return;
     }
     const routePath = node.path || node;
+
+    if (!routePath || typeof routePath !== 'string') {
+        return node;
+    }
+
     const filename = getFileName(routePath);
 
     if (!filename) {

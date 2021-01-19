@@ -7,7 +7,7 @@
 
 #content {
     margin-top: 68px;
-    padding-left: 300px;
+    padding-left: 250px;
     padding-right: 24px;
 
     display: flex;
@@ -27,8 +27,13 @@
         padding: 10px 20px 20px;
         margin-left: 12px;
         margin-right: 270px;
+
+        &.hidden {
+            margin-right: 0;
+        }
     }
     .toc {
+        display: block;
         @width: 280px;
         flex: 0 0 @width;
         position: fixed;
@@ -36,9 +41,10 @@
         max-width: @width;
         min-width: @width;
         width: @width;
+        height: 100%;
         background-color: #fff;
         border-radius: @border-radius;
-        height: 100%;
+        font-size: 14px;
         overflow-y: scroll;
         & > ul {
             padding-left: 10px;
@@ -68,8 +74,11 @@
         top: 68px;
     }
 
+    &.hidden {
+        padding-left: 0;
+    }
+
     h1:target, h2:target, h3:target {
         padding-top: 70px;
     }
 }
-

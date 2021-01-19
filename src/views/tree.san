@@ -24,21 +24,27 @@ export default {
         selectedNodes: DataTypes.array
     },
     attached() {
-        this.watch('selectedNodes', val => {
-            const list = this.el.querySelectorAll('li[data-id]');
-            for (let i = 0; i < list.length; i++) {
-                const el = list[i];
-                const finded = val.find(item => {
-                    console.log(el);
-                    return el.getAttribute('data-id') === (item.path || item.hash);
-                });
+        this.watch('selectedNodes', this.active);
 
-                const isActive = finded !== undefined;
-                isActive
-                    ? dom.addClass(el, 'active')
-                    : dom.removeClass(el, 'active');
-            }
-        });
+        const selectedNodes = this.data.get('selectedNodes');
+        if (selectedNodes && selectedNodes.length > 0) {
+            this.active(selectedNodes);
+        }
+    },
+    active(val) {
+        const list = this.el.querySelectorAll('li[data-id]');
+        for (let i = 0; i < list.length; i++) {
+            const el = list[i];
+            const dataId = el.getAttribute('data-id');
+            const finded = val.find(item => {
+                return dataId === (item.path || item.hash);
+            });
+
+            const isActive = finded !== undefined;
+            isActive
+                ? dom.addClass(el, 'active')
+                : dom.removeClass(el, 'active');
+        }
     }
 };
 </script>

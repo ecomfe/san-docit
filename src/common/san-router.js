@@ -127,6 +127,8 @@
             + (sourceLoc.queryString ? '?' + sourceLoc.queryString : '');
     }
 
+    var isBrowser = typeof window !== 'undefined';
+
     function EventTarget() {
     }
 
@@ -204,6 +206,9 @@
      * @return {string}
      */
     function getHashLocation() {
+        if (!isBrowser) {
+            return '';
+        }
         // Firefox下`location.hash`存在自动解码的情况，
         // 比如hash的值是**abc%3def**，
         // 在Firefox下获取会成为**abc=def**
@@ -300,7 +305,7 @@
      * @return {string}
      */
     function getLocation() {
-        return location.pathname + location.search;
+        return isBrowser ? location.pathname + location.search : '';
     }
 
     /**
@@ -736,60 +741,62 @@
         return this;
     };
 
-    var router;
+    var router = new Router();
+
+    var Link = require('san').defineComponent({
+        template: '<a href="{{hrefPrefix}}{{href}}" onclick="return false;" on-click="clicker($event)" '
+            + 'target="{{target}}" class="{{isActive ? activeClass : \'\'}}"><slot/></a>',
+
+        clicker: function (e) {
+            var href = this.data.get('href');
+
+            if (typeof href === 'string') {
+                router.locator.redirect(href.replace(/^#/, ''));
+            }
+
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+            else {
+                e.returnValue = false;
+            }
+        },
+
+        inited: function () {
+            var me = this;
+            this.routeListener = function (e) {
+                me.data.set('isActive', e.url === me.data.get('href'));
+            };
+
+            this.routeListener({url: router.locator.current});
+            router.listen(this.routeListener);
+        },
+
+        disposed: function () {
+            router.unlisten(this.routeListener);
+            this.routeListener = null;
+        },
+
+        initData: function () {
+            return {
+                isActive: false,
+                hrefPrefix: router.mode === 'hash' ? '#' : ''
+            };
+        },
+
+        computed: {
+            href: function () {
+                var url = this.data.get('to') || '';
+                return resolveURL(url, router.locator.current);
+            }
+        }
+    })
 
     var main = {
         /**
          * 路由链接的 San 组件
          */
-        Link: {
-            template: '<a href="{{hrefPrefix}}{{href}}" onclick="return false;" on-click="clicker($event)" '
-                + 'target="{{target}}" class="{{isActive ? activeClass : \'\'}}"><slot/></a>',
-
-            clicker: function (e) {
-                var href = this.data.get('href');
-
-                if (typeof href === 'string') {
-                    router.locator.redirect(href.replace(/^#/, ''));
-                }
-
-                if (e.preventDefault) {
-                    e.preventDefault();
-                }
-                else {
-                    e.returnValue = false;
-                }
-            },
-
-            inited: function () {
-                var me = this;
-                this.routeListener = function (e) {
-                    me.data.set('isActive', e.url === me.data.get('href'));
-                };
-
-                this.routeListener({url: router.locator.current});
-                router.listen(this.routeListener);
-            },
-
-            disposed: function () {
-                router.unlisten(this.routeListener);
-                this.routeListener = null;
-            },
-
-            initData: function () {
-                return {
-                    isActive: false,
-                    hrefPrefix: router.mode === 'hash' ? '#' : ''
-                };
-            },
-
-            computed: {
-                href: function () {
-                    var url = this.data.get('to') || '';
-                    return resolveURL(url, router.locator.current);
-                }
-            }
-        },
+        Link: Link,
 
         router: router,
         Router: Router,

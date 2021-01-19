@@ -14,7 +14,7 @@ const removeClass = (dom, name) => {
         return;
     }
     const reg = new RegExp('(\\s|^)' + name + '(\\s|$)');
-    dom.className = dom.className.replace(reg, ' ');
+    dom.className = dom.className.replace(reg, '');
 };
 
 export default {

@@ -29,7 +29,6 @@ export default {
     },
     inited() {
         this.watch('selectedNodes', val => {
-            console.log('selectedNodes:', val);
             const treeNode = this.data.get('treeNode');
             let finded = val.find(item => item === treeNode);
 

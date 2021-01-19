@@ -1,10 +1,12 @@
-import {router} from 'san-router';
+import {router} from '../common/san-router';
 import NProgress from 'NProgress';
 import hub from '../common/hub';
 import utils from '../common/utils';
 import NotFound from '../views/not-found.san';
 
 import 'nprogress/nprogress.css';
+
+router.setMode('html5');
 
 // Webpack Inject
 const config = process.env.SAN_DOCIT;
@@ -59,8 +61,6 @@ routes.forEach(route => {
         target: '#router-view'
     });
 });
-
-router.setMode('html5');
 
 router.listen(function(e) {
     if (!components[e.path.substr(base.length)]) {

@@ -1,7 +1,9 @@
 <template>
     <article id="content">
-        <div id="router-view" class="router-view" s-ref="view">{{docit.content | raw}}</div>
-        <aside class="toc">
+        <div id="router-view" class="router-view {{isShowToc ? '' : 'hidden'}}" s-ref="view">
+                {{docit.content | raw}}
+        </div>
+        <aside class="toc" s-if="isShowToc">
             <tree treeData="{{toc}}" selectedNodes="{{selectedNodes}}">
                 <a href="{{getHash(treeNode.hash)}}">{{treeNode.title}}</a>
             </tree>
@@ -23,12 +25,14 @@ export default {
     initData() {
         return {
             toc: {},
+            isShowToc: true,
+            isActiveToc: true, // 数据较少时，不激活
             selectedNodes: []
         };
     },
     inited() {
         let toc = {};
-        // SSR 时，多实例可从最外层传入docit；client-entry时，没有多实例，从全局变量取
+        // SSR 时，可从最外层传入docit；client-entry时，从全局变量取
         const docit = this.data.get('docit');
         if (docit && docit.toc) {
             toc = docit.toc;
@@ -44,19 +48,59 @@ export default {
         global.hub.on('changed', this.onChanged.bind(this));
 
         this.__onScroll = this.onScroll.bind(this);
+        this.__onResize = this.onResize.bind(this);
         on(global, 'scroll', this.__onScroll);
+        on(global, 'resize', this.__onResize);
 
         this.initScroll();
+        this.resize();
+
+        // SSR 时默认存在 HTML，清空后由 Router 渲染
+        this.ref('view').innerHTML = '';
     },
     getHash(hash) {
         const docit = this.data.get('docit');
         const pathname = docit.pathname ? utils.base + docit.pathname : location.pathname;
         return pathname + '#' + hash;
     },
-    onChanged(val) {
-        this.data.set('toc', val);
+    onChanged(toc) {
+        this.data.set('toc', toc);
         
+        this.nextTick(this.initResize.bind(this));
         this.nextTick(this.initScroll.bind(this));
+    },
+    initResize() {
+        const toc = this.data.get('toc');
+
+        let count = 0;
+        utils.treeWalk(toc, () => count++);
+
+        this.data.set('isActiveToc', count > 2);
+        this.data.set('isShowToc', count > 2);
+    },
+    onResize() {
+        if (this.timer) {
+            global.clearTimeout(this.timer);
+        }
+
+        this.timer = global.setTimeout(() => {
+            this.resize();
+            this.timer = null;
+        }, 10);
+    },
+    resize() {
+        const width = document.documentElement.clientWidth || document.body.clientWidth;
+        const isShowToc = width > 1000;
+
+        if (isShowToc !== this.data.get('isShowToc') && this.data.get('isActiveToc')) {
+            this.data.set('isShowToc', isShowToc);
+        }
+
+        const isShowSidebar = width > 800;
+
+        if (isShowSidebar !== this.parent.data.get('isShowSidebar')) {
+            this.parent.data.set('isShowSidebar', isShowSidebar);
+        }
     },
     initScroll() {
         const view = this.ref('view');
@@ -116,6 +160,7 @@ export default {
     },
     detached() {
         un(global, 'scroll', this.__onScroll);
+        un(global, 'resize', this.__onResize);
     }
 }
 </script>

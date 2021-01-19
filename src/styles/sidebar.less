@@ -1,6 +1,6 @@
-aside#sidebar {
+.sidebar {
     background-color: #fff;
-    width: 300px;
+    width: 250px;
     position: fixed;
     z-index: 10;
     margin: 0;
@@ -21,36 +21,48 @@ aside#sidebar {
     }
     li {
         line-height: 40px;
-        padding: 0 0 0 @li_right;
         font-weight: 600;
         text-overflow: ellipsis;
+        span {
+            padding: 0 0 0 @li_right;
+        }
+
         a {
+            padding: 0 @li_right;
             color: #314659;
+            display: block;
 
             &:hover {
                 color: @primary-color;
             }
         }
 
-        &.active {
+        &.active > a {
             background-color: #e6f7ff;
             color: @primary-color;
-            border-right: 4px solid @primary-color;
-            a {
-                color: @primary-color;
-            }
         }
     }
     li ul {
-        margin-left: -@li_right;
-        @li_right_secondary: @li_right * 2;
         & > li {
-            padding-left: @li_right_secondary;
             font-weight: normal;
+
+            a, span {
+                padding-left: @li_right * 2;
+            }
 
             ul {
                 & > li {
-                    padding-left: @li_right_secondary;
+                    a, span {
+                        padding-left: @li_right * 3;
+                    }
+
+                    ul {
+                        & > li {
+                            a, span {
+                                padding-left: @li_right * 4;
+                            }
+                        }
+                    }
                 }
             }
         }

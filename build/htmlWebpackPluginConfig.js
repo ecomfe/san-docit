@@ -56,7 +56,15 @@ module.exports = (name, file) => {
         filename: name + '.html',
         chunks: ['client-entry'],
         favicon: utils.getCommonDirs('public/favicon.ico')[0],
-        minify: false,
+        minify: {
+            collapseWhitespace: true,
+            keepClosingSlash: true,
+            removeComments: false,
+            removeRedundantAttributes: true,
+            removeScriptTypeAttributes: true,
+            removeStyleLinkTypeAttributes: true,
+            useShortDoctype: true
+        },
         templateParameters: Object.assign(config, {
             ssrHtmlSnippet: getSSRHTML(SAN_DOCIT),
             window: {

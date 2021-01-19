@@ -13,7 +13,7 @@ export default class Index extends Component {
         }
     };
     attached() {
-        // router.start();
+        router.start();
     }
 };
 
