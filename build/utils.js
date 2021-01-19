@@ -104,6 +104,22 @@ const getCommonDirs = dir => {
     return dirs.filter(dir => fs.existsSync(dir));
 }
 
+const headBuild = heads => {
+    if (!heads || !heads.length) {
+        return '';
+    }
+    const result = heads.map(head => {
+        const tag = head[0];
+        const attrs = head[1] || {};
+        const html = head[2] || '';
+        const values = Object.keys(attrs).map(key => {
+            return `${key}="${attrs[key]}"`;
+        });
+        return `<${tag} ${values.join(' ')}>${html}</${tag}>`;
+    });
+    return result.join('');
+};
+
 module.exports = {
     cwd,
     resolve,
@@ -112,5 +128,6 @@ module.exports = {
     getRoutesImportStr,
     treeBuild,
     treeWalk,
+    headBuild,
     getCommonDirs
 }

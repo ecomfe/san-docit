@@ -3,6 +3,9 @@
     <head>
         <meta charset="utf-8" />
         <title><%= htmlWebpackPlugin.options.title %></title>
+        <% if (htmlWebpackPlugin.options.headHtmlSnippet) { %>
+            <%= htmlWebpackPlugin.options.headHtmlSnippet %>
+        <% } %>
         <% if (htmlWebpackPlugin.options.window) { %>
         <script type="text/javascript">
         <% for (key in htmlWebpackPlugin.options.window) { %>

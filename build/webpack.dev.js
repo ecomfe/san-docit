@@ -29,6 +29,7 @@ module.exports = function () {
                 filename: 'index.html',
                 chunks: ['main'],
                 favicon: utils.getCommonDirs('public/favicon.ico')[0],
+                templateParameters: config,
                 ...config
             }),
             new webpack.DefinePlugin({

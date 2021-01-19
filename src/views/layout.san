@@ -2,7 +2,7 @@
     <div id="site">
         <header id="header">
             <a href="{{docit.base}}" class="navbar">
-                <img src="{{docit.base + 'logo.svg'}}" alt="Home" class="logo"/>
+                <img src="{{docit.base + docit.logo}}" alt="Home" class="logo"/>
                 <span>{{docit.title}}</span>
             </a>
             <ul>
@@ -36,8 +36,8 @@
 import {DataTypes} from 'san';
 import {Link} from '../common/san-router';
 import contentArea from './content-area';
-import tree from './tree';
-import drawer from './drawer';
+import tree from '../components/tree';
+import drawer from '../components/drawer';
 import hub from '../common/hub';
 import utils from '../common/utils';
 

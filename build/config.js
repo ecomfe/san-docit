@@ -30,6 +30,10 @@ exports.load = () => {
         delete require.cache[configPath];
     }
 
+    if (config.head) {
+        config.headHtmlSnippet = utils.headBuild(config.head);
+    }
+
     if (config.themeConfig && config.themeConfig.sidebar) {
         config.themeConfig.sidebar = sidebar(config.themeConfig.sidebar, config);
     }

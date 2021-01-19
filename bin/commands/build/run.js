@@ -5,20 +5,33 @@
  */
 
 const webpack = require('webpack');
-const webpackProd = require('../../../build/webpack.prod');
 
-module.exports = cmd => {
-    const configurations = webpackProd();
-
+const build = configurations => new Promise((resolve, reject) => {
     webpack(configurations, (err, stats) => {
-        if (err) {
-            // eslint-disable: no-console
-            console.error(err);
+        if (err || stats.hasErrors()) {
+            if (err) {
+                // eslint-disable: no-console
+                console.error(err);
+            }
+
+            if (stats && stats.hasErrors()) {
+                // eslint-disable: no-console
+                console.error(stats.toJson());
+            }
+
+            reject(err);
             process.exit(1);
         }
 
-        if (stats.hasErrors()) {
-            process.exit(1);
-        }
+        resolve();
     });
+});
+
+
+module.exports = async cmd => {
+    const webpackSSR = require('../../../build/webpack.ssr');
+    const webpackProd = require('../../../build/webpack.prod');
+
+    // await build(webpackSSR);
+    await build(webpackProd());
 };

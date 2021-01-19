@@ -40,6 +40,7 @@ function getProjectConfig(config) {
     return {
         title: config.title,
         base: config.base,
+        logo: config.logo,
         themeConfig: config.themeConfig
     };
 }
@@ -67,6 +68,7 @@ module.exports = (name, file) => {
         },
         templateParameters: Object.assign(config, {
             ssrHtmlSnippet: getSSRHTML(SAN_DOCIT),
+            headHtmlSnippet: config.head,
             window: {
                 SAN_DOCIT: {
                     toc: SAN_DOCIT.toc

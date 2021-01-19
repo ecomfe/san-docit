@@ -13,7 +13,6 @@
     display: flex;
     flex-direction: row;
 
-    background-color: #f9f9f9;
     min-height: calc(100% - 68px);
     .router-view {
         flex: 1 1 200px;
@@ -22,11 +21,9 @@
         color: @site-text-color;
         font-size: @font-size-base;
         line-height: 1.75;
-        background-color: #fff;
-        border-radius: @border-radius;
         padding: 10px 20px 20px;
         margin-left: 12px;
-        margin-right: 270px;
+        margin-right: 240px;
 
         &.hidden {
             margin-right: 0;
@@ -34,22 +31,22 @@
     }
     .toc {
         display: block;
-        @width: 280px;
+        @width: 250px;
         flex: 0 0 @width;
         position: fixed;
         right: 0;
         max-width: @width;
         min-width: @width;
         width: @width;
-        height: 100%;
-        background-color: #fff;
-        border-radius: @border-radius;
         font-size: 14px;
         overflow-y: scroll;
         & > ul {
-            padding-left: 10px;
+            padding-left: 0px;
+            border-left: 1px solid @site-border-color-split;
         }
         a {
+            display: block;
+            padding: 0 8px;
             color: @site-text-color;
             &:hover {
                 color: @primary-color;
@@ -57,16 +54,21 @@
         }
         .active > a {
             color: @primary-color;
+            border-left: 1px solid @primary-color;
+            margin-left: -1px;
         }
-        ul,
-        li {
+        ul, li {
             list-style-type: none;
         }
         li {
-            margin: 8px;
+            margin: 8px 0;
         }
         li ul {
-            padding-left: 8px;
+            padding-left: 0px;
+            
+            li > a {
+                padding-left: 24px;
+            }
         }
     }
     .fixed {

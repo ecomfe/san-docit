@@ -7,8 +7,10 @@
 const path = require('path');
 
 module.exports = {
-    title: 'San Docit',
     base: '/',
+    title: 'San Docit',
+    head: [],
+    logo: 'logo.svg',
 
     themeConfig: {
         nav: [],

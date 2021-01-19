@@ -41,6 +41,7 @@ module.exports = {
     },
     resolve: {
         extensions: ['.js', '.jsx', '.san', '.json'],
+        modules: ['node_modules', path.join(__dirname, '../node_modules')],
     },
     plugins: [
         new SanLoaderPlugin(),
