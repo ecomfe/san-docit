@@ -31,7 +31,7 @@ const buildTreeNode = node => {
         return node;
     }
 
-    const filename = getFileName(routePath);
+    const filename = node.filename || getFileName(routePath);
 
     if (!filename) {
         console.log(chalk.red(`File not exist: ${routePath}`));

@@ -55,7 +55,7 @@ module.exports = (name, file) => {
     const result = {
         template: path.join(__dirname, '../index.ejs'),
         filename: name + '.html',
-        chunks: ['client-entry'],
+        chunks: ['chunk-vendors', 'chunk-common', 'client-entry'],
         favicon: utils.getCommonDirs('public/favicon.ico')[0],
         minify: {
             collapseWhitespace: true,
@@ -68,7 +68,6 @@ module.exports = (name, file) => {
         },
         templateParameters: Object.assign(config, {
             ssrHtmlSnippet: getSSRHTML(SAN_DOCIT),
-            headHtmlSnippet: config.head,
             window: {
                 SAN_DOCIT: {
                     toc: SAN_DOCIT.toc

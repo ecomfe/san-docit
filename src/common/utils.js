@@ -1,7 +1,7 @@
 
 const base = (() => {
     const baseUrl = process.env.BASE_URL;
-    const base = baseUrl.length > 1 ? baseUrl.slice(0, -1) : baseUrl;
+    const base = baseUrl.length > 1 ? baseUrl.slice(0, -1) : '';
     return base;
 })();
 

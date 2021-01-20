@@ -525,6 +525,7 @@
         this.routes = [];
         this.routeAlives = [];
         this.listeners = [];
+        this.afterListeners = [];
 
 
         this.locatorRedirectHandler = getLocatorRedirectHandler(this);
@@ -540,6 +541,10 @@
         this.listeners.push(listener);
     };
 
+    Router.prototype.afterEach = function (listener) {
+        this.afterListeners.push(listener);
+    }
+
     /**
      * 移除路由监听器
      *
@@ -550,6 +555,13 @@
         while (len--) {
             if (this.listeners[len] === listener) {
                 this.listeners.splice(len, 1);
+            }
+        }
+
+        len = this.afterListeners.length;
+        while (len--) {
+            if (this.afterListeners[len] === listener) {
+                this.afterListeners.splice(len, 1);
             }
         }
     };
@@ -691,6 +703,10 @@
         this.routeAlives.push({
             component: component,
             id: routeItem.id
+        });
+
+        this.afterListeners.forEach(listener => {
+            listener.call(router, routeItem);
         });
     };
 

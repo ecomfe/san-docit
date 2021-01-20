@@ -17,6 +17,7 @@ exports.args = [
         }
         return path.join(process.cwd(), value);
     }],
+    ['--port [value]', 'specify dev port (default: 8080)', 8080],
     ['--mode [value]', 'specify env mode (default: development)', 'production']
 ];
 

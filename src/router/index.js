@@ -15,9 +15,17 @@ const components = ROUTES_IMPORT;
 const base = utils.base;
 const sidebar = config.themeConfig.sidebar;
 
-const addRouter = path => {
-    if (components[path]) {
-        const component = components[path];
+const addRouter = node => {
+    if (!node || !node.path) {
+        return;
+    }
+
+    const path = node.path;
+    let component = components[path]
+        ? components[path] : /\.js/.test(node.filename)
+        ? require(node.filename) : '';
+
+    if (component) {
         router.add({
             rule: base + path,
             Component: component,
@@ -45,8 +53,8 @@ const parseRouter = (root, callback) => {
 }
 
 // router.add 注册路由
-Object.keys(sidebar).forEach(name => {
-    parseRouter(sidebar[name], node => node && node.path && addRouter(node.path));
+Object.keys(sidebar).forEach(path => {
+    parseRouter(sidebar[path], node => addRouter(node));
 });
 
 const routes = [{
@@ -62,13 +70,13 @@ routes.forEach(route => {
     });
 });
 
-router.listen(function(e) {
-    if (!components[e.path.substr(base.length)]) {
-        // e.stop();
-        // this.locator.stop();
-        setTimeout(() => {this.locator.redirect(base + '/notfound/');}, 0);
-        return;
-    }
+router.listen(e => {
+    // if (!components[e.path.substr(base.length)]) {
+    //     // e.stop();
+    //     // this.locator.stop();
+    //     setTimeout(() => {this.locator.redirect(base + 'notfound/');}, 0);
+    //     return;
+    // }
     if (e.path === e.referrer) {
         e.stop();
         return;
@@ -83,7 +91,7 @@ router.listen(function(e) {
     hub.fire('RouterChanged', e);
 });
 
-global.hub.on('changed', () => {
+router.afterEach(e => {
     NProgress.done(true);
 });
 

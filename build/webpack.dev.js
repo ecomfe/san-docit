@@ -10,12 +10,12 @@ module.exports = function () {
     const config = require('./config').load();
     const baseWebpackConfig = require('./webpack.base')();
 
-    return merge(baseWebpackConfig, {
+    const webpackConfig = merge(baseWebpackConfig, {
         entry: {
             main: utils.resolve('src/main.js')
         },
         devServer: {
-            port: 8080,
+            port: utils.port || 8080,
             publicPath: config.base,
             before: function(app) {
                 app.use(history({
@@ -30,6 +30,7 @@ module.exports = function () {
                 chunks: ['main'],
                 favicon: utils.getCommonDirs('public/favicon.ico')[0],
                 templateParameters: config,
+                inlineSource: '.(js|css)$',
                 ...config
             }),
             new webpack.DefinePlugin({
@@ -39,4 +40,6 @@ module.exports = function () {
             })
         ]
     });
+
+    return webpackConfig;
 };

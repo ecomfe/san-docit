@@ -15,8 +15,9 @@ const build = configurations => new Promise((resolve, reject) => {
             }
 
             if (stats && stats.hasErrors()) {
+                const info = stats.toJson();
                 // eslint-disable: no-console
-                console.error(stats.toJson());
+                console.error(info.errors);
             }
 
             reject(err);

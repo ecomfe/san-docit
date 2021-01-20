@@ -27,7 +27,10 @@ const webpackConfig = merge(baseWebpackConfig, {
                     {
                         loader: 'less-loader',
                         options: {
-                            sourceMap: false
+                            sourceMap: false,
+                            lessOptions: {
+                                javascriptEnabled: true
+                            }
                         }
                     }
                 ]
@@ -37,7 +40,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     plugins: [
         new MiniCssExtractPlugin({
             filename: 'static/css/[name].css',
-            chunkFilename: 'static/css/[name].css',
+            chunkFilename: 'static/css/[name].css'
         }),
         new webpack.DefinePlugin({
             'process.env': {

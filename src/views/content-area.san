@@ -67,6 +67,8 @@ export default {
         this.data.set('toc', toc);
         
         this.nextTick(this.initScroll.bind(this));
+
+        this.resize();
     },
     getTocCount() {
         const toc = this.data.get('toc');
@@ -88,12 +90,10 @@ export default {
     },
     resize() {
         const width = document.documentElement.clientWidth || document.body.clientWidth;
-        const isShowToc = width > 1000;
+        const isShowToc = width > 1000 && this.getTocCount() > 2;
 
         if (isShowToc !== this.data.get('isShowToc')) {
-            if (!isShowToc || this.getTocCount() > 2) {
-                this.data.set('isShowToc', isShowToc);
-            }
+            this.data.set('isShowToc', isShowToc);
         }
 
         const isShowSidebar = width > 800;

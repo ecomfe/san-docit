@@ -10,6 +10,7 @@ const option = require('../bin/option');
 // })();
 
 const cwd = option.getCwd();
+const port = option.getCmd().port || 8080;
 
 const resolve = dir => {
     return path.join(__dirname, '..', dir);
@@ -45,26 +46,22 @@ const getRoutesImportStr = () => {
     return JSON.stringify(routesImport).replace(/("%|%")/mg, '');
 }
 
-const treeWalk = (root, before, after) => {
+const treeWalk = (root, callback) => {
     if (!root) {
         return;
     }
-    before(root, 0);
+    callback(root);
 
     if (!root.children) {
         return;
     }
     root.children.forEach(item => {
-        before(item, 1);
+        callback(item);
 
         if (item.children) {
-            treeWalk(item, before, after);
+            treeWalk(item, callback);
         }
-
-        after(item, 1);
     });
-
-    after(root, 0);
 }
 
 const treeBuild = (root, callback) => {
@@ -122,6 +119,7 @@ const headBuild = heads => {
 
 module.exports = {
     cwd,
+    port,
     resolve,
     resolveDocit,
     getRoutes,

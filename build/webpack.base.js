@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const Chain = require('webpack-chain');
 const {default: merge} = require('webpack-merge');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SanLoaderPlugin = require('san-loader/lib/plugin');
@@ -10,7 +11,7 @@ module.exports = function () {
 
     const replaceLoader = require('./replace-loader');
 
-    const webpackConfig = {
+    let webpackConfig = {
         devtool: '',
         mode: 'development',
         context: __dirname,
@@ -79,7 +80,10 @@ module.exports = function () {
                         {
                             loader: 'less-loader',
                             options: {
-                                sourceMap: false
+                                sourceMap: false,
+                                lessOptions: {
+                                    javascriptEnabled: true
+                                }
                             }
                         }
                     ]
@@ -95,7 +99,8 @@ module.exports = function () {
             ].concat(replaceLoader())
         },
         resolve: {
-            extensions: ['.js', '.jsx', '.san', '.json']
+            extensions: ['.js', '.jsx', '.san', '.json'],
+            modules: [path.join(process.cwd(), 'node_modules'), 'node_modules']
         },
         plugins: [
             new SanLoaderPlugin(),
@@ -122,6 +127,11 @@ module.exports = function () {
         if (customConfig) {
             webpackConfig = merge(webpackConfig, customConfig);
         }
+    }
+    if (typeof config.chainWebpack === 'function') {
+        const chainableConfig = new Chain();
+        config.chainWebpack(chainableConfig);
+        webpackConfig = merge(webpackConfig, chainableConfig.toConfig());
     }
 
     return webpackConfig;

@@ -4,6 +4,8 @@ import './styles/index.less';
 import './common/hub';
 import './common/register-components';
 
+THEMES_IMPORT
+
 export default class Index extends Component {
     static components = {
         layout
