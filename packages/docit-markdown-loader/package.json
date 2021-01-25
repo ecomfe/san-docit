@@ -1,24 +1,15 @@
 {
-    "name": "san-cli-markdown-loader",
-    "version": "0.1.0",
+    "name": "@san-docit/markdown-loader",
+    "version": "1.0.0",
     "description": "san markdown loader",
     "author": "ksky521",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/ecomfe/san-cli.git",
-        "directory": "packages/san-cli-markdown-loader"
-    },
-    "bugs": {
-        "url": "https://github.com/ecomfe/san-cli/issues"
-    },
-    "homepage": "https://ecomfe.github.io/san-cli",
     "license": "MIT",
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: run tests from root\" && exit 1"
     },
     "peerDependencies": {
-        "webpack": "^4.1.0"
+        "webpack": "^4.32.2"
     },
     "keywords": [
         "san",

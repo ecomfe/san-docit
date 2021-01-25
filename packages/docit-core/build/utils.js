@@ -86,14 +86,16 @@ const treeBuild = (root, callback) => {
     };
 };
 
-const getCommonDirs = dir => {
-    const dirs = [
-        path.join(cwd, '.sandocit/', dir),
-        path.join(__dirname, '../plugins/', dir)
-    ];
+const getCommonDirs = (() => {
+    const paths = require.resolve.paths('')
+        .filter(p => fs.existsSync(path.join(p, '@san-docit/plugins')))
+        .map(p => path.join(p, '@san-docit/plugins'));
 
-    return dirs.filter(dir => fs.existsSync(dir));
-}
+    paths.unshift(path.join(cwd, '.sandocit/'));
+
+    return dir => paths.filter(p => fs.existsSync(path.join(p, dir)))
+            .map(p => path.join(p, dir));
+})();
 
 const headBuild = heads => {
     if (!heads || !heads.length) {

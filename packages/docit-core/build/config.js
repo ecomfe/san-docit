@@ -9,7 +9,7 @@ const debug = require('debug')('san-docit');
 const utils = require('./utils');
 const sidebar = require('./parser/sidebar');
 
-const defaultConfig = require('../plugins/config');
+const defaultConfig = require('@san-docit/plugins/config');
 
 let config = null;
 

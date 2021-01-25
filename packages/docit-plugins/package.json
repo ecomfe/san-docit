@@ -1,0 +1,15 @@
+{
+    "name": "@san-docit/plugins",
+    "version": "1.0.0",
+    "description": "Default plugins for san-docit.",
+    "author": "ksky521",
+    "license": "MIT",
+    "main": "./index.js",
+    "scripts": {
+    },
+    "keywords": [
+        "san-docit"
+    ],
+    "dependencies": {
+    }
+}

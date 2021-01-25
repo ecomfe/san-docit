@@ -20,6 +20,7 @@ module.exports = {
 
         sidebar: {
             '/': [
+                '/',
                 '/simple/',
                 '/markdownit/',
                 '/codebox/',

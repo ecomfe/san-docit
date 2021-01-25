@@ -70,7 +70,8 @@ module.exports = function(content, resourcePath) {
 
     let importStr = '';
     let importCompMap = {};
-    Object.keys(codePreviewMap).forEach((name, index) => {
+    Object.keys(codePreviewMap).forEach((key, index) => {
+        const name = key.replace(/\//g, '_');
         importStr += `import ${name} from '${resourcePath}?codebox=${index}';`;
         importCompMap[codePreviewMap[name]] = `%${name}%`;
     });

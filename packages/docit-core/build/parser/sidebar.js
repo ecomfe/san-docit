@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
 const utils = require('../utils');
-const loadTitle = require('../../packages/markdown-loader/loadTitle');
+const loadTitle = require('@san-docit/markdown-loader/loadTitle');
 
 const getFileName = node => {
     let nameArr = [node, node + 'README.md'];

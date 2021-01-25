@@ -29,7 +29,7 @@ module.exports = function () {
             rules: [
                 {
                     test: /\.md$/,
-                    use: ['san-loader', '../packages/markdown-loader']
+                    use: ['san-loader', '@san-docit/markdown-loader']
                 }
             ]
         },

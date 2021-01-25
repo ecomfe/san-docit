@@ -14,7 +14,7 @@ const webpackConfig = merge(baseWebpackConfig, getStyleLoader(2), {
         rules: [
             {
                 test: /\.md$/,
-                use: ['san-loader', '../packages/markdown-loader']
+                use: ['san-loader', '@san-docit/markdown-loader']
             }
         ]
     },

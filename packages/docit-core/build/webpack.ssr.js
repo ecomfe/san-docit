@@ -24,7 +24,7 @@ module.exports = function () {
                 use: [{
                     loader: 'san-loader'
                 }, {
-                    loader: '../packages/markdown-loader',
+                    loader: '@san-docit/markdown-loader',
                     options: {
                         ssr: true
                     }
