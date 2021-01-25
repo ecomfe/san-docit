@@ -1,25 +1,16 @@
 {
     "name": "san-docit",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "San document creater.",
     "author": "ecomfe",
     "private": true,
     "bin": {
-        "sandocit": "bin/index.js"
+        "docit": "bin/index.js"
     },
     "scripts": {
         "start": "node bin/index.js start --cwd=docs",
-        "build": "npm run build:ssr && npm run build:prod",
-        "build:prod": "node bin/index.js build --cwd=docs",
-        "build:ssr": "webpack --config=build/webpack.ssr.js --cwd=docs"
+        "build": "node bin/index.js build --cwd=docs"
     },
-    "files": [
-        "src",
-        "bin",
-        "build",
-        "plugins",
-        "packages"
-    ],
     "dependencies": {
         "@babel/core": "^7.4.5",
         "@babel/plugin-proposal-class-properties": "^7.8.3",
@@ -55,7 +46,35 @@
         "webpack-dev-server": "^3.4.1",
         "webpack-merge": "^5.7.2"
     },
+    "workspaces": [
+        "packages/*"
+    ],
+    "files": [
+        "src",
+        "bin",
+        "build",
+        "plugins",
+        "packages",
+        "index.ejs"
+    ],
+    "babel": {
+        "presets": [
+            [
+                "@babel/preset-env",
+                {
+                    "targets": {
+                        "node": "current"
+                    }
+                }
+            ]
+        ],
+        "plugins": [
+            "@babel/plugin-proposal-class-properties"
+        ],
+        "exclude": "node_modules"
+    },
     "engines": {
         "node": ">=8.16"
-    }
+    },
+    "license": "MIT"
 }

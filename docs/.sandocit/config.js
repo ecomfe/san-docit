@@ -6,7 +6,11 @@
 
 module.exports = {
     base: '/',
-    // title: 'San CLI',
+    title: 'San Docit',
+    head: [
+        ['link', {rel: 'icon', href: '/favicon.ico'}]
+    ],
+    logo: 'logo.svg',
 
     themeConfig: {
         nav: [
