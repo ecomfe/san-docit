@@ -94,11 +94,6 @@ export default {
     },
     getPath(node) {
         return utils.base + node.path;
-    },
-    onClick(e) {
-        const target = e.target;
-        const href = target.getAttribute('data-href');
-        global.history.pushState({}, '', href);
     }
 }
 </script>

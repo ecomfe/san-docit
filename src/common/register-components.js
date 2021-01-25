@@ -1,7 +1,7 @@
 import {registerComponents} from 'san-component';
 
-IMPORT_COMPONENTS;
+VAR_IMPORT_COMPONENTS;
 
-const components = MAP_COMPONENTS;
+const components = VAR_MAP_COMPONENTS;
 
 registerComponents(components);

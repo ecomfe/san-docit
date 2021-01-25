@@ -11,7 +11,7 @@
             </span>
         </section>
         <section class="highlight-wrapper {{isExpand ? 'highlight-wrapper-expand' : ''}}">
-            <slot name="code-place-holder"></slot>
+            <slot name="code-place-holder" s-if="isExpand"></slot>
         </section>
     </section>
 </template>

@@ -3,16 +3,18 @@ const webpack = require('webpack');
 const {default: merge} = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const history = require('connect-history-api-fallback');
+
 const utils = require('./utils');
+const getStyleLoader = require('./get-style-loader');
 
 
 module.exports = function () {
     const config = require('./config').load();
     const baseWebpackConfig = require('./webpack.base')();
 
-    const webpackConfig = merge(baseWebpackConfig, {
+    const webpackConfig = merge(baseWebpackConfig, getStyleLoader(1), {
         entry: {
-            main: utils.resolve('src/main.js')
+            'main': utils.resolve('src/main.js')
         },
         devServer: {
             port: utils.port || 8080,
@@ -22,6 +24,14 @@ module.exports = function () {
                     index: config.base + 'index.html'
                 }));
             }
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.md$/,
+                    use: ['san-loader', '../packages/markdown-loader']
+                }
+            ]
         },
         plugins: [
             new HtmlWebpackPlugin({

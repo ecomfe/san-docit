@@ -3,12 +3,6 @@ const path = require('path');
 const globby = require('globby');
 const option = require('../bin/option');
 
-// const cwd = (() => {
-//     const cwdEnv = process.env.CWD;
-//     const cwdProcess = process.cwd();
-//     return !cwdEnv ? cwdProcess : cwdEnv.startsWith('/') ? cwdEnv : path.join(cwdProcess, cwdEnv);
-// })();
-
 const cwd = option.getCwd();
 const port = option.getCmd().port || 8080;
 
@@ -117,9 +111,16 @@ const headBuild = heads => {
     return result.join('');
 };
 
+const tmpdir = (() => {
+    const tmpdir = path.join(__dirname, '../dist/');
+
+    return tmpdir;
+})();
+
 module.exports = {
     cwd,
     port,
+    tmpdir,
     resolve,
     resolveDocit,
     getRoutes,

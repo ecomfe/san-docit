@@ -1,4 +1,4 @@
-import {router} from '../common/san-router';
+import SanRouter, {router} from '../common/san-router';
 import NProgress from 'NProgress';
 import hub from '../common/hub';
 import utils from '../common/utils';
@@ -6,11 +6,15 @@ import NotFound from '../views/not-found.san';
 
 import 'nprogress/nprogress.css';
 
-router.setMode('html5');
+const route = new SanRouter.Router({
+    mode: 'html5'
+});
+
+SanRouter.router = route;
 
 // Webpack Inject
-const config = process.env.SAN_DOCIT;
-const components = ROUTES_IMPORT; 
+const config = VAR_SAN_CONFIG;
+const components = VAR_ROUTES_IMPORT;
 
 const base = utils.base;
 const sidebar = config.themeConfig.sidebar;

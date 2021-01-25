@@ -1,47 +1,44 @@
 const webpack = require('webpack');
 const {default: merge} = require('webpack-merge');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const utils = require('./utils');
 
+const utils = require('./utils');
+const getStyleLoader = require('./get-style-loader');
 const baseWebpackConfig = require('./webpack.base')();
 
-const webpackConfig = merge(baseWebpackConfig, {
+const webpackConfig = merge(baseWebpackConfig, getStyleLoader(2), {
+    mode: 'production',
     entry: {
         'client-entry': utils.resolve('src/client-entry.js')
-    },
-    mode: 'production',
-    optimization: {
-        minimize: false
     },
     module: {
         rules: [
             {
-                test: /\.css$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader']
-            },
-            {
-                test: /\.less$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    {
-                        loader: 'less-loader',
-                        options: {
-                            sourceMap: false,
-                            lessOptions: {
-                                javascriptEnabled: true
-                            }
-                        }
-                    }
-                ]
+                test: /\.md$/,
+                use: ['san-loader', '../packages/markdown-loader']
             }
         ]
     },
+    optimization: {
+        minimize: false,
+        splitChunks: {
+            cacheGroups: {
+                vendors: {
+                    name: 'chunk-vendors',
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10,
+                    chunks: 'initial'
+                },
+                common: {
+                    name: 'chunk-common',
+                    minChunks: 2,
+                    priority: -20,
+                    chunks: 'initial',
+                    reuseExistingChunk: true
+                }
+            }
+        }
+    },
     plugins: [
-        new MiniCssExtractPlugin({
-            filename: 'static/css/[name].css',
-            chunkFilename: 'static/css/[name].css'
-        }),
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: '"production"'
@@ -50,8 +47,8 @@ const webpackConfig = merge(baseWebpackConfig, {
     ]
 });
 
-module.exports = function () {
-    require('./addPages')(webpackConfig);
+module.exports = async function () {
+    const config = await require('./add-pages')(webpackConfig);
 
-    return webpackConfig;
+    return config;
 };

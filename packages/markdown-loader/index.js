@@ -6,6 +6,7 @@
 const LRU = require('lru-cache');
 const hash = require('hash-sum');
 const qs = require('querystring');
+const loaderUtils = require('loader-utils');
 const debug = require('debug')('san-docit');
 
 const loadHtml = require('./loadHtml');
@@ -21,7 +22,8 @@ module.exports = function(content) {
     const isProd = process.env.NODE_ENV === 'production';
 
     const file = this.resourcePath;
-    const key = hash(file + content);
+    const options = loaderUtils.getOptions(this) || {};
+    const key = hash(file + content + JSON.stringify(options));
     const cached = cache.get(key);
     if (cached && isProd) {
         return cached;
@@ -43,6 +45,12 @@ module.exports = function(content) {
     const toc = loadToc(content);
     const html = loadHtml(codeboxContent || content);
 
+    // SSR 时不渲染预览部分，动态生成的组件清空
+    if (options.ssr) {
+        importStr = '';
+        importComp = '';
+    }
+
     const result = `
         <template>
             <div class="content">${html}</div>
@@ -53,15 +61,13 @@ module.exports = function(content) {
             export default class ContentView extends SanComponent {
                 ${importComp};
                 inited() {
-                    global.hub.fire('changed', ${JSON.stringify(toc)});
+                    if (global.hub && global.hub.fire) {
+                        global.hub.fire('changed', ${JSON.stringify(toc)});
+                    }
                 };
             }
         </script>
     `;
-
-    if (importComp) {
-        debug('San Docit 组件：', result);
-    }
 
     cache.set(key, result);
 

@@ -1,7 +1,8 @@
 import {Component} from 'san';
 import index from './index';
+import router from './router';
 
-export default class Index extends Component {
+export default class App extends Component {
     static components = {
         index: index
     };
@@ -11,5 +12,8 @@ export default class Index extends Component {
             // `SAN_DOCIT` 通过 san-ssr 注入的变量
             return this.data.get('SAN_DOCIT');
         }
+    }
+    attached() {
+        router.start();
     }
 };

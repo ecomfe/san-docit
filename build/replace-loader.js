@@ -1,30 +1,32 @@
-const buildRules = (config, map) => {
-    const devRules = config.map(rule => {
-        const search = rule.search.map(name => ({
-            search: name,
-            replace: map[name]
-        }));
-        return {
-            loader: 'string-replace-loader',
-            test: rule.test,
-            options: {
-                multiple: search
-            }
-        };
-    });
+const config = require('./config');
+
+const buildRules = (replaceMap) => {
+    // const devRules = replaceRules.map(rule => {
+    //     const search = rule.search.map(name => ({
+    //         search: name,
+    //         replace: replaceMap[name]
+    //     }));
+    //     return {
+    //         loader: 'string-replace-loader',
+    //         test: rule.test,
+    //         options: {
+    //             multiple: search
+    //         }
+    //     };
+    // });
     
-    const prodRules = [{
+    const rules = [{
         loader: 'string-replace-loader',
-        test: /server-entry\.js/,
+        test: /\.(js|less)$/,
         options: {
-            multiple: Object.keys(map).map(rule => ({
+            multiple: Object.keys(replaceMap).map(rule => ({
                 search: rule,
-                replace: map[rule]
+                replace: replaceMap[rule]
             }))
         }
     }];
 
-    return devRules.concat(prodRules);
+    return rules;
 };
 
 module.exports = function() {
@@ -35,27 +37,32 @@ module.exports = function() {
 
     const cmpt = component.getComponentsImports();
 
+    const options = config.load();
+
     const replaceMap = {
-        'ROUTES_IMPORT': route.getRoutesImportStr(),
-        'IMPORT_COMPONENTS': cmpt.compImport,
-        'MAP_COMPONENTS': cmpt.compMap,
-        'THEMES_IMPORT': theme.getThemeImport(),
-        '// IMPORT_USER_VARS': style.getStyleImport()
+        'VAR_ROUTES_IMPORT': route.getRoutesImportStr(),
+        'VAR_IMPORT_COMPONENTS': cmpt.compImport,
+        'VAR_MAP_COMPONENTS': cmpt.compMap,
+        'VAR_THEMES_IMPORT': theme.getThemeImport(),
+        'VAR_SAN_CONFIG': JSON.stringify(options),
+        'VAR_SAN_DOCIT': JSON.stringify(options),
+        'VAR_BASE_URL': `'${options.base}'`,
+        '// VAR_IMPORT_USER': style.getStyleImport()
     };
 
-    const config = [{
-        test: /router\/index\.js/,
-        search: ['ROUTES_IMPORT']
-    }, {
-        test: /common\/register-components\.js/,
-        search: ['IMPORT_COMPONENTS', 'MAP_COMPONENTS']
-    }, {
-        test: /index\.js/,
-        search: ['THEMES_IMPORT']
-    }, {
-        test: /index\.less/,
-        search: ['// IMPORT_USER_VARS']
-    }];
+    // const replaceRules = [{
+    //     test: /router\/index\.js/,
+    //     search: ['VAR_ROUTES_IMPORT']
+    // }, {
+    //     test: /common\/register-components\.js/,
+    //     search: ['VAR_IMPORT_COMPONENTS', 'VAR_MAP_COMPONENTS']
+    // }, {
+    //     test: /index\.js/,
+    //     search: ['VAR_THEMES_IMPORT']
+    // }, {
+    //     test: /index\.less/,
+    //     search: ['// VAR_IMPORT_USER']
+    // }];
 
-    return buildRules(config, replaceMap);
+    return buildRules(replaceMap);
 }

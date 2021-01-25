@@ -30,9 +30,20 @@ const build = configurations => new Promise((resolve, reject) => {
 
 
 module.exports = async cmd => {
-    const webpackSSR = require('../../../build/webpack.ssr');
     const webpackProd = require('../../../build/webpack.prod');
 
-    // await build(webpackSSR);
-    await build(webpackProd());
+    // eslint-disable: no-console
+    console.log('Server side compile...');
+    const webpackConfig = await webpackProd();
+
+    // eslint-disable: no-console
+    console.log('Server side compile Done.')
+
+    // eslint-disable: no-console
+    console.log('Client side compile...');
+
+    await build(webpackConfig);
+
+    // eslint-disable: no-console
+    console.log('Client side compile Done');
 };

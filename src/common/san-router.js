@@ -706,7 +706,7 @@
         });
 
         this.afterListeners.forEach(listener => {
-            listener.call(router, routeItem);
+            listener.call(main.router, routeItem);
         });
     };
 
@@ -757,8 +757,6 @@
         return this;
     };
 
-    var router = new Router();
-
     var Link = require('san').defineComponent({
         template: '<a href="{{hrefPrefix}}{{href}}" onclick="return false;" on-click="clicker($event)" '
             + 'target="{{target}}" class="{{isActive ? activeClass : \'\'}}"><slot/></a>',
@@ -767,7 +765,7 @@
             var href = this.data.get('href');
 
             if (typeof href === 'string') {
-                router.locator.redirect(href.replace(/^#/, ''));
+                main.router.locator.redirect(href.replace(/^#/, ''));
             }
 
             if (e.preventDefault) {
@@ -784,26 +782,26 @@
                 me.data.set('isActive', e.url === me.data.get('href'));
             };
 
-            this.routeListener({url: router.locator.current});
-            router.listen(this.routeListener);
+            this.routeListener({url: main.router.locator.current});
+            main.router.listen(this.routeListener);
         },
 
         disposed: function () {
-            router.unlisten(this.routeListener);
+            main.router.unlisten(this.routeListener);
             this.routeListener = null;
         },
 
         initData: function () {
             return {
                 isActive: false,
-                hrefPrefix: router.mode === 'hash' ? '#' : ''
+                hrefPrefix: main.router.mode === 'hash' ? '#' : ''
             };
         },
 
         computed: {
             href: function () {
                 var url = this.data.get('to') || '';
-                return resolveURL(url, router.locator.current);
+                return resolveURL(url, main.router.locator.current);
             }
         }
     })
@@ -814,7 +812,7 @@
          */
         Link: Link,
 
-        router: router,
+        router: null,
         Router: Router,
         HashLocator: HashLocator,
         HTML5Locator: HTML5Locator,

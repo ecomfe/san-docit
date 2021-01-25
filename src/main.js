@@ -10,7 +10,7 @@ class App extends SanComponent {
     static computed = {
         docit() {
             // webpack.DefinePlugin SAN_DOCIT
-            return process.env.SAN_DOCIT;
+            return VAR_SAN_DOCIT;
         }
     };
     attached() {

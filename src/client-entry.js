@@ -1,15 +1,16 @@
-import {Component} from 'san';
+import {SanComponent} from 'san-component';
 import index from './index';
 import router from './router';
 
-export default class Index extends Component {
+export default class App extends SanComponent {
     static components = {
         index
     };
     static template = '<index docit="{{docit}}"><index>';
     static computed = {
         docit() {
-            return process.env.SAN_DOCIT;
+            // webpack.DefinePlugin SAN_DOCIT
+            return VAR_SAN_DOCIT;
         }
     };
     attached() {
@@ -18,6 +19,6 @@ export default class Index extends Component {
 };
 
 // 组件反解：传入el
-new Index({
+new App({
     el: document.getElementById('site')
 });

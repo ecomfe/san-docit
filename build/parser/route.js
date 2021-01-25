@@ -1,4 +1,4 @@
-const globby = require('globby');
+// const globby = require('globby');
 const config = require('../config');
 const utils = require('../utils');
 
@@ -10,6 +10,24 @@ const getRoutes = () => {
         return routes;
     }
 
+    initRoutesFromConfig();
+
+    return routes;
+};
+
+const initRoutesFromConfig = () => {
+    const sidebar = config.load().themeConfig.sidebar;
+    Object.keys(sidebar).forEach(name => {
+        utils.treeWalk(sidebar[name], node => {
+            if (/\.(js|md)$/.test(node.filename) && node.path) {
+                const path = node.path.replace(/^\//, '');
+                routes[path] = node.filename;
+            }
+        });
+    });
+};
+
+const initRoutesFromMd = () => {
     const files = globby.sync(['**/*.md'], {
         expandDirectories: false,
         onlyFiles: false,
@@ -20,23 +38,7 @@ const getRoutes = () => {
         const name = file.replace(/README\.md$/, '').replace(/\.md$/, '/');
         routes[name] = cwd + '/' + file;
     });
-
-    getRoutesFromConfig();
-
-    return routes;
-};
-
-const getRoutesFromConfig = () => {
-    const sidebar = config.load().themeConfig.sidebar;
-    Object.keys(sidebar).forEach(name => {
-        utils.treeWalk(sidebar[name], node => {
-            if (/\.js$/.test(node.filename) && node.path) {
-                const path = node.path.replace(/^\//, '');
-                routes[path] = node.filename;
-            }
-        });
-    });
-};
+}
 
 const getRoutesImportStr = () => {
     const routes = getRoutes();

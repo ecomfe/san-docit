@@ -1,55 +1,46 @@
-const path = require('path');
 const webpack = require('webpack');
-const SanLoaderPlugin = require('san-loader/lib/plugin');
-const config = require('./config').load();
+const {default: merge} = require('webpack-merge');
 
-const replaceLoader = require('./replace-loader');
+const utils = require('./utils');
+const getStyleLoader = require('./get-style-loader');
 
-function resolve(dir) {
-    return path.join(__dirname, '..', dir);
-}
+module.exports = function () {
+    const baseWebpackConfig = require('./webpack.base')();
 
-module.exports = {
-    entry: resolve('src/server-entry.js'),
-    devtool: '',
-    target: 'node',
-    output: {
-        path: resolve('dist'),
-        filename: 'server-entry.js',
-        libraryTarget: 'commonjs2'
-    },
-    mode: 'development',
-    module: {
-        rules: [
-            {
-                test: /\.san$/,
-                loader: 'san-loader'
-            },
-            {
-                test: /\.js$/,
-                loader: 'babel-loader'
-            },
-            {
-                test: /\.html$/,
-                loader: 'html-loader'
-            },
-            {
-                test: /\.less$/,
-                use: ['css-loader', 'less-loader']
-            }
-        ].concat(replaceLoader())
-    },
-    resolve: {
-        extensions: ['.js', '.jsx', '.san', '.json'],
-        modules: ['node_modules', path.join(__dirname, '../node_modules')],
-    },
-    plugins: [
-        new SanLoaderPlugin(),
-        new webpack.DefinePlugin({
-            'process.env': {
-                SAN_DOCIT: JSON.stringify(config),
-                BASE_URL: `"${config.base}"`
-            }
-        })
-    ]
+    const webpackConfig = merge(baseWebpackConfig, getStyleLoader(0), {
+        target: 'node',
+        entry: {
+            'server-entry': utils.resolve('src/server-entry.js')
+        },
+        output: {
+            path: utils.resolve('dist'),
+            filename: '[name].js',
+            chunkFilename: '[name].js',
+            libraryTarget: 'commonjs2'
+        },
+        module: {
+            rules: [{
+                test: /\.md$/,
+                use: [{
+                    loader: 'san-loader'
+                }, {
+                    loader: '../packages/markdown-loader',
+                    options: {
+                        ssr: true
+                    }
+                }],
+                
+            }]
+        },
+        plugins: [
+            new webpack.DefinePlugin({
+                'process.env': {
+                    NODE_ENV: '"ssr"'
+                }
+            })
+        ]
+    });
+
+    return webpackConfig;
 };
+
