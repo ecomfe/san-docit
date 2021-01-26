@@ -25,5 +25,4 @@ Start server:
 npm run start
 ```
 
-Application will running:
-http://0.0.0.0:8080/
+Open: <http://0.0.0.0:8080/>

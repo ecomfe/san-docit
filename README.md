@@ -1,35 +1,28 @@
-san docit
+# san-docit
 ===
 
 > Minimalistic San-powered static site generator.
 
-## Prepare
+## Installation
+Use the package manager yarn to install San Doict as a dev dependency.
 
 ```
-$ npm i
+$ yarn add vuepress -D
 ```
 
-## Dev
+## Start
+Add config file for site. See example:
+[config.js](https://github.com/kidnes/san-docit/blob/master/packages/docit-core/docs/.sandocit/config.js)
 
-First, run dev script:
-
+Add package.jons script field:
 ```
-$ npm start
-```
-
-And then, open <http://localhost:8888/>
-
-## Build
-
-```
-$ npm run build
+"start": "docit start --cwd=."
+"build": "docit start --cwd=."
 ```
 
-Start static server at `dist`
-
+Start server:
 ```
-$ type serve >/dev/null 2>&1 || npm i -g serve
-$ serve dist -p 9999
+npm run start
 ```
 
-Open <http://localhost:9999/>
+Open: <http://0.0.0.0:8080/>
