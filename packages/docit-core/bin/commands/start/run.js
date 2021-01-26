@@ -19,7 +19,7 @@ const computeSettingsHash = cwd => {
     return hash(settings);
 };
 
-const startDevServer = (isFirstCompile) => {
+const startDevServer = () => {
     const configurations = webpackDev();
 
     // create server
@@ -43,6 +43,8 @@ const startDevServer = (isFirstCompile) => {
 
     server.listen(devServerConfig.port);
 
+    let isFirstCompile = true;
+
     compiler.hooks.done.tap('san-docit-serve', stats => {
         if (stats && stats.hasErrors()) {
             const info = stats.toJson();
@@ -52,6 +54,8 @@ const startDevServer = (isFirstCompile) => {
         }
 
         isFirstCompile && setTimeout(() => open(devServerConfig), 100);
+
+        isFirstCompile = false;
     });
 
     return server;
@@ -74,7 +78,7 @@ const open = devServerConfig => {
 
 module.exports = cmd => {
     const {cwd} = cmd;
-    let server = startDevServer(true);
+    let server = startDevServer();
 
     let settingsHash = computeSettingsHash(cwd);
 
@@ -94,7 +98,7 @@ module.exports = cmd => {
 
             server.close();
 
-            server = startDevServer(false);
+            server = startDevServer();
         }
     );
 

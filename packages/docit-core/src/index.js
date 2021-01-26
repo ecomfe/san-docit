@@ -1,5 +1,5 @@
 import {Component, DataTypes} from 'san';
-import layout from 'VAR_LAYOUT_IMPORT';
+import layout from 'VAR_LAYOUT_IMPORT/layout.san';
 import './common/hub';
 import './common/register-components';
 

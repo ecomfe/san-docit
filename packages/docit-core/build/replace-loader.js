@@ -47,7 +47,7 @@ module.exports = function() {
         'VAR_THEMES_IMPORT': theme.getThemeImport(),
         'VAR_SAN_CONFIG': JSON.stringify(options),
         'VAR_SAN_DOCIT': JSON.stringify(options),
-        'VAR_LAYOUT_IMPORT': utils.getCommonPaths('layouts/layout.san')[0],
+        'VAR_LAYOUT_IMPORT': utils.getCommonPaths('layouts')[0],
         'VAR_BASE_URL': `'${options.base}'`,
         '// VAR_IMPORT_USER': style.getStyleImport()
     };

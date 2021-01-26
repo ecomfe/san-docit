@@ -2,7 +2,7 @@ import SanRouter, {router} from '../common/san-router';
 import NProgress from 'NProgress';
 import hub from '../common/hub';
 import utils from '../common/utils';
-import NotFound from '../views/not-found.san';
+import NotFound from 'VAR_LAYOUT_IMPORT/not-found.san';
 
 import 'nprogress/nprogress.css';
 
@@ -62,7 +62,7 @@ Object.keys(sidebar).forEach(path => {
 });
 
 const routes = [{
-    path: '/notfound/',
+    path: '.*',
     component: NotFound
 }];
 

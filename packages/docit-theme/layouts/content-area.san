@@ -56,7 +56,7 @@ export default {
         this.resize();
 
         // SSR 时默认存在 HTML，清空后由 Router 渲染
-        this.nextTick(() => {this.ref('view').innerHTML = '';});
+        this.ref('view').innerHTML = '';
     },
     getHash(hash) {
         const docit = this.data.get('docit');
