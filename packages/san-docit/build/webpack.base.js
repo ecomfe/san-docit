@@ -25,8 +25,27 @@ module.exports = function () {
             rules: [
                 {
                     test: /\.js$/,
-                    exclude: /node_modules/,
-                    use: 'babel-loader'
+                    exclude: file => {
+                        return !/[\/\\]@*san-docit[\/\\]/.test(file) && /node_modules/.test(file);
+                    },
+                    use: {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: [
+                                [
+                                    '@babel/preset-env',
+                                    {
+                                        targets: {
+                                            node: 'current'
+                                        }
+                                    }
+                                ]
+                            ],
+                            plugins: [
+                                '@babel/plugin-proposal-class-properties'
+                            ]
+                        }
+                    }
                 },
                 {
                     test: /\.san$/,

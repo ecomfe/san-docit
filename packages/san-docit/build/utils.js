@@ -117,6 +117,10 @@ const tmpdir = (() => {
     return tmpdir;
 })();
 
+const exclude = (file) => {
+    return !/\/@*san-docit\//.test(file) && /node_modules/.test(file);
+}
+
 module.exports = {
     cwd,
     port,
@@ -129,5 +133,6 @@ module.exports = {
     treeBuild,
     treeWalk,
     headBuild,
-    getCommonPaths
+    getCommonPaths,
+    exclude
 }

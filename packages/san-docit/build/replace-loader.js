@@ -19,6 +19,9 @@ const buildRules = (replaceMap) => {
     const rules = [{
         loader: 'string-replace-loader',
         test: /\.(js|less)$/,
+        exclude: file => {
+            return !/[\/\\]@*san-docit[\/\\]/.test(file) && /node_modules/.test(file);
+        },
         options: {
             multiple: Object.keys(replaceMap).map(rule => ({
                 search: rule,

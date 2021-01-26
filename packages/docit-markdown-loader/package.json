@@ -42,6 +42,5 @@
         "markdown-it-table-of-contents": "^0.4.4",
         "markdown-it-task-lists": "^2.1.1",
         "prismjs": "^1.18.0"
-    },
-    "gitHead": "402d813859ac219434712fa2063e5f724819004a"
+    }
 }
