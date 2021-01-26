@@ -14,6 +14,7 @@ const loadToc = require('./loadToc');
 
 const loadCodebox = require('./loadCodebox');
 const loadCodeSnippet = require('./loadCodeSnippet');
+const utils = require('markdown-it/lib/common/utils');
 
 const cache = new LRU({max: 1000});
 
@@ -51,12 +52,14 @@ module.exports = function(content) {
         importComp = '';
     }
 
+    const SanComponent = require('./lib/utils').getModulePath('san-component');
+
     const result = `
         <template>
             <div class="content">${html}</div>
         </template>
         <script>
-            import {SanComponent} from 'san-component';
+            import {SanComponent} from '${SanComponent}';
             ${importStr}
             export default class ContentView extends SanComponent {
                 ${importComp};

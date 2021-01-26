@@ -2,6 +2,7 @@
  * @file utils
  * @author ksky521
  */
+const fs = require('fs');
 const path = require('path');
 const URL = require('url');
 const {remove: removeDiacritics} = require('diacritics');
@@ -90,3 +91,11 @@ exports.compose = compose;
 // eslint-disable-next-line
 const parseHeaders = (exports.parseHeaders = v => compose(unescapeHtml, parseEmojis, removeMarkdownTokens, str => str.trim()));
 exports.deeplyParseHeaders = compose(removeNonCodeWrappedHTML, parseHeaders)();
+
+function getModulePath(pathname) {
+    const paths = require.resolve.paths('')
+        .map(p => path.join(p, pathname))
+        .filter(p => fs.existsSync(p));
+    return paths && paths.length > 0 ? paths[0] : '';
+};
+exports.getModulePath = getModulePath;
