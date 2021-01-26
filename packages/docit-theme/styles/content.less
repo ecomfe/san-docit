@@ -1,0 +1,86 @@
+@import './markdown.less';
+
+#single #content {
+    padding-left: 0;
+    margin: 40px;
+}
+
+#content {
+    margin-top: 68px;
+    padding-left: 250px;
+    padding-right: 24px;
+
+    display: flex;
+    flex-direction: row;
+
+    min-height: calc(100% - 68px);
+    .router-view {
+        flex: 1 1 200px;
+        width: 200px;
+        min-width: 200px;
+        color: @site-text-color;
+        font-size: @font-size-base;
+        line-height: 1.75;
+        padding: 10px 20px 20px;
+        margin-left: 12px;
+        margin-right: 240px;
+
+        &.hidden {
+            margin-right: 0;
+        }
+    }
+    .toc {
+        display: block;
+        @width: 250px;
+        flex: 0 0 @width;
+        position: fixed;
+        right: 0;
+        max-width: @width;
+        min-width: @width;
+        width: @width;
+        font-size: 14px;
+        overflow-y: scroll;
+        & > ul {
+            padding-left: 0px;
+            border-left: 1px solid @site-border-color-split;
+        }
+        a {
+            display: block;
+            padding: 0 8px;
+            color: @site-text-color;
+            &:hover {
+                color: @primary-color;
+            }
+        }
+        .active > a {
+            color: @primary-color;
+            border-left: 1px solid @primary-color;
+            margin-left: -1px;
+        }
+        ul, li {
+            list-style-type: none;
+        }
+        li {
+            margin: 8px 0;
+        }
+        li ul {
+            padding-left: 0px;
+            
+            li > a {
+                padding-left: 24px;
+            }
+        }
+    }
+    .fixed {
+        position: fixed;
+        top: 68px;
+    }
+
+    &.hidden {
+        padding-left: 0;
+    }
+
+    h1:target, h2:target, h3:target {
+        padding-top: 70px;
+    }
+}

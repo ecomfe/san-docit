@@ -9,7 +9,9 @@ const path = require('path');
 const hash = require('hash-sum');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
-const config = require('../../../build/config');
+const chalk = require('chalk');
+const opener = require('opener');
+const config = require('../../../build/config').load();
 const webpackDev = require('../../../build/webpack.dev');
 
 const computeSettingsHash = cwd => {
@@ -17,13 +19,13 @@ const computeSettingsHash = cwd => {
     return hash(settings);
 };
 
-const startDevServer = () => {
+const startDevServer = (isFirstCompile) => {
     const configurations = webpackDev();
-
-    const compiler = webpack(configurations);
 
     // create server
     const defaultDevServer = {
+        https: false,
+        host: '0.0.0.0',
         port: 8080,
         contentBase: path.resolve('.'),
         watchContentBase: false,
@@ -31,6 +33,9 @@ const startDevServer = () => {
     };
 
     const devServerConfig = Object.assign(defaultDevServer, configurations.devServer);
+
+    const compiler = webpack(configurations);
+
     const server = new WebpackDevServer(
         compiler,
         devServerConfig
@@ -38,12 +43,38 @@ const startDevServer = () => {
 
     server.listen(devServerConfig.port);
 
+    compiler.hooks.done.tap('san-docit-serve', stats => {
+        if (stats && stats.hasErrors()) {
+            const info = stats.toJson();
+            // eslint-disable: no-console
+            info.errors.map(item => console.error(item));
+            return;
+        }
+
+        isFirstCompile && setTimeout(() => open(devServerConfig), 100);
+    });
+
     return server;
+}
+
+const open = devServerConfig => {
+    const {https, host, port, publicPath} = devServerConfig;
+
+    const protocol = https ? 'https' : 'http';
+
+    const networkUrl = `${protocol}://${host}:${port}${publicPath}`;
+
+    /* eslint-disable no-console */
+    console.log();
+    console.log(`  Application is running at: ${chalk.green(networkUrl)}`);
+    /* eslint-enable no-console */
+
+    config.open && opener(networkUrl);
 }
 
 module.exports = cmd => {
     const {cwd} = cmd;
-    let server = startDevServer(cwd);
+    let server = startDevServer(true);
 
     let settingsHash = computeSettingsHash(cwd);
 
@@ -63,7 +94,7 @@ module.exports = cmd => {
 
             server.close();
 
-            server = startDevServer(cwd);
+            server = startDevServer(false);
         }
     );
 

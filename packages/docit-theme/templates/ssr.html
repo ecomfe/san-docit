@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title><%= htmlWebpackPlugin.options.title %></title>
+        <% if (htmlWebpackPlugin.options.headHtmlSnippet) { %>
+            <%= htmlWebpackPlugin.options.headHtmlSnippet %>
+        <% } %>
+        <% if (htmlWebpackPlugin.options.window) { %>
+        <script type="text/javascript">
+        <% for (key in htmlWebpackPlugin.options.window) { %>
+            window['<%= key %>'] = <%= JSON.stringify(htmlWebpackPlugin.options.window[key]) %>;
+        <% } %>
+        </script><% } %>
+    </head>
+    <body>
+        <% if (htmlWebpackPlugin.options.bodyHtmlSnippet) { %> <%= htmlWebpackPlugin.options.bodyHtmlSnippet %><% } %>
+        
+        <div id="app">
+            <%
+            if (htmlWebpackPlugin.options.ssrHtmlSnippet) { %>
+            <%= htmlWebpackPlugin.options.ssrHtmlSnippet %><%
+            } %>
+        </div>
+    </body>
+</html>

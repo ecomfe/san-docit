@@ -36,7 +36,7 @@ module.exports = (name, options) => {
         template: path.join(__dirname, '../index.ejs'),
         filename: name + '.html',
         chunks: ['chunk-vendors', 'chunk-common', 'client-entry'],
-        // favicon: utils.getCommonDirs('public/favicon.ico')[0],
+        // favicon: utils.getCommonPaths('public/favicon.ico')[0],
         minify: false,
         // minify: {
         //     collapseWhitespace: true,

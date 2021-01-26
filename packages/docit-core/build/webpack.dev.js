@@ -38,7 +38,7 @@ module.exports = function () {
                 template: path.join(__dirname, '../index.ejs'),
                 filename: 'index.html',
                 chunks: ['main'],
-                favicon: utils.getCommonDirs('public/favicon.ico')[0],
+                favicon: utils.getCommonPaths('public/favicon.ico')[0],
                 templateParameters: config,
                 inlineSource: '.(js|css)$',
                 ...config

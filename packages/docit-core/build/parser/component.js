@@ -21,7 +21,10 @@ const getFilesByDir = dir => {
 const getComponents = () => {
     let components = {};
 
-    const dirs = utils.getCommonDirs('components');
+    const dirs = [
+        path.resolve(utils.cwd, '.sandocit'),
+        ...utils.getCommonPaths('global-components')
+    ];
 
     components = Object.assign(components, ...dirs.map(dir => getFilesByDir(dir)));
 

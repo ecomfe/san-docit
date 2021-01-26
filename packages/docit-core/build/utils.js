@@ -20,7 +20,6 @@ const getRoutes = () => {
         return routes;
     }
 
-    console.log('Base: ', cwd);
     const files = globby.sync('**/*.md', {
         expandDirectories: false,
         onlyFiles: false,
@@ -86,16 +85,15 @@ const treeBuild = (root, callback) => {
     };
 };
 
-const getCommonDirs = (() => {
-    const paths = require.resolve.paths('')
-        .filter(p => fs.existsSync(path.join(p, '@san-docit/plugins')))
-        .map(p => path.join(p, '@san-docit/plugins'));
-
-    paths.unshift(path.join(cwd, '.sandocit/'));
-
-    return dir => paths.filter(p => fs.existsSync(path.join(p, dir)))
-            .map(p => path.join(p, dir));
-})();
+let resolvePaths;
+const getCommonPaths = (dir) => {
+    return resolvePaths
+        .map(p => path.join(p, dir))
+        .filter(p => fs.existsSync(p));
+};
+const setCommonPaths = (paths) => {
+    resolvePaths = paths;
+};
 
 const headBuild = heads => {
     if (!heads || !heads.length) {
@@ -123,6 +121,7 @@ module.exports = {
     cwd,
     port,
     tmpdir,
+    setCommonPaths,
     resolve,
     resolveDocit,
     getRoutes,
@@ -130,5 +129,5 @@ module.exports = {
     treeBuild,
     treeWalk,
     headBuild,
-    getCommonDirs
+    getCommonPaths
 }

@@ -1,10 +1,10 @@
 {
-    "name": "@san-docit/plugins",
+    "name": "@san-docit/theme-default",
     "version": "1.0.0",
-    "description": "Default plugins for san-docit.",
+    "description": "Default theme for san-docit.",
     "author": "ksky521",
     "license": "MIT",
-    "main": "./index.js",
+    "main": "index.js",
     "scripts": {
     },
     "keywords": [

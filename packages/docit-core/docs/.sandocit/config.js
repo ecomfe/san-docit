@@ -12,6 +12,7 @@ module.exports = {
     ],
     logo: 'logo.svg',
 
+    theme: '@san-docit/theme-default',
     themeConfig: {
         nav: [
             {text: 'San', link: 'https://baidu.github.io/san/'},

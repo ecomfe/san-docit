@@ -19,6 +19,31 @@ module.exports = function(level = 0) {
                 }
             }
         ]
+    }, {
+        test: /\.sass$/,
+        use: [{
+            loader: 'sass-loader',
+            options: {
+              sourceMap: false
+            }
+        }]
+    }, {
+        test: /\.scss$/,
+        use: [{
+            loader: 'scss-loader',
+            options: {
+              sourceMap: false
+            }
+        }]
+    }, {
+        test: /\.styl$/,
+        use: [{
+            loader: 'stylus-loader',
+            options: {
+                sourceMap: false,
+                preferPathResolver: 'webpack'
+            }
+        }]
     }];
 
     const config = {

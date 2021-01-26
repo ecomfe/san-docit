@@ -62,7 +62,7 @@ module.exports = function () {
         plugins: [
             new SanLoaderPlugin(),
             new CopyWebpackPlugin({
-                patterns: utils.getCommonDirs('public').map(dir => ({
+                patterns: utils.getCommonPaths('public').map(dir => ({
                     from: dir,
                     to: utils.resolveDocit('dist')
                 }))
