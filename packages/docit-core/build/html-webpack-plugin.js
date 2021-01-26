@@ -31,22 +31,21 @@ module.exports = (name, options) => {
         ...options,
         ...getProjectConfig(config)
     };
-    debugger;
+
     const result = {
-        template: path.join(__dirname, '../index.ejs'),
+        template: utils.getCommonPaths('templates/ssr.ejs')[0],
         filename: name + '.html',
         chunks: ['chunk-vendors', 'chunk-common', 'client-entry'],
-        // favicon: utils.getCommonPaths('public/favicon.ico')[0],
-        minify: false,
-        // minify: {
-        //     collapseWhitespace: true,
-        //     keepClosingSlash: true,
-        //     removeComments: false,
-        //     removeRedundantAttributes: true,
-        //     removeScriptTypeAttributes: true,
-        //     removeStyleLinkTypeAttributes: true,
-        //     useShortDoctype: true
-        // },
+        favicon: utils.getCommonPaths('public/favicon.ico')[0],
+        minify: {
+            collapseWhitespace: true,
+            keepClosingSlash: true,
+            removeComments: false,
+            removeRedundantAttributes: true,
+            removeScriptTypeAttributes: true,
+            removeStyleLinkTypeAttributes: true,
+            useShortDoctype: true
+        },
         templateParameters: Object.assign(config, {
             ssrHtmlSnippet: getSSRHTML(SAN_DOCIT),
             window: {

@@ -16,7 +16,7 @@ import on from 'san/src/browser/on';
 import un from 'san/src/browser/un';
 
 import tree from '../components/tree';
-import utils from '../common/utils';
+import utils from './utils';
 
 export default {
     components: {

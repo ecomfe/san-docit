@@ -35,7 +35,7 @@ module.exports = function () {
         },
         plugins: [
             new HtmlWebpackPlugin({
-                template: path.join(__dirname, '../index.ejs'),
+                template: utils.getCommonPaths('templates/dev.ejs')[0],
                 filename: 'index.html',
                 chunks: ['main'],
                 favicon: utils.getCommonPaths('public/favicon.ico')[0],

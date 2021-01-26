@@ -34,12 +34,12 @@
 
 <script>
 import {DataTypes} from 'san';
-import {Link} from '../common/san-router';
+import {Link} from 'san-docit/src/common/san-router';
 import contentArea from './content-area';
 import tree from '../components/tree';
 import drawer from '../components/drawer';
-import hub from '../common/hub';
-import utils from '../common/utils';
+import hub from 'san-docit/src/common/hub';
+import utils from './utils';
 
 export default {
     components: {

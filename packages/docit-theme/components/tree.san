@@ -13,7 +13,7 @@
 <script>
 import {DataTypes} from 'san';
 import treeNode from './tree-node';
-import dom from '../common/dom';
+import dom from './dom';
 
 export default {
     components: {

@@ -1,4 +1,5 @@
 const config = require('./config');
+const utils = require('./utils');
 
 const buildRules = (replaceMap) => {
     // const devRules = replaceRules.map(rule => {
@@ -46,23 +47,10 @@ module.exports = function() {
         'VAR_THEMES_IMPORT': theme.getThemeImport(),
         'VAR_SAN_CONFIG': JSON.stringify(options),
         'VAR_SAN_DOCIT': JSON.stringify(options),
+        'VAR_LAYOUT_IMPORT': utils.getCommonPaths('layouts/layout.san')[0],
         'VAR_BASE_URL': `'${options.base}'`,
         '// VAR_IMPORT_USER': style.getStyleImport()
     };
-
-    // const replaceRules = [{
-    //     test: /router\/index\.js/,
-    //     search: ['VAR_ROUTES_IMPORT']
-    // }, {
-    //     test: /common\/register-components\.js/,
-    //     search: ['VAR_IMPORT_COMPONENTS', 'VAR_MAP_COMPONENTS']
-    // }, {
-    //     test: /index\.js/,
-    //     search: ['VAR_THEMES_IMPORT']
-    // }, {
-    //     test: /index\.less/,
-    //     search: ['// VAR_IMPORT_USER']
-    // }];
 
     return buildRules(replaceMap);
 }
