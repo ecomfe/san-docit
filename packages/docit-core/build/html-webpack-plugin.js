@@ -3,13 +3,11 @@
  * @author kidnes
  */
 
-const path = require('path');
-
 const utils = require('./utils');
 const ssr = require('./ssr');
 
 const getSSRHTML = (varibal) => {
-    const html = ssr.render('server-entry', {SAN_DOCIT: varibal}, false);
+    const html = ssr.render('server-entry', {SAN_DOCIT: varibal}, true);
 
     return html;
 }
