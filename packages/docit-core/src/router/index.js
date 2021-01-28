@@ -1,7 +1,7 @@
 import SanRouter, {router} from '../common/san-router';
 import NProgress from 'NProgress';
 import hub from '../common/hub';
-import utils from '../common/utils';
+import {base} from '../common/utils';
 import NotFound from 'VAR_LAYOUT_IMPORT/not-found.san';
 
 import 'nprogress/nprogress.css';
@@ -16,7 +16,6 @@ SanRouter.router = route;
 const config = VAR_SAN_CONFIG;
 const components = VAR_ROUTES_IMPORT;
 
-const base = utils.base;
 const sidebar = config.themeConfig.sidebar;
 
 const addRouter = node => {
@@ -26,7 +25,7 @@ const addRouter = node => {
 
     const path = node.path;
     let component = components[path]
-        ? components[path] : /\.js/.test(node.filename)
+        ? components[path] : /\.js$/.test(node.filename)
         ? require(node.filename) : '';
 
     if (component) {

@@ -48,16 +48,24 @@ ${codePlaceHolder}
     return code.replace(matches[0], result);
 }
 
-module.exports = function(content, resourcePath) {
+module.exports = function(content, resourcePath, isParseHtml) {
 
     const defaultValue = {
         codeboxContent: content,
         importStr: '',
-        importComp: ''
+        importComp: '{}'
     };
 
-    codeboxReg.lastIndex = 0;
-    const matches = content.match(codeboxReg);
+    let matches;
+    if (isParseHtml) {
+        codeboxReg.lastIndex = 0;
+        matches = content.match(codeboxReg);
+    }
+    else {
+        codeboxSnippetReg.lastIndex = 0;
+        matches = content.match(codeboxSnippetReg);
+    }
+    
     if (!matches) {
         return defaultValue;
     }
@@ -69,21 +77,25 @@ module.exports = function(content, resourcePath) {
     });
 
     let importStr = '';
+    let importHtml = '';
     let importCompMap = {};
     Object.keys(codePreviewMap).forEach((key, index) => {
         const name = key.replace(/\//g, '_');
+        const tag = codePreviewMap[name];
         importStr += `import ${name} from '${resourcePath}?codebox=${index}';`;
-        importCompMap[codePreviewMap[name]] = `%${name}%`;
+        importHtml += `<${tag}></${tag}>`;
+        importCompMap[tag] = `%${name}%`;
     });
 
     const importComp = Object.keys(importCompMap).length > 0
-        ? `static components = ${JSON.stringify(importCompMap)}`
+        ? `${JSON.stringify(importCompMap)}`
             .replace(/("%|%")/mg, '')
-        : '';
+        : '{}';
 
     return {
         codeboxContent: content,
         importStr,
-        importComp
+        importComp,
+        importHtml
     };
 };

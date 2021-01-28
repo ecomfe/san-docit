@@ -8,14 +8,25 @@
 const {codeboxReg, codeboxSnippetReg} = require('./const');
 
 module.exports = function(content, index) {
+    // 情况1. 匹配 <codebox>
     codeboxReg.lastIndex = 0;
-    const matches = content.match(codeboxReg);
-    if (!matches) {
-        return content;
+    let matches = content.match(codeboxReg);
+    if (matches) {
+        codeboxSnippetReg.lastIndex = 0;
+        let sanCode = matches[index].match(codeboxSnippetReg);
+
+        return sanCode[2];
     }
 
+    // 情况2. 匹配 ```html
     codeboxSnippetReg.lastIndex = 0;
-    let sanCode = matches[index].match(codeboxSnippetReg);
+    matches = content.match(codeboxSnippetReg);
+    if (matches) {
+        codeboxSnippetReg.lastIndex = 0;
+        let sanCode = matches[index].match(codeboxSnippetReg);
 
-    return sanCode[2];
+        return sanCode[2];
+    }
+
+    return content;
 };

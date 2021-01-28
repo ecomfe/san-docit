@@ -23,22 +23,6 @@
         "packages",
         "index.ejs"
     ],
-    "babel": {
-        "presets": [
-            [
-                "@babel/preset-env",
-                {
-                    "targets": {
-                        "node": "current"
-                    }
-                }
-            ]
-        ],
-        "plugins": [
-            "@babel/plugin-proposal-class-properties"
-        ],
-        "exclude": "node_modules"
-    },
     "engines": {
         "node": ">=8.16"
     },

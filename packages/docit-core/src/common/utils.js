@@ -23,7 +23,7 @@ const treeWalk = (root, callback) => {
     });
 }
 
-export default {
+export {
     base,
     treeWalk
 };
