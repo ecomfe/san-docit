@@ -1,6 +1,6 @@
 {
     "name": "san-docit",
-    "version": "1.0.3",
+    "version": "3.0.0",
     "description": "San document creater.",
     "author": "ecomfe",
     "bin": {
@@ -14,8 +14,8 @@
         "@babel/core": "^7.4.5",
         "@babel/plugin-proposal-class-properties": "^7.8.3",
         "@babel/preset-env": "^7.4.5",
-        "@san-docit/markdown-loader": "^1.0.0",
-        "@san-docit/theme-default": "^1.0.0",
+        "@san-docit/markdown-loader": "^3.0.0",
+        "@san-docit/theme-default": "^3.0.0",
         "babel-loader": "^8.2.2",
         "chalk": "^4.1.0",
         "commander": "^6.2.1",

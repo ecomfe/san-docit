@@ -18,8 +18,13 @@ const webpackConfig = merge(baseWebpackConfig, getStyleLoader(2), {
             }
         ]
     },
+    resolve: {
+        alias: {
+            san$: 'san/dist/san.modern.js'
+        }
+    },
     optimization: {
-        minimize: false,
+        // minimize: false,
         splitChunks: {
             cacheGroups: {
                 vendors: {

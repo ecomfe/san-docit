@@ -36,7 +36,6 @@ module.exports = (name, options) => {
         template: utils.getCommonPaths('templates/ssr.ejs')[0],
         filename: name + '.html',
         chunks: ['chunk-vendors', 'chunk-common', 'client-entry'],
-        favicon: utils.getCommonPaths('public/favicon.ico')[0],
         minify: {
             collapseWhitespace: true,
             keepClosingSlash: true,
