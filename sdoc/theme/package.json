@@ -12,5 +12,7 @@
         "san-docit"
     ],
     "dependencies": {
+        "san": "^3.9.2",
+        "san-loader": "0.2.0"
     }
 }
