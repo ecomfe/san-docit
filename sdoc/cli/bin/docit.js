@@ -1,0 +1,43 @@
+#! /usr/bin/env node
+
+const program = require('commander');
+const globby = require('globby');
+const semver = require('semver');
+const chalk = require('chalk');
+const option = require('./option');
+
+const buildCommand = async (route) => {
+    const {command, description, args, run} = await require(route);
+    const commandConfig = program
+        .command(command)
+        .description(description)
+        .arguments('[cwd]').description('override current working directory');
+
+    args.forEach(arg => commandConfig.option(arg[0], arg[1], arg[2]));
+
+    commandConfig.action((cwd = '.', cmd) => {
+        !cmd.cwd && (cmd.cwd = option.parseCwd(cwd));
+
+        option.run(cmd);
+        run(cmd);
+    });
+};
+
+const main = async () => {
+    if (semver.lt(process.version, '8.9.0')) {
+        console.error(chalk.yellow('Require node >= v8.9.0 to be installed'));
+        process.exit(1);
+    }
+
+    const routes = await globby('./commands/*', {
+        expandDirectories: false,
+        onlyFiles: false,
+        cwd: __dirname
+    });
+
+    await Promise.all(routes.map(buildCommand));
+
+    program.parse(process.argv);
+};
+
+main();

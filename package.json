@@ -7,13 +7,13 @@
         "docit": "bin/index.js"
     },
     "scripts": {
-        "start": "yarn workspace san-docit start",
-        "build": "yarn workspace san-docit build"
+        "start": "yarn workspace @sdoc/cli start",
+        "build": "yarn workspace @sdoc/cli build"
     },
     "dependencies": {
     },
     "workspaces": [
-        "packages/*"
+        "sdoc/*"
     ],
     "files": [
         "src",
