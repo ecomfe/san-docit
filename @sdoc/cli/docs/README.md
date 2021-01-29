@@ -1,4 +1,4 @@
-# san docit
+# @sdoc/cli
 
 > Minimalistic San-powered static site generator.
 

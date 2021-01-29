@@ -55,8 +55,8 @@ exports.load = () => {
     }
 
     // 1. 加载用户配置
-    const configPath = path.resolve(utils.cwd, '.docit/config.js');
-    config = loadConfig(require('../config'), '.docit', configPath);
+    const configPath = path.resolve(utils.cwd, '.sdoc/config.js');
+    config = loadConfig(require('../config'), '.sdoc', configPath);
 
     // 2. 加载主题配置
     if (config.theme) {

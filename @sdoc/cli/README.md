@@ -1,4 +1,4 @@
-# san-docit
+# @sdoc/cli
 
 > Minimalistic San-powered static site generator.
 
@@ -11,12 +11,12 @@ $ yarn add @sdoc/cli -D
 
 ## Start
 Add config file for site. See example:
-[config.js](https://github.com/kidnes/san-docit/blob/master/packages/docit-core/docs/.docit/config.js)
+[config.js](https://github.com/kidnes/san-docit/blob/master/@sdoc/cli/docs/.sdoc/config.js)
 
 Add package.jons script field:
 ```
-"start": "docit start docs"
-"build": "docit build docs"
+"start": "sdoc start docs"
+"build": "sdoc build docs"
 ```
 
 Start server:

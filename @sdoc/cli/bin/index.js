@@ -1,10 +1,18 @@
 #! /usr/bin/env node
 
+const path = require('path');
 const program = require('commander');
 const globby = require('globby');
 const semver = require('semver');
 const chalk = require('chalk');
 const option = require('./option');
+
+const parseCwd = value => {
+    if (!value || value.startsWith('/')) {
+        return value;
+    }
+    return path.join(process.cwd(), value);
+};
 
 const buildCommand = async (route) => {
     const {command, description, args, run} = await require(route);
@@ -16,7 +24,7 @@ const buildCommand = async (route) => {
     args.forEach(arg => commandConfig.option(arg[0], arg[1], arg[2]));
 
     commandConfig.action((cwd = '.', cmd) => {
-        !cmd.cwd && (cmd.cwd = option.parseCwd(cwd));
+        cmd.cwd = parseCwd(cwd);
 
         option.run(cmd);
         run(cmd);

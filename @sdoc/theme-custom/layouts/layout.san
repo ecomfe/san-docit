@@ -1,0 +1,110 @@
+<template>
+    <div id="site mysite">
+        <header id="header">
+            <a href="{{docit.base}}" class="navbar">
+                <img src="{{docit.base + docit.logo}}" alt="Home" class="logo"/>
+                <span>{{docit.title}}</span>
+            </a>
+            <ul>
+                <li s-for="nav in docit.themeConfig.nav">
+                    <a
+                        target="{{nav.target || '_blank'}}"
+                        href="{{nav.link}}"
+                    >
+                        {{nav.text}}
+                    </a>
+                </li>
+            </ul>
+        </header>
+        <aside s-if="isShowSidebar" id="sidebar" class="sidebar">
+            <tree treeData="{{sidebar}}" selectedNodes="{{selectedNodes}}">
+                <router-link s-if="treeNode.path" to="{{getPath(treeNode)}}">{{treeNode.title}}</router-link>
+                <span s-else>{{treeNode.title}}</span>
+            </tree>
+        </aside>
+        <drawer s-else class="sidebar" style="width: 0">
+            <tree treeData="{{sidebar}}" selectedNodes="{{selectedNodes}}" style="padding: 50px 0;">
+                <router-link s-if="treeNode.path" to="{{getPath(treeNode)}}">{{treeNode.title}}</router-link>
+                <span s-else>{{treeNode.title}}</span>
+            </tree>
+        </drawer>
+        <content-area docit="{{docit}}" class="{{isShowSidebar ? '' : 'hidden'}}"></content-area>
+    </div>
+</template>
+
+<script>
+import {DataTypes} from 'san';
+import {Link} from '../common/san-router';
+import contentArea from './content-area';
+import tree from '../components/tree';
+import drawer from '../components/drawer';
+import hub from '../common/hub';
+import utils from '../common/utils';
+
+export default {
+    components: {
+        'router-link': Link,
+        'content-area': contentArea,
+        drawer,
+        tree
+    },
+    dataTypes: {
+        docit: DataTypes.object
+    },
+    computed: {
+        sidebar() {
+            const docit = this.data.get('docit');
+            const sidebar = docit.themeConfig.sidebar;
+            const current = docit.pathname || location.pathname;
+
+            if (sidebar[current]) {
+                return sidebar[current];
+            }
+            for (let route in sidebar) {
+                let list = sidebar[route];
+                for (let i = 0; i < list.length; i++) {
+                    if (list[i].path === current) {
+                        return list;
+                    }
+                }
+            }
+
+            return sidebar['/'] || [];
+        }
+    },
+    initData() {
+        return {
+            isShowSidebar: true,
+            selectedNode: []
+        };
+    },
+    inited() {
+        hub.on('RouterChanged', this.isActive.bind(this));
+    },
+    isActive(e) {
+        const selected = [];
+        const base = utils.base;
+        const sidebar = this.data.get('sidebar');
+        utils.treeWalk(sidebar, item => {
+            if (base + item.path === e.path) {
+                selected.push(item);
+            }
+        });
+        this.data.set('selectedNodes', selected);
+    },
+    getPath(node) {
+        return utils.base + node.path;
+    }
+}
+</script>
+
+<style lang="less">
+#site {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+</style>
+

@@ -1,5 +1,5 @@
 /**
- * @file sandocit build 命令
+ * @file sdoc build 命令
  * @author kidnes
  * @date 2020-12-20
  */

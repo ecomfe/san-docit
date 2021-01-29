@@ -1,5 +1,5 @@
 /**
- * @file sandocit build 命令
+ * @file sdoc build 命令
  * @author kidnes
  * @date 2020-12-20
  */
@@ -15,7 +15,7 @@ const config = require('../../../build/config').load();
 const webpackDev = require('../../../build/webpack.dev');
 
 const computeSettingsHash = cwd => {
-    const settings = fs.readFileSync(path.join(cwd, '.docit/config.js'));
+    const settings = fs.readFileSync(path.join(cwd, '.sdoc/config.js'));
     return hash(settings);
 };
 
@@ -82,7 +82,7 @@ module.exports = cmd => {
 
     let settingsHash = computeSettingsHash(cwd);
 
-    fs.watch(path.join(cwd, '.docit/config.js'),
+    fs.watch(path.join(cwd, '.sdoc/config.js'),
         () => {
             // `fs.watch`是不稳定的，一次修改会触发多次，因此用hash做一下比对
             const newSettingsHash = computeSettingsHash(cwd);

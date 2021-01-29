@@ -1,0 +1,16 @@
+{
+    "name": "@sdoc/theme-demo",
+    "version": "1.0.0",
+    "description": "Custome theme for san-docit extend from `@sdoc/theme-default`.",
+    "author": "ksky521",
+    "license": "MIT",
+    "main": "index.js",
+    "scripts": {
+    },
+    "keywords": [
+        "sdoc",
+        "san-docit"
+    ],
+    "dependencies": {
+    }
+}

@@ -4,18 +4,18 @@
     "description": "San document creater.",
     "author": "ecomfe",
     "bin": {
-        "docit": "bin/docit.js"
+        "sdoc": "bin/sdoc.js"
     },
     "scripts": {
-        "start": "node bin/docit.js start docs",
-        "build": "node bin/docit.js build docs"
+        "start": "node bin/sdoc.js start docs",
+        "build": "node bin/sdoc.js build docs"
     },
     "dependencies": {
         "@babel/core": "^7.4.5",
         "@babel/plugin-proposal-class-properties": "^7.8.3",
         "@babel/preset-env": "^7.4.5",
-        "@sdoc/markdown-loader": "^3.0.0",
-        "@sdoc/theme-default": "^3.0.0",
+        "@sdoc/markdown-loader": "^1.0.0",
+        "@sdoc/theme-default": "^1.0.0",
         "babel-loader": "^8.2.2",
         "chalk": "^4.1.0",
         "commander": "^6.2.1",

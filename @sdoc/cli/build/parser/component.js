@@ -22,7 +22,7 @@ const getComponents = () => {
     let components = {};
 
     const dirs = [
-        path.resolve(utils.cwd, '.docit'),
+        path.resolve(utils.cwd, '.sdoc'),
         ...utils.getCommonPaths('global-components')
     ];
 

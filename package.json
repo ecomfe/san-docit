@@ -13,7 +13,7 @@
     "dependencies": {
     },
     "workspaces": [
-        "sdoc/*"
+        "@sdoc/*"
     ],
     "files": [
         "src",

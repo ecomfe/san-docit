@@ -6,7 +6,7 @@
 
 module.exports = {
     base: '/',
-    title: 'San Docit',
+    title: 'sdoc',
     head: [],
     logo: 'logo.svg',
 

@@ -11,7 +11,7 @@ const resolve = dir => {
 };
 
 const resolveDocit = dir => {
-    return path.join(cwd, '.docit', dir);
+    return path.join(cwd, '.sdoc', dir);
 };
 
 let routes = {};
