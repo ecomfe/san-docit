@@ -15,7 +15,7 @@ const getFilesByDir = dir => {
     files.map(file => components[file.replace(/\.san$/, '')] = dir + '/' + file);
 
     return components;
-}
+};
 
 const getComponents = () => {
     let components = {};
@@ -28,7 +28,7 @@ const getComponents = () => {
     components = Object.assign(components, ...dirs.map(dir => getFilesByDir(dir)));
 
     return components;
-}
+};
 
 const getComponentsImports = () => {
     const components = getComponents();
@@ -48,9 +48,9 @@ const getComponentsImports = () => {
         compImport: importList.join('\n'),
         compMap: JSON.stringify(componentMap).replace(/("%|%")/mg, '')
     };
-}
+};
 
 module.exports = {
     getComponents,
     getComponentsImports
-}
+};

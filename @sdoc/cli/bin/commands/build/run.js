@@ -4,7 +4,8 @@
  * @date 2020-12-20
  */
 
-/* eslint-disable: no-console */
+/* eslint-disable no-console */
+
 const webpack = require('webpack');
 const chalk = require('chalk');
 
@@ -35,7 +36,7 @@ module.exports = async cmd => {
     console.log('Server side compile...');
     const webpackConfig = await webpackProd();
 
-    console.log('Server side compile Done.')
+    console.log('Server side compile Done.');
 
     console.log('Client side compile...');
 

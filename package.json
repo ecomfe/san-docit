@@ -12,6 +12,15 @@
     },
     "dependencies": {
     },
+    "devDependencies": {
+        "@babel/eslint-parser": "^7.12.1",
+        "@babel/eslint-plugin": "^7.12.1",
+        "@ecomfe/eslint-config": "^7.0.0",
+        "eslint": "^7.19.0",
+        "eslint-plugin-import": "^2.22.1",
+        "eslint-plugin-san": "^0.0.1",
+        "eslint-utils": "^2.1.0"
+    },
     "workspaces": [
         "@sdoc/*"
     ],

@@ -26,7 +26,7 @@ const addRouter = node => {
     const path = node.path;
     let component = components[path]
         ? components[path] : /\.js$/.test(node.filename)
-        ? require(node.filename) : '';
+            ? require(node.filename) : '';
 
     if (component) {
         router.add({
@@ -35,7 +35,7 @@ const addRouter = node => {
             target: '#router-view'
         });
     }
-}
+};
 
 const parseRouter = (root, callback) => {
     if (!root) {
@@ -53,7 +53,7 @@ const parseRouter = (root, callback) => {
             parseRouter(item, callback);
         }
     });
-}
+};
 
 // router.add 注册路由
 Object.keys(sidebar).forEach(path => {
@@ -91,7 +91,7 @@ router.listen(e => {
     }
     NProgress.inc();
 
-    hub.fire('RouterChanged', e);
+    hub.fire('router-changed', e);
 });
 
 router.afterEach(e => {

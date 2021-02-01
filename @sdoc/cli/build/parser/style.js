@@ -6,6 +6,6 @@ const getStyleImport = () => {
     return varsFiles.concat(indexFiles).map(file => `@import '${file}';`).join('\n');
 };
 
-module.exports ={
+module.exports = {
     getStyleImport
 };

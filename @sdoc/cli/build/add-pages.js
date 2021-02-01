@@ -12,7 +12,8 @@ const render = async (fileMap, options = {}) => {
     // 1. 编译 SSR 需要组件文件
     try {
         await ssr.compile(fileMap, webpackConfig);
-    } catch (err) {
+    }
+    catch (err) {
         error('Webpack compile SSR error：', err);
 
         return err;
@@ -26,12 +27,13 @@ const render = async (fileMap, options = {}) => {
             renderMap[name] = {content: html};
 
             debug(`SSR render: ${name}`);
-        } catch (err) {
+        }
+        catch (err) {
             debug(`Not support SSR render, use Client render: ${name}`);
         }
     }
     return renderMap;
-}
+};
 
 module.exports = async webpackConfig => {
     const routes = route.getRoutes();
@@ -49,9 +51,9 @@ module.exports = async webpackConfig => {
         webpackConfig.entry[name] = fileMap[name];
         webpackConfig.plugins.push(
             new HtmlWebpackPlugin(options)
-        )
+        );
     }
 
     return webpackConfig;
-}
+};
 

@@ -10,6 +10,6 @@ const getThemeImport = () => {
     return files.map(file => `import '${file}';`).join('\n');
 };
 
-module.exports ={
+module.exports = {
     getThemeImport
 };

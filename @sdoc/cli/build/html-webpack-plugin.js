@@ -6,20 +6,20 @@
 const utils = require('./utils');
 const ssr = require('./ssr');
 
-const getSSRHTML = (varibal) => {
+const getSSRHTML = varibal => {
     const html = ssr.render('server-entry', {SAN_DOCIT: varibal}, true);
 
     return html;
-}
+};
 
-function getProjectConfig(config) {
+const getProjectConfig = config => {
     return {
         title: config.title,
         base: config.base,
         logo: config.logo,
         themeConfig: config.themeConfig
     };
-}
+};
 
 module.exports = (name, options) => {
     const config = require('./config').load();
@@ -46,4 +46,4 @@ module.exports = (name, options) => {
         ...config
     };
     return result;
-}
+};

@@ -3,7 +3,7 @@ import layout from 'VAR_LAYOUT_IMPORT/layout.san';
 import './common/hub';
 import './common/register-components';
 
-VAR_THEMES_IMPORT
+VAR_THEMES_IMPORT;
 
 export default class Index extends Component {
     static components = {

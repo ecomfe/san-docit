@@ -1,7 +1,7 @@
 const config = require('./config');
 const utils = require('./utils');
 
-const buildRules = (replaceMap) => {
+const buildRules = replaceMap => {
     // const devRules = replaceRules.map(rule => {
     //     const search = rule.search.map(name => ({
     //         search: name,
@@ -15,7 +15,7 @@ const buildRules = (replaceMap) => {
     //         }
     //     };
     // });
-    
+
     const rules = [{
         loader: 'string-replace-loader',
         test: /\.(js|less)$/,
@@ -33,7 +33,7 @@ const buildRules = (replaceMap) => {
     return rules;
 };
 
-module.exports = function() {
+module.exports = function () {
     const component = require('./parser/component');
     const route = require('./parser/route');
     const theme = require('./parser/theme');
@@ -56,4 +56,4 @@ module.exports = function() {
     };
 
     return buildRules(replaceMap);
-}
+};

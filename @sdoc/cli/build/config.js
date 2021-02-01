@@ -39,7 +39,7 @@ const loadConfig = (defaultConfig, pathname, configPath) => {
 
             return Object.assign(defaultConfig, customConfig);
         }
-        catch(err) {
+        catch (err) {
             debug(
                 `Load config error: ${configPath}
                 ${err}
@@ -47,7 +47,7 @@ const loadConfig = (defaultConfig, pathname, configPath) => {
         }
     }
     return defaultConfig;
-}
+};
 
 exports.load = () => {
     if (config) {

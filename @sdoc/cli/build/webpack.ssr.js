@@ -28,8 +28,7 @@ module.exports = function () {
                     options: {
                         ssr: true
                     }
-                }],
-                
+                }]
             }]
         },
         plugins: [

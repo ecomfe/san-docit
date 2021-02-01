@@ -19,7 +19,7 @@ const getFileName = node => {
         .filter(name => fs.existsSync(name) && fs.lstatSync(name).isFile());
 
     return arr && arr[0] ? arr[0] : '';
-}
+};
 
 const buildTreeNode = node => {
     if (!node) {
@@ -34,11 +34,13 @@ const buildTreeNode = node => {
     const filename = node.filename || getFileName(routePath);
 
     if (!filename) {
+        /* eslint-disable no-console */
         console.log(chalk.red(`File not exist: ${routePath}`));
     }
 
     const title = node.title || loadTitle(fs.readFileSync(filename, 'utf-8'));
     if (!title) {
+        /* eslint-disable no-console */
         console.log(chalk.red(`Parse title from markdown failed: ${filename}.`));
     }
 

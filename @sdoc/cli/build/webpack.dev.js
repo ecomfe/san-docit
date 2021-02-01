@@ -18,7 +18,7 @@ module.exports = function () {
         devServer: {
             port: utils.port || 8080,
             publicPath: config.base,
-            before: function(app) {
+            before: function (app) {
                 app.use(history({
                     index: config.base + 'index.html'
                 }));

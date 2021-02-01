@@ -28,7 +28,7 @@ const getRoutes = () => {
 
     files.map(file => routes[file.replace(/\.md$/, '/')] = cwd + '/' + file);
     return routes;
-}
+};
 
 const getRoutesImportStr = () => {
     const routes = getRoutes();
@@ -37,7 +37,7 @@ const getRoutesImportStr = () => {
         routesImport[`/${route}`] = `%() => import('${routes[route]}')%`;
     });
     return JSON.stringify(routesImport).replace(/("%|%")/mg, '');
-}
+};
 
 const treeWalk = (root, callback) => {
     if (!root) {
@@ -55,7 +55,7 @@ const treeWalk = (root, callback) => {
             treeWalk(item, callback);
         }
     });
-}
+};
 
 const treeBuild = (root, callback) => {
     if (!root) {
@@ -86,12 +86,12 @@ const treeBuild = (root, callback) => {
 };
 
 let resolvePaths;
-const getCommonPaths = (dir) => {
+const getCommonPaths = dir => {
     return resolvePaths
         .map(p => path.join(p, dir))
         .filter(p => fs.existsSync(p));
 };
-const setCommonPaths = (paths) => {
+const setCommonPaths = paths => {
     resolvePaths = paths;
 };
 
@@ -130,4 +130,4 @@ module.exports = {
     treeWalk,
     headBuild,
     getCommonPaths
-}
+};

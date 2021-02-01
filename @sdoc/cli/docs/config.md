@@ -25,6 +25,8 @@
 
 渲染网站的 `<meta>` 标签到当前页面的 HTML 中。比如配置 `meta: {description: '文档工具'}`，渲染 `<meta name="description" content="文档工具">`。
 
+[html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin#configuration)的 meta 配置项。
+
 ### head
 
 - 类型: `Array`
@@ -132,70 +134,6 @@ SDoc 提供了一种添加额外样式的简便方法。你可以创建一个 `.
 **也可以参考:**
 
 - [默认主题](https://sdoc.vuejs.org/zh/theme/default-theme-config.html)。
-
-## Markdown
-
-### markdown.lineNumbers
-
-- 类型: `boolean`
-- 默认值: `undefined`
-
-是否在每个代码块的左侧显示行号。
-
-### markdown.toc
-
-- 类型: `Object`
-- 默认值: `{ includeLevel: [2, 3] }`
-
-### markdown.plugins
-
-你可以使用 `markdown.plugins` 来安装 markdown-it 插件。你可以使用 Babel 语法或对象语法。`markdown-it-` 前缀同样是可以忽略的。
-
-```js
-module.exports = {
-    markdown: {
-        plugins: [
-            '@org/foo', // 等价于 @org/markdown-it-foo，如果对应的包存在
-            ['markdown-it-bar', {
-                // 提供你的选项
-            }]
-        ]
-    }
-}
-```
-
-or
-
-```js
-module.exports = {
-    markdown: {
-        plugins: {
-            '@org/foo': {}
-            'markdown-it-bar': {
-                // 提供你的选项
-            }
-        }
-    }
-}
-```
-
-### markdown.extendMarkdown
-
-- 类型: `Function`
-- 默认值: `undefined`
-
-一个用于修改当前的 [markdown-it](https://github.com/markdown-it/markdown-it)实例的默认配置，或者应用额外的插件的函数，举例如下：
-
-```js
-module.exports = {
-    markdown: {
-        extendMarkdown: md => {
-            md.set({ breaks: true })
-            md.use(require('markdown-it-xxx'))
-        }
-    }
-}
-```
 
 
 ## 构建流程

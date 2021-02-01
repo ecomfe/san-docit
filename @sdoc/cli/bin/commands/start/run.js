@@ -19,6 +19,21 @@ const computeSettingsHash = cwd => {
     return hash(settings);
 };
 
+const open = devServerConfig => {
+    const {https, host, port, publicPath} = devServerConfig;
+
+    const protocol = https ? 'https' : 'http';
+
+    const networkUrl = `${protocol}://${host}:${port}${publicPath}`;
+
+    /* eslint-disable no-console */
+    console.log();
+    console.log(`  Application is running at: ${chalk.green(networkUrl)}`);
+    /* eslint-enable no-console */
+
+    config.open && opener(networkUrl);
+};
+
 const startDevServer = () => {
     const configurations = webpackDev();
 
@@ -59,22 +74,7 @@ const startDevServer = () => {
     });
 
     return server;
-}
-
-const open = devServerConfig => {
-    const {https, host, port, publicPath} = devServerConfig;
-
-    const protocol = https ? 'https' : 'http';
-
-    const networkUrl = `${protocol}://${host}:${port}${publicPath}`;
-
-    /* eslint-disable no-console */
-    console.log();
-    console.log(`  Application is running at: ${chalk.green(networkUrl)}`);
-    /* eslint-enable no-console */
-
-    config.open && opener(networkUrl);
-}
+};
 
 module.exports = cmd => {
     const {cwd} = cmd;
@@ -93,7 +93,7 @@ module.exports = cmd => {
 
             settingsHash = newSettingsHash;
 
-            // eslint:disable-next-line:no-console
+            /* eslint-disable no-console */
             console.log('Detected config.js change, restarting dev server...');
 
             server.close();

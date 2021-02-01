@@ -79,7 +79,7 @@ export default {
         };
     },
     inited() {
-        hub.on('RouterChanged', this.isActive.bind(this));
+        hub.on('router-changed', this.isActive.bind(this));
     },
     isActive(e) {
         const selected = [];

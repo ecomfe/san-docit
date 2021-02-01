@@ -1,27 +1,22 @@
-// const globby = require('globby');
+const path = require('path');
 const config = require('../config');
 const utils = require('../utils');
 
-const cwd = utils.cwd;
-
-let routes = {};
-const getRoutes = () => {
-    if (Object.keys(routes).length > 0) {
-        return routes;
+const resolve = value => {
+    if (!value || value.startsWith('/')) {
+        return value;
     }
-
-    initRoutesFromConfig();
-
-    return routes;
+    return path.join(utils.cwd, value);
 };
 
+let routes = {};
 const initRoutesFromConfig = () => {
     const sidebar = config.load().themeConfig.sidebar;
     Object.keys(sidebar).forEach(name => {
         utils.treeWalk(sidebar[name], node => {
             if (/\.(js|md)$/.test(node.filename) && node.path) {
                 const path = node.path.replace(/^\//, '');
-                routes[path] = node.filename;
+                routes[path] = resolve(node.filename);
             }
         });
     });
@@ -40,6 +35,16 @@ const initRoutesFromConfig = () => {
 //     });
 // };
 
+const getRoutes = () => {
+    if (Object.keys(routes).length > 0) {
+        return routes;
+    }
+
+    initRoutesFromConfig();
+
+    return routes;
+};
+
 const getRoutesImportStr = () => {
     const routes = getRoutes();
     const routesImport = {};
@@ -47,9 +52,11 @@ const getRoutesImportStr = () => {
         routesImport[`/${route}`] = `%() => import('${routes[route]}')%`;
     });
     return JSON.stringify(routesImport).replace(/("%|%")/mg, '');
-}
+};
+
+
 
 module.exports = {
     getRoutes,
     getRoutesImportStr
-}
+};

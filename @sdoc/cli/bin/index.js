@@ -14,7 +14,7 @@ const parseCwd = value => {
     return path.join(process.cwd(), value);
 };
 
-const buildCommand = async (route) => {
+const buildCommand = async route => {
     const {command, description, args, run} = await require(route);
     const commandConfig = program
         .command(command)

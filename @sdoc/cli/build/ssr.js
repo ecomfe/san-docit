@@ -44,7 +44,7 @@ const compile = async (fileMap, webpackConfig = {}) => {
     const configurations = merge(baseWebpackConfig, webpackConfig, config);
 
     return await build(configurations);
-}
+};
 
 const render = (name, varibal = {}, noDataOutput = true) => {
     const {default: entry} = require(path.join(tmpdir, name));
@@ -54,7 +54,7 @@ const render = (name, varibal = {}, noDataOutput = true) => {
     const html = render(varibal, noDataOutput);
 
     return html;
-}
+};
 
 module.exports = {
     compile,

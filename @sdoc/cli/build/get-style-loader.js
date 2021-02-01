@@ -1,6 +1,6 @@
 
 // 3个级别的配置，0：基础版，SSR用；1：开发版；2：发布版
-module.exports = function(level = 0) {
+module.exports = function (level = 0) {
     const basicRules = [{
         test: /\.css$/,
         use: ['css-loader']
@@ -8,7 +8,7 @@ module.exports = function(level = 0) {
     {
         test: /\.less$/,
         use: [
-            'css-loader', 
+            'css-loader',
             {
                 loader: 'less-loader',
                 options: {
@@ -24,7 +24,7 @@ module.exports = function(level = 0) {
         use: [{
             loader: 'sass-loader',
             options: {
-              sourceMap: false
+                sourceMap: false
             }
         }]
     }, {
@@ -32,7 +32,7 @@ module.exports = function(level = 0) {
         use: [{
             loader: 'scss-loader',
             options: {
-              sourceMap: false
+                sourceMap: false
             }
         }]
     }, {

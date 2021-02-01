@@ -84,4 +84,5 @@ Thumbs.db
 # build assets
 /output
 /dist
+/dest
 /dll
