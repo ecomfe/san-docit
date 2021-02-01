@@ -1,5 +1,5 @@
 import SanRouter, {router} from '../common/san-router';
-import NProgress from 'NProgress';
+import NProgress from 'nprogress';
 import hub from '../common/hub';
 import {base} from '../common/utils';
 import NotFound from 'VAR_LAYOUT_IMPORT/not-found.san';
