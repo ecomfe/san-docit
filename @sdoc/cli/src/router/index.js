@@ -74,12 +74,6 @@ routes.forEach(route => {
 });
 
 router.listen(e => {
-    // if (!components[e.path.substr(base.length)]) {
-    //     // e.stop();
-    //     // this.locator.stop();
-    //     setTimeout(() => {this.locator.redirect(base + 'notfound/');}, 0);
-    //     return;
-    // }
     if (e.path === e.referrer) {
         e.stop();
         return;
