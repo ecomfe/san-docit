@@ -8,12 +8,13 @@ module.exports = {
     base: '/',
     title: 'sdoc',
     head: [],
-    logo: 'logo.svg',
-
+    meta: {},
+    dest: '.sdoc/dist',
     open: true,
 
     theme: '@sdoc/theme-default',
     themeConfig: {
+        logo: 'logo.svg',
         nav: [],
         sidebar: {}
     }

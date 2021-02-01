@@ -34,15 +34,7 @@ module.exports = (name, options) => {
         template: utils.getCommonPaths('templates/ssr.ejs')[0],
         filename: name + '.html',
         chunks: ['chunk-vendors', 'chunk-common', 'client-entry'],
-        minify: {
-            collapseWhitespace: true,
-            keepClosingSlash: true,
-            removeComments: false,
-            removeRedundantAttributes: true,
-            removeScriptTypeAttributes: true,
-            removeStyleLinkTypeAttributes: true,
-            useShortDoctype: true
-        },
+        minify: true,
         templateParameters: Object.assign(config, {
             ssrHtmlSnippet: getSSRHTML(SAN_DOCIT),
             window: {

@@ -11,12 +11,14 @@ module.exports = function () {
 
     const replaceLoader = require('./replace-loader');
 
+    const dest = path.join(utils.cwd, config.dest);
+
     let webpackConfig = {
         devtool: '',
         mode: 'development',
         context: __dirname,
         output: {
-            path: utils.resolveDocit('dist'),
+            path: dest,
             filename: 'static/js/[name].js',
             chunkFilename: 'static/js/[name].js',
             publicPath: config.base
@@ -83,7 +85,7 @@ module.exports = function () {
             new CopyWebpackPlugin({
                 patterns: utils.getCommonPaths('public').map(dir => ({
                     from: dir,
-                    to: utils.resolveDocit('dist')
+                    to: dest
                 }))
             }),
             new webpack.DefinePlugin({

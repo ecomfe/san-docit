@@ -2,7 +2,7 @@
     "name": "@sdoc/theme-default",
     "version": "1.0.0",
     "description": "Default theme for san-docit.",
-    "author": "ksky521",
+    "author": "ecomfe-core",
     "license": "MIT",
     "main": "index.js",
     "scripts": {

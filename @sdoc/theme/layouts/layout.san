@@ -2,7 +2,7 @@
     <div id="site">
         <header id="header">
             <a href="{{docit.base}}" class="navbar">
-                <img src="{{docit.base + docit.logo}}" alt="Home" class="logo"/>
+                <img src="{{docit.base + docit.themeConfig.logo}}" alt="Home" class="logo"/>
                 <span>{{docit.title}}</span>
             </a>
             <ul>

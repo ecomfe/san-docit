@@ -2,7 +2,7 @@
     "name": "@sdoc/markdown-loader",
     "version": "1.0.0",
     "description": "san markdown loader",
-    "author": "ksky521",
+    "author": "ecomfe-core",
     "license": "MIT",
     "main": "index.js",
     "scripts": {

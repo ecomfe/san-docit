@@ -1,0 +1,12 @@
+#hello-codebox h1 {
+  font-size: 18px;
+}
+#hello-codebox h2 {
+  font-size: 16px;
+  color: red;
+}
+
+.markdown .codebox-demo h1 {
+  font-size: 16px;
+}
+

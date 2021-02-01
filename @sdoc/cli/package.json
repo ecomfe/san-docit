@@ -2,13 +2,13 @@
     "name": "@sdoc/cli",
     "version": "1.0.0",
     "description": "San document creater.",
-    "author": "ecomfe",
+    "author": "ecomfe-core",
     "bin": {
-        "sdoc": "bin/sdoc.js"
+        "sdoc": "bin/index.js"
     },
     "scripts": {
-        "start": "node bin/sdoc.js start docs",
-        "build": "node bin/sdoc.js build docs"
+        "start": "node bin/index.js start example",
+        "build": "node bin/index.js build example"
     },
     "dependencies": {
         "@babel/core": "^7.4.5",
@@ -50,7 +50,6 @@
         "src",
         "bin",
         "build",
-        "docs",
         "config.js"
     ],
     "babel": {

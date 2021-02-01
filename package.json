@@ -1,7 +1,7 @@
 {
     "name": "san-docit",
     "description": "San document creater.",
-    "author": "ecomfe",
+    "author": "ecomfe-core",
     "private": true,
     "bin": {
         "docit": "bin/index.js"

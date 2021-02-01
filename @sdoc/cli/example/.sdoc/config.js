@@ -10,10 +10,14 @@ module.exports = {
     head: [
         ['link', {rel: 'icon', href: '/favicon.ico'}]
     ],
-    logo: 'logo.svg',
+    meta: {
+        description: '文档工具'
+    },
+    dest: '.sdoc/dest',
 
     theme: '@sdoc/theme-default',
     themeConfig: {
+        logo: 'logo.svg',
         nav: [
             {text: 'San', link: 'https://baidu.github.io/san/'},
             {text: 'Santd', link: 'https://ecomfe.github.io/santd/'}
@@ -24,7 +28,7 @@ module.exports = {
                 '/',
                 '/simple/',
                 '/markdownit/',
-                '/codebox/',
+                '/config/',
                 '/docit/sanbox-demo/',
                 {
                     title: 'title1',
