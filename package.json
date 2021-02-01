@@ -8,7 +8,9 @@
     },
     "scripts": {
         "start": "yarn workspace @sdoc/cli start",
-        "build": "yarn workspace @sdoc/cli build"
+        "build": "yarn workspace @sdoc/cli build",
+        "docs:start": "sdoc start docs",
+        "docs:build": "sdoc build docs"
     },
     "dependencies": {
     },

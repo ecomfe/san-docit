@@ -12,11 +12,11 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - run: yarn
-    - run: yarn run build
+    - run: yarn run docs:build
     
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v2.5.0
       env:
         ACTIONS_DEPLOY_KEY: ${{secrets.ACTIONS_DEPLOY_KEY}}
         PUBLISH_BRANCH: gh-pages
-        PUBLISH_DIR: ./@sdoc/cli/docs/.sdoc/dist
+        PUBLISH_DIR: ./docs/.sdoc/dist

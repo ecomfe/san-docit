@@ -5,34 +5,41 @@
 'use strict';
 
 module.exports = {
-    base: '/san-docit/',
+    base: '/',
     title: 'sdoc',
     head: [
-        ['link', {rel: 'icon', href: '/san-docit/favicon.ico'}]
+        ['link', {rel: 'icon', href: '/favicon.ico'}]
     ],
     meta: {
-        description: '文档，文档工具，建站'
+        description: '文档工具'
     },
-    dest: '.sdoc/dist',
+    dest: '.sdoc/dest',
 
     theme: '@sdoc/theme-default',
     themeConfig: {
         logo: 'logo.svg',
         nav: [
-            {text: 'GitHub', link: 'https://github.com/kidnes/san-docit'}
+            {text: 'San', link: 'https://baidu.github.io/san/'},
+            {text: 'Santd', link: 'https://ecomfe.github.io/santd/'}
         ],
 
         sidebar: {
             '/': [
+                '/',
+                '/simple/',
+                '/markdownit/',
+                '/config/',
+                '/docit/sanbox-demo/',
                 {
-                    path: '/',
-                    title: '介绍',
-                    filename: 'introduce.md'
-                },
-                '/quick-start/',
-                '/directory-structure/',
-                '/basic-config/',
-                '/config/'
+                    title: 'title1',
+                    children: [
+                        '/simple/',
+                        {
+                            title: 'title2',
+                            children: ['/simple/', '/codebox/']
+                        }
+                    ]
+                }
             ]
         }
     }

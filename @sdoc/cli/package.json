@@ -8,9 +8,7 @@
     },
     "scripts": {
         "start": "node bin/index.js start docs",
-        "build": "node bin/index.js build docs",
-        "docs:start": "node bin/index.js start example",
-        "docs:build": "node bin/index.js build example"
+        "build": "node bin/index.js build docs"
     },
     "dependencies": {
         "@babel/core": "^7.4.5",
