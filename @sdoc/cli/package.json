@@ -7,10 +7,10 @@
         "sdoc": "bin/index.js"
     },
     "scripts": {
-        "start": "node bin/index.js start example",
-        "build": "node bin/index.js build example",
-        "docs:start": "node bin/index.js start docs",
-        "docs:build": "node bin/index.js build docs"
+        "start": "node bin/index.js start docs",
+        "build": "node bin/index.js build docs",
+        "docs:start": "node bin/index.js start example",
+        "docs:build": "node bin/index.js build example"
     },
     "dependencies": {
         "@babel/core": "^7.4.5",

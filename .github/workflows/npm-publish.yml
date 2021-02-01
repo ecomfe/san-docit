@@ -12,12 +12,11 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - run: npm install
-    - run: npm run docs:build
-    - run: cp CNAME docs/.sdoc/dist/
+    - run: npm run build
     
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v2.5.0
       env:
         ACTIONS_DEPLOY_KEY: ${{secrets.key}}
         PUBLISH_BRANCH: gh-pages
-        PUBLISH_DIR: docs/.sdoc/dist
+        PUBLISH_DIR: @sdoc/cli/docs/.sdoc/dist
