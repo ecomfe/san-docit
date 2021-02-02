@@ -1,11 +1,21 @@
 <template>
     <article id="content">
-        <div id="router-view" class="router-view {{isShowToc ? '' : 'hidden'}}" s-ref="view">
-                {{docit.content | raw}}
+        <div
+            id="router-view"
+            s-ref="view"
+            class="router-view {{isShowToc ? '' : 'hidden'}}"
+        >
+            {{ docit.content | raw }}
         </div>
-        <aside class="toc" s-if="isShowToc">
-            <tree treeData="{{toc}}" selectedNodes="{{selectedNodes}}">
-                <a href="{{getHash(treeNode.hash)}}">{{treeNode.title}}</a>
+        <aside
+            s-if="isShowToc"
+            class="toc"
+        >
+            <tree
+                treeData="{{toc}}"
+                selectedNodes="{{selectedNodes}}"
+            >
+                <a href="{{getHash(treeNode.hash)}}">{{ treeNode.title }}</a>
             </tree>
         </aside>
     </article>
@@ -65,7 +75,7 @@ export default {
     },
     onChanged(toc) {
         this.data.set('toc', toc);
-        
+
         this.nextTick(this.initScroll.bind(this));
 
         this.resize();
@@ -162,5 +172,5 @@ export default {
         un(global, 'scroll', this.__onScroll);
         un(global, 'resize', this.__onResize);
     }
-}
+};
 </script>

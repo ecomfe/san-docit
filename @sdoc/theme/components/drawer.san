@@ -1,15 +1,17 @@
 <template>
-<div class="drawer-wrapper">
-    <div class="drawer drawer-left {{isOpened ? 'drawer-open' : ''}}">
-        <div class="drawer-mask" on-click="onClick"></div>
-        <div class="drawer-content-wrapper">
-            <div class="drawer-content"><slot></slot></div>
-            <div class="drawer-handle" on-click="onClick">
-                <i class="drawer-handle-icon"></i>
+    <div class="drawer-wrapper">
+        <div class="drawer drawer-left {{isOpened ? 'drawer-open' : ''}}">
+            <div class="drawer-mask" on-click="onClick"></div>
+            <div class="drawer-content-wrapper">
+                <div class="drawer-content">
+                    <slot></slot>
+                </div>
+                <div class="drawer-handle" on-click="onClick">
+                    <i class="drawer-handle-icon"></i>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </template>
 
 <script>
@@ -17,7 +19,7 @@ export default {
     initData() {
         return {
             isOpened: false
-        }
+        };
     },
     onClick() {
         this.data.set('isOpened', !this.data.get('isOpened'));

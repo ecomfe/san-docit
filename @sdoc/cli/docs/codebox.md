@@ -17,7 +17,7 @@ Codebox 组件：
     #codebox {
         h2 {
             font-size: 14px;
-            color: #1890ff;
+            color: red;
         }
     }
 </style>

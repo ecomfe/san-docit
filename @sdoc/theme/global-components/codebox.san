@@ -6,12 +6,20 @@
         <section class="code-box-meta">
             <slot name="text-place-holder"></slot>
             <span class="code-expand-icon" on-click="toggleExpand">
-                <img alt="expand code" src="https://gw.alipayobjects.com/zos/rmsportal/wSAkBuJFbdxsosKKpqyq.svg" class="{{isExpand ? 'code-expand-icon-hide':'code-expand-icon-show'}}">
-                <img alt="expand code" src="https://gw.alipayobjects.com/zos/rmsportal/OpROPHYqWmrMDBFMZtKF.svg" class="{{isExpand ? 'code-expand-icon-show' : 'code-expand-icon-hide'}}">
+                <img
+                    alt="expand code"
+                    src="https://gw.alipayobjects.com/zos/rmsportal/wSAkBuJFbdxsosKKpqyq.svg"
+                    class="{{isExpand ? 'code-expand-icon-hide':'code-expand-icon-show'}}"
+                >
+                <img
+                    alt="expand code"
+                    src="https://gw.alipayobjects.com/zos/rmsportal/OpROPHYqWmrMDBFMZtKF.svg"
+                    class="{{isExpand ? 'code-expand-icon-show' : 'code-expand-icon-hide'}}"
+                >
             </span>
         </section>
         <section class="highlight-wrapper {{isExpand ? 'highlight-wrapper-expand' : ''}}">
-            <slot name="code-place-holder" s-if="isExpand"></slot>
+            <slot s-if="isExpand" name="code-place-holder"></slot>
         </section>
     </section>
 </template>

@@ -1,23 +1,22 @@
 <template>
-<li data-id="{{getNodeId(treeNode)}}" >
-    <slot var-treeNode="treeNode"></slot>
-    <ul s-if="treeNode.children">
-        <li data-id="{{getNodeId(treeNode2)}}" s-for="treeNode2 in treeNode.children">
-            <slot var-treeNode="treeNode2"></slot>
-            <ul s-if="treeNode2.children">
-                <li data-id="{{getNodeId(treeNode3)}}" s-for="treeNode3 in treeNode2.children">
-                    <slot var-treeNode="treeNode3"></slot>
-                    <ul s-if="treeNode3.children">
-                        <li data-id="{{getNodeId(treeNode4)}}" s-for="treeNode4 in treeNode3.children">
-                            <slot var-treeNode="treeNode4"></slot>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</li>
-    
+    <li data-id="{{getNodeId(treeNode)}}" >
+        <slot var-treeNode="treeNode"></slot>
+        <ul s-if="treeNode.children">
+            <li s-for="treeNode2 in treeNode.children" data-id="{{getNodeId(treeNode2)}}">
+                <slot var-treeNode="treeNode2"></slot>
+                <ul s-if="treeNode2.children">
+                    <li s-for="treeNode3 in treeNode2.children" data-id="{{getNodeId(treeNode3)}}">
+                        <slot var-treeNode="treeNode3"></slot>
+                        <ul s-if="treeNode3.children">
+                            <li s-for="treeNode4 in treeNode3.children" data-id="{{getNodeId(treeNode4)}}">
+                                <slot var-treeNode="treeNode4"></slot>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
 </template>
 
 <script>

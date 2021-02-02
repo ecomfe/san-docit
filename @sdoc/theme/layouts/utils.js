@@ -21,7 +21,7 @@ const treeWalk = (root, callback) => {
             treeWalk(item, callback);
         }
     });
-}
+};
 
 export default {
     base,

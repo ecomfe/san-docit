@@ -25,14 +25,28 @@ module.exports = {
         sidebar: {
             '/': [
                 {
-                    path: '/',
-                    title: '介绍',
-                    filename: 'introduce.md'
+                    title: '指南',
+                    children: [
+                        {
+                            path: '/',
+                            title: '介绍',
+                            filename: 'introduce.md'
+                        },
+                        '/quick-start/',
+                        '/directory-structure/',
+                        '/basic-config/',
+                        '/config/',
+                        // {
+                        //     path: '/codebox/',
+                        //     title: 'codebox',
+                        //     filename: 'codebox.md'
+                        // }
+                    ]
                 },
-                '/quick-start/',
-                '/directory-structure/',
-                '/basic-config/',
-                '/config/'
+                {
+                    title: '样式',
+                    children: ['/theme/using/', '/theme/writing/', '/theme/default-theme-config/']
+                }
             ]
         }
     }

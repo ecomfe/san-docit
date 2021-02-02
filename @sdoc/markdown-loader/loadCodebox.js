@@ -5,7 +5,7 @@
  *      <section slot="text-place-holder">${textPlaceHolder}</section>
  *      <div slot="code-place-holder">${codePlaceHolder}</div>
  *   </codebox>
- * 
+ *
  * @author kidnes
  */
 'use strict';

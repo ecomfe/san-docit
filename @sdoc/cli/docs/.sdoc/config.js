@@ -25,19 +25,15 @@ module.exports = {
 
         sidebar: {
             '/': [
-                '/',
                 '/simple/',
                 '/markdownit/',
-                '/config/',
+                '/codebox/',
                 '/docit/sanbox-demo/',
                 {
                     title: 'title1',
                     children: [
                         '/simple/',
-                        {
-                            title: 'title2',
-                            children: ['/simple/', '/codebox/']
-                        }
+                        '/docit/sanbox-demo/'
                     ]
                 }
             ]
