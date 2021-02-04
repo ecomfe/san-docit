@@ -49,7 +49,7 @@ module.exports = {
                         filename: 'advance/codebox.md'
                     }, {
                         path: '/markdown-advance/',
-                        title: 'Markdown 高级能力',
+                        title: 'Markdown 高级功能',
                         filename: 'advance/markdown-advance.md'
                     }]
                 }
