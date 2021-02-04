@@ -7,7 +7,9 @@
 module.exports = {
     base: '/',
     title: 'sdoc',
-    head: [],
+    head: [
+        ['link', {rel: 'icon', href: '/favicon.ico'}]
+    ],
     meta: {},
     dest: '.sdoc/dist',
     open: true,

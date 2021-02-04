@@ -17,7 +17,6 @@ module.exports = {
 
     theme: '@sdoc/theme-default',
     themeConfig: {
-        logo: 'logo.svg',
         nav: [
             {text: 'GitHub', link: 'https://github.com/kidnes/san-docit'}
         ],

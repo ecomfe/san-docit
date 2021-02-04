@@ -5,6 +5,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const _ = require('lodash');
 const debug = require('debug')('sdoc');
 const utils = require('./utils');
 const sidebar = require('./parser/sidebar');
@@ -37,7 +38,7 @@ const loadConfig = (defaultConfig, pathname, configPath) => {
                 paths.push(path.join(dirs[0], pathname));
             }
 
-            return Object.assign(defaultConfig, customConfig);
+            return _.merge(defaultConfig, customConfig);
         }
         catch (err) {
             debug(

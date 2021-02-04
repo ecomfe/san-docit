@@ -1,6 +1,6 @@
 {
     "name": "@sdoc/cli",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "San document creater.",
     "author": "ecomfe-core",
     "bin": {
@@ -30,6 +30,7 @@
         "html-webpack-plugin": "^4.5.1",
         "less": "^4.0.0",
         "less-loader": "^6.2.0",
+        "lodash": "^4.17.19",
         "mini-css-extract-plugin": "^1.3.4",
         "nprogress": "^0.2.0",
         "opener": "^1.5.2",
