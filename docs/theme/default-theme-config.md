@@ -119,6 +119,22 @@ module.exports = {
 
 ```
 
+侧边栏除了md文件外，同时支持 JS 文件，以及 SSR 渲染。
+
+```js
+module.exports = {
+    themeConfig: {
+        sidebar: {
+            '/': [{
+                path: '/',
+                title: 'Button 按钮',
+                filename: '/components/button/docs/index.js'
+            }]
+        }
+    }
+};
+```
+
 
 ### 多个侧边栏
 

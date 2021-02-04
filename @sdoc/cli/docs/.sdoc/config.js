@@ -30,6 +30,11 @@ module.exports = {
                 '/codebox/',
                 '/docit/sanbox-demo/',
                 {
+                    path: '/advance/',
+                    filename: 'advance.js',
+                    title: 'Markdown 高级配置'
+                },
+                {
                     title: 'title1',
                     children: [
                         '/simple/',

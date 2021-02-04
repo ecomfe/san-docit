@@ -13,7 +13,7 @@
 
 ## 获取渲染内容
 
-当前的 `.md` 文件渲染的内容，可以作为一个独特的全局组件 `<Content/>` 来使用，你可能想要它显示在页面中的某个地方。一个最简单的主题，可以是一个唯一的 `layout.san` 组件，并包含以下内容：
+当前的 `.md` 文件渲染的内容，可以通过组件的属性 `docit.content` 来使用，你可能想要它显示在页面中的某个地方。一个最简单的主题，可以是一个唯一的 `layout.san` 组件，并包含以下内容：
 
 ```html
 <template>
@@ -62,8 +62,6 @@ theme
 - `theme/styles`: 全局的样式和调色板。
 - `theme/templates`: 修改默认的模板文件。
 - `theme/index.js`: 主题文件的入口文件。
-
-注意
 
 当你将你的主题以一个 npm 包的形式发布时，如果你没有任何主题配置，即没有 `theme/index.js`，那么你需要将 `package.json` 中的 `"main"` 字段设置为 `layouts/layout.san`，只有这样 SDoc 才能正确地解析主题。
 

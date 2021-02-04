@@ -30,22 +30,29 @@ module.exports = {
                         {
                             path: '/',
                             title: '介绍',
-                            filename: 'introduce.md'
+                            filename: 'guide/introduce.md'
                         },
-                        '/quick-start/',
-                        '/directory-structure/',
-                        '/basic-config/',
-                        '/config/',
-                        // {
-                        //     path: '/codebox/',
-                        //     title: 'codebox',
-                        //     filename: 'codebox.md'
-                        // }
+                        '/guide/quick-start/',
+                        '/guide/directory-structure/',
+                        '/guide/basic-config/',
+                        '/guide/config/'
                     ]
                 },
                 {
                     title: '样式',
                     children: ['/theme/using/', '/theme/writing/', '/theme/default-theme-config/']
+                },
+                {
+                    title: '深入',
+                    children: [{
+                        path: '/codebox/',
+                        title: 'Markdown 预览组件',
+                        filename: 'advance/codebox.md'
+                    }, {
+                        path: '/markdown-advance/',
+                        title: 'Markdown 高级能力',
+                        filename: 'advance/markdown-advance.md'
+                    }]
                 }
             ]
         }

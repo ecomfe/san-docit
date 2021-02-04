@@ -1,0 +1,26 @@
+<template>
+    <div id="componet">
+        <h2>{{ text }}</h2>
+    </div>
+</template>
+
+<script>
+    export default {
+        initData() {
+            return {
+                text: 'From componet.san'
+            };
+        }
+    };
+</script>
+
+<style lang="less">
+    @red: red;
+    #componet {
+        h2 {
+            font-size: 14px;
+            color: red;
+        }
+    }
+</style>
+

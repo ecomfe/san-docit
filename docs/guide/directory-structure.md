@@ -64,4 +64,6 @@ SDoc 遵循 “约定优于配置” 的原则，推荐的目录结构如下：
 | /guide/README.md | /guide/      |
 | /config.md       | /config/     |
 
-注意：避免同时存在 /config.md 和 /config/README.md，因会同时解析为 /config/ 路径。默认使用 /config.md 文件。
+> **注意**
+>
+> 避免同时存在 /config.md 和 /config/README.md，会同时解析为 /config/ 路径。默认使用 /config.md 文件。
