@@ -62,9 +62,9 @@ SDoc 提供了默认的 `codebox` 组件，如果实际项目不满足时，可�
 ```
 
 ## 原理
+首先了解下 md 文档的编译过程，编译阶段首先由 `markdown-loader` 处理成San的单文件组件，再经 `san-loader` 编译成可执行的San组件，交给浏览器运行。
 
-整个流程分为编译和运行阶段：编译阶段当文档中包含 `codebox` 标签时，`markdown-loader` 会把文档处理成如下结构；运行阶段由全局的 `codebox` 组件渲染：
-
+当文档中包含 `codebox` 标签时，`markdown-loader` 会把文档处理成如下结构，最后在运行阶段由全局的 `codebox` 组件展示：
 ```html
 <codebox>
    <code-preview slot="code-preview"></code-preview>
@@ -72,3 +72,7 @@ SDoc 提供了默认的 `codebox` 组件，如果实际项目不满足时，可�
    <div slot="code-place-holder">${codePlaceHolder}</div>
 </codebox>
 ```
+
+- `code-preview` 表示代码片段渲染结果的组件，由 `codebox` 标签里的 `html` 或 `san` 代码部分渲染的结果；
+- `text-place-holder` 提取说明部分的标题和描述
+- `code-place-holder` 提取代码预览部分
