@@ -58,5 +58,5 @@ SDoc 会在 http://localhost:8080 启动一个热重载的开发服务器。
 
 
 
-现在，你应该已经有了一个简单可用的 SDoc 文档。接下来，了解一下推荐的 目录结构 和 SDoc 中的 基本配置。
+现在，你应该已经有了一个简单可用的 SDoc 文档。接下来，了解一下推荐的 [目录结构](https://kidnes.github.io/san-docit/guide/directory-structure/) 和 SDoc 中的 [基本配置](https://kidnes.github.io/san-docit/guide/basic-config/)。
 
