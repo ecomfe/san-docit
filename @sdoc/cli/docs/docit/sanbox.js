@@ -1,5 +1,11 @@
-export {default as Sanbox} from './_sanbox.md?san-md-picker&get=codebox&eq=0';
-export {default as TextTag} from './_sanbox.md?san-md-picker&get=text-tag&eq=0';
-export {default as HighlightCode} from './_sanbox.md?san-md-picker&get=highlight-code&eq=0';
-export {default as SanCode} from './_sanbox.md?san-md-picker&get=sancode&eq=0';
+import codeboxComponent1 from './codebox.md?exportType=component&index=0';
+import codeboxComponent2 from './codebox.md?exportType=component&index=1';
+import codeboxMd from './codebox.md?exportType=markdown';
+import codeboxAll from './codebox.md';
 
+export default {
+    'codebox-component1': codeboxComponent1,
+    'codebox-component2': codeboxComponent2,
+    'codebox-md': codeboxMd,
+    'codebox-all': codeboxAll
+};

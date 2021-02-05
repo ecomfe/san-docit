@@ -130,8 +130,8 @@ module.exports = function(content) {
 
     const query = qs.parse(rawQuery);
 
-    if (query.codebox !== undefined) {
-        const codebox = loadCodeSnippet(content, parseInt(query.codebox, 10));
+    if (query.index !== undefined) {
+        const codebox = loadCodeSnippet(content, parseInt(query.index, 10));
 
         cache.set(key, codebox);
 

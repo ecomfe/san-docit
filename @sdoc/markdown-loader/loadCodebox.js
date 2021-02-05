@@ -46,7 +46,7 @@ ${codePlaceHolder}
     `;
 
     return code.replace(matches[0], result);
-}
+};
 
 module.exports = function (content, resourcePath, isParseHtml) {
 
@@ -82,7 +82,7 @@ module.exports = function (content, resourcePath, isParseHtml) {
     Object.keys(codePreviewMap).forEach((key, index) => {
         const name = key.replace(/\//g, '_');
         const tag = codePreviewMap[name];
-        importStr += `import ${name} from '${resourcePath}?codebox=${index}';`;
+        importStr += `import ${name} from '${resourcePath}?index=${index}';`;
         importHtml += `<${tag}></${tag}>`;
         importCompMap[tag] = `%${name}%`;
     });

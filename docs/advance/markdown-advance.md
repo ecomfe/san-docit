@@ -1,6 +1,6 @@
 # Markdown 高级功能
 
-## 三种导出类型
+## exportType 参数
 SDoc 中的 `markdown-loader` 对 md 文件支持三种类型的导出，以支持在同一个MD文件中，导出文档 `codebox` 和 `markdown` 两部分内容组合。
 
 使用方式通过md文件 `exportType` 的query参数来决定：
@@ -29,4 +29,32 @@ export default san.defineComponent({
         'codebox-all': codeboxAll
     }
 });
+```
+
+## index 参数
+
+Markdown 存在多个 `codebox` 时，支持导出指定的 `index`。
+
+存在index时，默认导出类型（`exportType`）是 `component`，可省略。
+
+```html
+<template>
+    <div class="codebox-demo">
+        <h3>来自`?exportType=component&index=0`</h3>
+        <codebox-component1 />
+        <hr />
+        <h3>来自`?exportType=component&index=1`</h3>
+        <codebox-component2 />
+    </div>
+</template>
+<script>
+    import codeboxComponent1 from './codebox.md?exportType=component&index=0';
+    import codeboxComponent2 from './codebox.md?exportType=component&index=1';
+    export default {
+        components: {
+            'codebox-component1': codeboxComponent1,
+            'codebox-component2': codeboxComponent2
+        }
+    };
+</script>
 ```

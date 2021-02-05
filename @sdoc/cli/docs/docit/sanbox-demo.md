@@ -53,17 +53,17 @@ san docit 命令是放在`packages/san-cli-docit`中实现的，它是一个 Com
 ```html
 <template>
     <div class="codebox-demo">
-        <h1>↓ 来自`?san-md-picker&get=codebox&eq=0`</h1>
-        <codebox />
+        <h3>来自`?exportType=component&index=0`</h3>
+        <codebox-component1 />
         <hr />
-        <h1>↓ 来自`?san-md-picker&get=text-tag&eq=0`</h1>
-        <text-tag />
+        <h3>来自`?exportType=component&index=1`</h3>
+        <codebox-component2 />
         <hr />
-        <h1>↓ 来自`?san-md-picker&get=highlight-code&eq=0`</h1>
-        <highlight-code />
+        <h3>来自`?exportType=markdown`</h3>
+        <codebox-md />
         <hr />
-        <h1>↓ 来自`?san-md-picker&get=san-component&eq=0`</h1>
-        <san-code />
+        <h3>来自`?`</h3>
+        <codebox-all />
     </div>
 </template>
 <style lang="less">
@@ -76,9 +76,7 @@ san docit 命令是放在`packages/san-cli-docit`中实现的，它是一个 Com
 </style>
 <script>
     export default {
-        initData() {
-            return {};
-        }
+        components: require('./sanbox.js').default
     };
 </script>
 ```
