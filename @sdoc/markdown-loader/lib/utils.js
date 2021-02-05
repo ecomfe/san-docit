@@ -28,7 +28,6 @@ exports.slugify = str =>
 const mdLink2Html = str => str.replace(/\.md$/, '/').replace(/README\/$/, '');
 exports.mdLink2Html = mdLink2Html;
 exports.getRelativeLink = (from, to, rootUrl = '/') => {
-    debugger;
     to = mdLink2Html(to);
     if (path.isAbsolute(to)) {
         return rootUrl.replace(/\/+$/, '') + '/' + to.replace(/^\/+/, '');

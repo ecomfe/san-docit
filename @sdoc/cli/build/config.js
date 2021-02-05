@@ -77,8 +77,12 @@ exports.load = () => {
         config.themeConfig.sidebar = sidebar(config.themeConfig.sidebar, config);
     }
 
-    utils.setCommonPaths(paths);
+    utils.setPaths(paths);
+
+    process.env.BASE_URL = config.base;
+    process.env.CWD = utils.cwd;
 
     debug('loadConfig:', JSON.stringify(config));
+
     return config;
 };

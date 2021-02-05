@@ -91,8 +91,12 @@ const getCommonPaths = dir => {
         .map(p => path.join(p, dir))
         .filter(p => fs.existsSync(p));
 };
-const setCommonPaths = paths => {
+const setPaths = paths => {
     resolvePaths = paths;
+};
+
+const getPaths = () => {
+    return resolvePaths;
 };
 
 const headBuild = heads => {
@@ -121,7 +125,8 @@ module.exports = {
     cwd,
     port,
     tmpdir,
-    setCommonPaths,
+    setPaths,
+    getPaths,
     resolve,
     resolveDocit,
     getRoutes,

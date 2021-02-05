@@ -12,7 +12,7 @@ const parseHeader = require('./lib/parseHeader');
 
 const cache = new LRU({max: 1000});
 
-module.exports = function(content, extractHeaders = ['H2', 'H3']) {
+module.exports = function (content, extractHeaders = ['H2', 'H3']) {
     const key = hash(content + extractHeaders.join(','));
     const hit = cache.get(key);
     if (hit) {

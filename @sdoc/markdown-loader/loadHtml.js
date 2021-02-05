@@ -6,7 +6,7 @@
 const grayMatter = require('gray-matter');
 const compiler = require('./lib/compiler');
 
-module.exports = function (content) {
+module.exports = function (content, options) {
     const frontMatter = grayMatter(content);
     const matter = frontMatter.data || {};
     content = frontMatter.content;
@@ -19,5 +19,5 @@ module.exports = function (content) {
             .replace(/\u2029/g, '\\u2029')}`;
     };
 
-    return getTemplate(compiler(content), false);
+    return getTemplate(compiler(content, options), false);
 };

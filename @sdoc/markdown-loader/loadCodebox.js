@@ -48,7 +48,7 @@ ${codePlaceHolder}
     return code.replace(matches[0], result);
 }
 
-module.exports = function(content, resourcePath, isParseHtml) {
+module.exports = function (content, resourcePath, isParseHtml) {
 
     const defaultValue = {
         codeboxContent: content,
@@ -65,7 +65,7 @@ module.exports = function(content, resourcePath, isParseHtml) {
         codeboxSnippetReg.lastIndex = 0;
         matches = content.match(codeboxSnippetReg);
     }
-    
+
     if (!matches) {
         return defaultValue;
     }
