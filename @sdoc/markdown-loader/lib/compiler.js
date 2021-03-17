@@ -15,7 +15,7 @@ function getCompiler(opt = {}) {
     const {
         link,
         lineNumbers = false,
-        anchor = {permalink: true, permalinkBefore: true, permalinkSymbol: '#'},
+        anchor = {permalink: false, permalinkBefore: false},
         extend = () => {},
         toc = {includeLevel: [2, 3]},
         table = {

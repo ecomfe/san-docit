@@ -1,6 +1,6 @@
 {
     "name": "@sdoc/cli",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "San document creater.",
     "author": "ecomfe-core",
     "bin": {
@@ -14,7 +14,7 @@
         "@babel/core": "^7.4.5",
         "@babel/plugin-proposal-class-properties": "^7.8.3",
         "@babel/preset-env": "^7.4.5",
-        "@sdoc/markdown-loader": "^1.0.2",
+        "@sdoc/markdown-loader": "^1.0.3",
         "@sdoc/theme-default": "^1.0.0",
         "babel-loader": "^8.2.2",
         "chalk": "^4.1.0",
