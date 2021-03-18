@@ -14,6 +14,7 @@
                         target="{{nav.target || '_blank'}}"
                         href="{{nav.link}}"
                     >
+                        <img s-if="nav.img" src="{{ nav.img }}" class="nav-img"/>
                         {{ nav.text }}
                     </a>
                 </li>
