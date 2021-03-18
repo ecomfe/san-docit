@@ -22,10 +22,10 @@ const cache = new LRU({max: 1000});
 
 function exportAsComponent(content, mardownIt) {
     const options = loaderUtils.getOptions(this) || {};
-    let {codeboxContent, importStr, importComp} = loadCodebox(content, this.resourcePath, true);
+    let {codeboxContent, importStr, importComp, hasParsed} = loadCodebox(content, this.resourcePath, true);
 
     const toc = loadToc(content);
-    const html = loadHtml(codeboxContent || content, mardownIt);
+    const html = hasParsed ? codeboxContent : loadHtml(content, mardownIt);
 
     // SSR 时不渲染预览部分，动态生成的组件清空
     if (options.ssr) {

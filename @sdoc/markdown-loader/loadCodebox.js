@@ -53,7 +53,8 @@ module.exports = function (content, resourcePath, isParseHtml) {
     const defaultValue = {
         codeboxContent: content,
         importStr: '',
-        importComp: '{}'
+        importComp: '{}',
+        hasParsed: false
     };
 
     let matches;
@@ -96,6 +97,7 @@ module.exports = function (content, resourcePath, isParseHtml) {
         codeboxContent: content,
         importStr,
         importComp,
-        importHtml
+        importHtml,
+        hasParsed: true
     };
 };
