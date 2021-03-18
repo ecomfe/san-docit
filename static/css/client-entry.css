@@ -455,6 +455,7 @@ pre[class*='language-'] {
   height: 28px;
   vertical-align: middle;
   margin-right: 8px;
+  margin-top: -5px;
 }
 #header ul {
   padding-left: 1.5rem;
