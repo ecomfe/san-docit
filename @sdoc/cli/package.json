@@ -1,6 +1,6 @@
 {
     "name": "@sdoc/cli",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "description": "San document creater.",
     "author": "ecomfe-core",
     "bin": {
