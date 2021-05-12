@@ -2,7 +2,7 @@
 
 > **前提条件**
 >
-> SDoc 需要 Node.js (opens new window)>= 8.6
+> SDoc 需要 Node.js >= 10
 
 本文会帮助你从头搭建一个简单的 SDoc 文档。如果你想在一个现有项目中使用 SDoc 管理文档，从步骤 3 开始。
 
