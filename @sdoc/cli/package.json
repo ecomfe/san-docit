@@ -70,7 +70,7 @@
         "exclude": "node_modules"
     },
     "engines": {
-        "node": ">=8.16"
+        "node": ">=10"
     },
     "license": "MIT"
 }
