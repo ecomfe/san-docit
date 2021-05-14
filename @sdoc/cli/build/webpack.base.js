@@ -35,7 +35,7 @@ module.exports = function () {
                         options: {
                             presets: [
                                 [
-                                    '@babel/preset-env',
+                                    require.resolve('@babel/preset-env'),
                                     {
                                         targets: {
                                             node: 'current'
@@ -44,7 +44,7 @@ module.exports = function () {
                                 ]
                             ],
                             plugins: [
-                                '@babel/plugin-proposal-class-properties'
+                                require.resolve('@babel/plugin-proposal-class-properties')
                             ]
                         }
                     }
