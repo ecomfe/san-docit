@@ -3,6 +3,7 @@
 SDoc 实现了针对 Markdown 的内容分发 API。通过这个特性，你可以将你的文档分割成多个片段，以便于在组件中灵活组合。
 
 ## 为什么需要预览组件
+
 技术开发文档里，会有示例**代码片段展示**，同时期望代码能够渲染运行，展示**代码运行结果**。
 因此在 SDoc 里，默认集成了可执行的 Markdown 代码片段，通过 `codebox` 标签语法，封装预览组件，同时展现代码片段和运行代码片段。
 
@@ -22,6 +23,7 @@ SDoc 实现了针对 Markdown 的内容分发 API。通过这个特性，你可�
         <h2>{{text}}</h2>
     </div>
 </template>
+
 <script>
     export default {
         initData() {
@@ -31,6 +33,7 @@ SDoc 实现了针对 Markdown 的内容分发 API。通过这个特性，你可�
         }
     };
 </script>
+
 <style lang="less">
     @red: red;
     #codebox {
@@ -40,13 +43,13 @@ SDoc 实现了针对 Markdown 的内容分发 API。通过这个特性，你可�
         }
     }
 </style>
-
 ```
 </codebox>
 
 
 ## 二次定制
-SDoc 提供了默认的 `codebox` 组件，如果实际项目不满足时，可以进行二次定制开发，具体参考 [codebox 组件](https://github.com/kidnes/san-docit/blob/master/%40sdoc/theme/global-components/codebox.san)。
+
+SDoc 提供了默认的 `codebox` 组件，如果实际项目不满足时，可以进行二次定制开发，具体参考 [codebox 组件](https://github.com/ecomfe/san-docit/blob/master/%40sdoc/theme/global-components/codebox.san)。
 
 二次开发中，提供三个 `slot` 插槽区，可由用户自由定制结构和样式，三个`slot` 插槽的 `name` 分别为：
 - `code-preview`：代码片段渲染结果，由 `codebox` 标签里的 `html` 或 `san` 代码部分渲染的结果；

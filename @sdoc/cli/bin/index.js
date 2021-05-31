@@ -32,8 +32,8 @@ const buildCommand = async route => {
 };
 
 const main = async () => {
-    if (semver.lt(process.version, '8.9.0')) {
-        console.error(chalk.yellow('Require node >= v8.9.0 to be installed'));
+    if (semver.lt(process.version, '10.0.0')) {
+        console.error(chalk.yellow('Require node >= v10.0.0 to be installed'));
         process.exit(1);
     }
 
