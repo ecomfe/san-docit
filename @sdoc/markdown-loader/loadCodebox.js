@@ -10,7 +10,7 @@
  */
 'use strict';
 
-const {codeboxReg, codeboxSnippetReg} = require('./const');
+const {codeboxReg, codeboxRawReg, codeboxSnippetReg} = require('./const');
 const loadHtml = require('./loadHtml');
 const compiler = require('./lib/compiler');
 
@@ -76,6 +76,9 @@ module.exports = function (content, resourcePath, isParseHtml) {
     const pageId = Date.now() + ''.substring.call(Math.random(), 2);
     const replacements = [];
     matches.forEach((code, index) => {
+        if (codeboxRawReg.test(code)) {
+            return;
+        }
         const result = parseCodebox(code, index);
         const placeholder = `$cb-${pageId}-${index}`;
         content = content.replace(code, placeholder);

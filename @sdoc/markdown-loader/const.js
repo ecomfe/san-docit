@@ -1,4 +1,5 @@
 exports.codeboxReg = /<(codebox)\s?((?:[^>]+)?>(.+?))<\/\1>/gis;
+exports.codeboxRawReg = /<(codebox)\s?(?:[^>]+)?\braw\b((?:[^>]+)?>(.+?))<\/\1>/gis;
 exports.codeboxSnippetReg = /```(html|san|js)\s{0,}(?:(?:\{[^?]+?\})?)\s+(.+?)\s+```/s;
 exports.NS = 'san-cli-markdown-loader';
 exports.isSanLoader = l => /(\/|\\|@)?(san-loader|(\w+)-san-loader)/.test(l.path);
