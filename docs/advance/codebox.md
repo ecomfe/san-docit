@@ -69,12 +69,14 @@ SDoc 提供了默认的 `codebox` 组件，如果实际项目不满足时，可�
 
 当文档中包含 `codebox` 标签时，`markdown-loader` 会把文档处理成如下结构，最后在运行阶段由全局的 `codebox` 组件展示：
 ```html
-<codebox>
+<codebox raw>
    <code-preview slot="code-preview"></code-preview>
    <section slot="text-place-holder">${textPlaceHolder}</section>
    <div slot="code-place-holder">${codePlaceHolder}</div>
 </codebox>
 ```
+
+> 注意：这里的`raw`属性是为了对 `codebox` 这个特殊标签进行转义
 
 - `code-preview` 表示代码片段渲染结果的组件，由 `codebox` 标签里的 `html` 或 `san` 代码部分渲染的结果；
 - `text-place-holder` 提取说明部分的标题和描述

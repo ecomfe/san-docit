@@ -10,7 +10,7 @@
  */
 'use strict';
 
-const {codeboxReg, codeboxSnippetReg} = require('./const');
+const {codeboxReg, codeboxRawReg, codeboxSnippetReg} = require('./const');
 const loadHtml = require('./loadHtml');
 const compiler = require('./lib/compiler');
 
@@ -72,10 +72,23 @@ module.exports = function (content, resourcePath, isParseHtml) {
     }
 
     codePreviewMap = {};
+
+    const pageId = Date.now() + ''.substring.call(Math.random(), 2);
+    const replacements = [];
     matches.forEach((code, index) => {
+        if (codeboxRawReg.test(code)) {
+            return;
+        }
         const result = parseCodebox(code, index);
-        content = content.replace(code, result);
+        const placeholder = `$cb-${pageId}-${index}`;
+        content = content.replace(code, placeholder);
+        replacements.push([placeholder, result]);
     });
+
+    // 编译codebox以外的markdown
+    content = compiler(content);
+
+    replacements.forEach(([p, r]) => content = content.replace(p, r));
 
     let importStr = '';
     let importHtml = '';
