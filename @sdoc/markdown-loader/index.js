@@ -37,7 +37,7 @@ function exportAsComponent(content, mardownIt) {
 
     const result = `
         <template>
-            <div class="content">${html}</div>
+            <div class="content markdown-content">${html}</div>
         </template>
         <script>
             import {SanComponent} from '${SanComponent}';
