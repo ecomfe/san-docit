@@ -12,5 +12,5 @@ export default class Index extends Component {
     static dataTypes = {
         docit: DataTypes.object
     };
-    static template = '<layout docit="{{docit}}"><layout>';
+    static template = '<layout docit="{{docit}}"></layout>';
 };
