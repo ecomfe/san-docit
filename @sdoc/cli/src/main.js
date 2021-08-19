@@ -6,7 +6,7 @@ class App extends SanComponent {
     static components = {
         index
     };
-    static template = '<index docit="{{docit}}"><index>';
+    static template = '<index docit="{{docit}}"></index>';
     static computed = {
         docit() {
             // webpack.DefinePlugin SAN_DOCIT

@@ -6,7 +6,7 @@ export default class App extends Component {
     static components = {
         index: index
     };
-    static template = '<index docit="{{docit}}"><index>';
+    static template = '<index docit="{{docit}}"></index>';
     static computed = {
         docit() {
             // `SAN_DOCIT` 通过 san-ssr 注入的变量
