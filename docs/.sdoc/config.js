@@ -5,10 +5,10 @@
 'use strict';
 
 module.exports = {
-    base: '/san-docit/',
+    base: '/',
     title: 'sdoc',
     head: [
-        ['link', {rel: 'icon', href: '/san-docit/favicon.ico'}]
+        ['link', {rel: 'icon', href: '/favicon.ico'}]
     ],
     meta: {
         description: '文档，文档工具，建站'
