@@ -37,7 +37,8 @@ const getComponentsImports = () => {
     const componentMap = {};
 
     Object.keys(components).map(comp => {
-        const name = comp.replace(/[-_/]/g, '');
+        let name = comp.replace(/-/g, '');
+        name = name.split('/').pop();
         importList.push(`import ${name} from '${components[comp]}';`);
         componentMap[name] = `%${name}%`;
     });

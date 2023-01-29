@@ -36,7 +36,7 @@
         "opener": "^1.5.2",
         "san": "^3.9.2",
         "san-component": "^0.1.4",
-        "san-ssr": "^3.0.1",
+        "san-ssr": "3.0.1",
         "semver": "^7.3.4",
         "string-replace-loader": "^2.3.0",
         "style-loader": "^2.0.0",
